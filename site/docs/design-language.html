@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Design Language · Projectionist</title>
+<title>Design Language · Projector</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
 <style>
   :root{--paper:#e7e3da;--card:#f2efe8;--ink:#1a1917;--ink-soft:#57534a;--ink-faint:#8a8477;
@@ -81,7 +81,7 @@
 <header class="bar">
   <a class="back" href="./">← Documents</a>
   <div class="who"><span class="name">Design Language</span></div>
-  <span class="meta"></span>
+  <span class="meta">30 August 2026</span>
 </header>
 <main class="doc">
 <h1>Design Language</h1>
@@ -104,7 +104,7 @@
 <p><strong>Squint at any two screens from opposite states. They must read as the same building at a different time of night.</strong> If either reads as a different place, the model is broken and no token will fix it.</p>
 <h2 id="palette">Palette</h2>
 <div class="tw"><table><thead><tr><th>Token</th><th>Value</th><th>Job</th></tr></thead><tbody><tr><td><code>--house-up</code></td><td><code>#141210</code></td><td>Warm ground, before and after</td></tr><tr><td><code>--house-down</code></td><td><code>#0a0b10</code></td><td>Cold ground, during the film</td></tr><tr><td><code>--paper</code></td><td><code>oklch(0.93 0.005 75)</code></td><td>Primary type</td></tr><tr><td><code>--gold</code></td><td><code>#f4e4bc</code></td><td>Warm light. Never hardware</td></tr><tr><td><code>--silver</code></td><td><code>#f2f7ff</code></td><td>The live signal, rationed</td></tr><tr><td><code>--time</code></td><td><code>oklch(0.72 0.13 240)</code></td><td>Sync position</td></tr><tr><td><code>--curtain</code></td><td><code>#7c1f2e</code></td><td>Light on cloth, T-0 and intermission only</td></tr><tr><td><code>--hair</code></td><td><code>oklch(0.30 0.006 60)</code></td><td>Borders</td></tr><tr><td><code>--dim</code> / <code>--dimmer</code></td><td><code>oklch(0.58 / 0.44 …)</code></td><td>Secondary and tertiary type</td></tr></tbody></table></div>
-<p>Values live in <code>projectionist-wireframes/_kit.txt</code> and nowhere else. <strong>Never invent one.</strong> If a colour, size or weight is needed and it is not there, that is a question, not a decision to make in CSS.</p>
+<p>Values live in <code>projector/wireframes/_kit.txt</code> and nowhere else. <strong>Never invent one.</strong> If a colour, size or weight is needed and it is not there, that is a question, not a decision to make in CSS.</p>
 <h2 id="the-live-signal">The live signal</h2>
 <p>Electric silver is the only thing that says <em>this is happening now</em>. It is rationed to four places: the ON AIR sign and its dot, the curator&#x27;s name on a firing note, the primary action at showtime, and telestrator ink.</p>
 <p>It always carries its glow.</p>
@@ -148,7 +148,7 @@ box-shadow: 0 0 7px rgba(255,255,255,.6), 0 0 20px rgba(160,195,255,.55);</code>
 <h2 id="don-x27-ts">Don&#x27;ts</h2>
 <ul><li>No silver and no glow on a resting surface, prep and session ready included.</li><li>The serif never appears in chat and never on an interface label.</li><li>Gold never appears mid-film, chat handles included; those take paper on the house-down ground.</li><li>Curtain oxblood appears at T-0 and intermission and nowhere else.</li><li>No grain on a resting surface.</li><li>No badges and no unread counters on Liner Notes.</li><li>Intermission stays matte and empty. No countdown glow, no decoration.</li><li>No bulbs, no chases, no marquee hardware. The gold is light.</li><li>Never design a surface that works for arthouse but not popcorn, or the reverse.</li></ul>
 <h2 id="working-against-this">Working against this</h2>
-<p>The eleven artboards in <code>projectionist-wireframes/</code> are the pixel references, and <code>_kit.txt</code> is the only source of values. Build against the artboard rather than against taste: serve, screenshot, compare image to image, change one property, re-screenshot. The <code>visual-loop</code> skill carries that discipline.</p>
+<p>The eleven artboards in <code>projector/wireframes/</code> are the pixel references, and <code>_kit.txt</code> is the only source of values. Build against the artboard rather than against taste: serve, screenshot, compare image to image, change one property, re-screenshot. The <code>visual-loop</code> skill carries that discipline.</p>
 <p>Do not run aesthetic-direction skills against this repo. The look is settled and lives in the tokens.</p>
 <p><strong>A screen that is not already an artboard gets drawn as one first</strong>, in the canvas, and only then built against the picture. An agent should only ever be implementing a design.</p>
 <nav class="pager"><a href="./private/investor-deck.html">← Investor Deck</a><a href="./build-plan.html">Build Plan →</a></nav>

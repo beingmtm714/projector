@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the Projectionist documents into the published site.
+"""Render the Projector documents into the published site.
 
 What belongs here: things worth someone's real review. The product spec, the
 deck, the design language, the plans, the brief. What does not: meeting notes,
@@ -22,7 +22,7 @@ import re
 import subprocess
 
 ROOT = pathlib.Path(__file__).parent.parent          # the projector repo
-VAULT = ROOT.parent                                  # Ventures/Projectionist
+VAULT = ROOT.parent                                  # Ventures/Projector
 REPO = VAULT.parent.parent                           # ~/Claude
 OUT = ROOT / "site" / "docs"
 PRIVATE = OUT / "private"                            # behind the access gate
@@ -37,23 +37,23 @@ GATED = {"investor-deck", "pre-seed-bar"}
 
 # slug, title, source, one line for the index
 DOCS = [
-    ("product-spec", "Product Spec", VAULT / "Projectionist-Product-Spec.md",
+    ("product-spec", "Product Spec", VAULT / "Projector-Product-Spec.md",
      "What gets built and when, screen by screen. Eleven sections."),
-    ("sprint-plan", "Sprint Plan", VAULT / "Projectionist-Sprint-Plan.md",
+    ("sprint-plan", "Sprint Plan", VAULT / "Projector-Sprint-Plan.md",
      "Six sprints, 31 August to 20 November. The operating document."),
-    ("investor-deck", "Investor Deck", VAULT / "Projectionist-Investor-Deck.md",
+    ("investor-deck", "Investor Deck", VAULT / "Projector-Investor-Deck.md",
      "Fourteen slides of copy, waiting on numbers from the proof of concept."),
     ("design-language", "Design Language", ROOT / "DESIGN.md",
      "The settled system. Two lighting states, the curtain, type, motion."),
-    ("build-plan", "Build Plan", VAULT / "Projectionist-Build-Plan.md",
+    ("build-plan", "Build Plan", VAULT / "Projector-Build-Plan.md",
      "About 35 hours of Michael and twelve engineer days, and where they go."),
-    ("build-environment", "Build Environment", VAULT / "Projectionist-Build-Environment.md",
+    ("build-environment", "Build Environment", VAULT / "Projector-Build-Environment.md",
      "A repository rather than a hosted builder, agents, and the visual loop."),
-    ("engineer-brief", "Engineer Brief", VAULT / "Projectionist-Engineer-Brief.md",
+    ("engineer-brief", "Engineer Brief", VAULT / "Projector-Engineer-Brief.md",
      "The contract role: the session clock, the firing engine, and the review."),
-    ("pre-seed-bar", "Pre-Seed Bar", REPO / "notes/ventures/projectionist-preseed-bar.md",
+    ("pre-seed-bar", "Pre-Seed Bar", REPO / "notes/ventures/projector-preseed-bar.md",
      "What a $2M round requires, written in the voice of an investor."),
-    ("short-copy", "Short Copy", VAULT / "Projectionist-Blurbs.md",
+    ("short-copy", "Short Copy", VAULT / "Projector-Blurbs.md",
      "Two blurbs at roughly 300 characters, for outreach and intros."),
 ]
 
@@ -323,7 +323,7 @@ def build():
 <nav class="pager">{pager[0]}{pager[1]}</nav>
 </main>"""
         out = dest(slug)
-        out.write_text(shell(f"{title} · Projectionist", page))
+        out.write_text(shell(f"{title} · Projector", page))
         print(f"wrote {out.relative_to(ROOT)}")
 
     # index
@@ -381,7 +381,7 @@ def build():
     index_body = f"""<main>
   <div class="board">
     <div class="bulbs"></div>
-    <h1>Projectionist</h1>
+    <h1>Projector</h1>
     <div class="sub">Documents</div>
     <div class="bulbs"></div>
   </div>
@@ -397,7 +397,7 @@ def build():
   <p class="lede" style="font-size:12px">Working document. Numbers in square brackets are placeholders.</p>
 </footer>"""
     (OUT / "index.html").write_text(
-        shell("Projectionist · Documents", index_body, f"<style>{index_css}</style>"))
+        shell("Projector · Documents", index_body, f"<style>{index_css}</style>"))
     print("wrote docs/index.html")
 
 

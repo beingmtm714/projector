@@ -25,7 +25,7 @@ not clear the bar above, it does not get a line.
 
 ## One copy of everything
 
-The documents are Markdown in the vault at `Ventures/Projectionist/`, and
+The documents are Markdown in the vault at `Ventures/Projector/`, and
 `tools/build-docs.py` renders them into `site/docs/`. The artboards are
 `wireframes/*.dc.html`, built from `wireframes/_body_*.html` by
 `wireframes/assemble.py`, and `tools/build-wireframes.py` renders them into

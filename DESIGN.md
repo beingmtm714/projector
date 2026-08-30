@@ -1,4 +1,4 @@
-# Projectionist — Design Language
+# Projector — Design Language
 
 ## The thesis
 
@@ -42,7 +42,7 @@ A surface declares its state with `.up` or `.dn`, which supply the light. Nothin
 | `--hair` | `oklch(0.30 0.006 60)` | Borders |
 | `--dim` / `--dimmer` | `oklch(0.58 / 0.44 …)` | Secondary and tertiary type |
 
-Values live in `projectionist-wireframes/_kit.txt` and nowhere else. **Never invent one.** If a colour, size or weight is needed and it is not there, that is a question, not a decision to make in CSS.
+Values live in `projector/wireframes/_kit.txt` and nowhere else. **Never invent one.** If a colour, size or weight is needed and it is not there, that is a question, not a decision to make in CSS.
 
 ## The live signal
 
@@ -149,7 +149,7 @@ Every audience screen is a phone.
 
 ## Working against this
 
-The eleven artboards in `projectionist-wireframes/` are the pixel references, and `_kit.txt` is the only source of values. Build against the artboard rather than against taste: serve, screenshot, compare image to image, change one property, re-screenshot. The `visual-loop` skill carries that discipline.
+The eleven artboards in `projector/wireframes/` are the pixel references, and `_kit.txt` is the only source of values. Build against the artboard rather than against taste: serve, screenshot, compare image to image, change one property, re-screenshot. The `visual-loop` skill carries that discipline.
 
 Do not run aesthetic-direction skills against this repo. The look is settled and lives in the tokens.
 

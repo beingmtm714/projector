@@ -238,7 +238,7 @@ def board_page(name, art, notes, prev_art, next_art):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>{html.escape(name)} · Projectionist wireframes</title>
+<title>{html.escape(name)} · Projector wireframes</title>
 <meta name="description" content="{html.escape(blurb)}">
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="../kit.css">
@@ -337,7 +337,7 @@ def index_page(canvas, pages):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Projectionist — Wireframes</title>
+<title>Projector — Wireframes</title>
 <meta name="description" content="Curator tools first, then the audience. One board per page.">
 <link rel="stylesheet" href="{FONTS}">
 <style>{INDEX_CSS}</style>
@@ -347,7 +347,7 @@ def index_page(canvas, pages):
   <div class="board">
     <div class="bulbs"></div>
     <h1>Wireframes</h1>
-    <div class="sub">Projectionist · v2 · August 2026</div>
+    <div class="sub">Projector · v2 · August 2026</div>
     <div class="bulbs"></div>
   </div>
 
