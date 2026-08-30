@@ -106,7 +106,7 @@ export default async (request: Request, context: Context) => {
         headers: {
           location: target,
           "set-cookie":
-            `${COOKIE}=${encodeURIComponent(queryToken)}; Path=/p/; Max-Age=${MAX_AGE};` +
+            `${COOKIE}=${encodeURIComponent(queryToken)}; Path=/docs/private/; Max-Age=${MAX_AGE};` +
             ` HttpOnly; Secure; SameSite=Lax`,
           "cache-control": "no-store",
           "x-gate": "v4",

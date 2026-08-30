@@ -7,6 +7,12 @@
   publish = "site"
   command = ""
 
+# Netlify's pretty URLs strip the .html and lowercase the path, so a link to
+# CuratorPrep.html becomes a redirect to /curatorprep. The board pages link to
+# each other by exact filename, so leave the paths alone.
+[build.processing.html]
+  pretty_urls = false
+
 # The investor deck and the pre-seed memo. Reachable by link, never in an index.
 # Crawlers must be ALLOWED to fetch these or they cannot read the noindex
 # directive, but the gate answers them with a 401 before a body is ever sent.
