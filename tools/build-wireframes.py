@@ -38,7 +38,7 @@ BOARDS = {
     "Discover": ("1E–1G", "Onboarding, the Marquee, the session page and the two prompts."),
     "TheNight": ("1D1–1D9", "Doors, the pre-show, the calls, the leader, the film, and falling behind."),
     "TheRoom": ("1A–1C", "The screen you hold during the film, and what happens when a note arrives."),
-    "AfterTheShow": ("1H–1I", "The recap, Film DNA, and the Taste Passport."),
+    "AfterTheShow": ("1H–1I", "The recap as the record, the reserve rail, and the Taste Passport."),
     "LightsUp": ("1D10", "The five minutes after the film, and the handoff out."),
     "CuratorProfile": ("1K", "What a link in her bio should open."),
 }
