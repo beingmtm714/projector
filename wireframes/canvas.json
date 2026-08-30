@@ -16,7 +16,7 @@
       "x": 0,
       "y": 0,
       "w": 900,
-      "h": 700
+      "h": 730
     },
     {
       "file": "CuratorPrep.dc.html",
@@ -71,7 +71,7 @@
       "page": "page-2",
       "x": 0,
       "y": 1060,
-      "w": 3920,
+      "w": 4340,
       "h": 960
     },
     {
@@ -97,6 +97,22 @@
       "y": 4180,
       "w": 920,
       "h": 1040
+    },
+    {
+      "file": "LightsUp.dc.html",
+      "x": 0,
+      "y": 3200,
+      "w": 1240,
+      "h": 960,
+      "page": "page-2"
+    },
+    {
+      "file": "CuratorProfile.dc.html",
+      "x": 1340,
+      "y": 3200,
+      "w": 1240,
+      "h": 960,
+      "page": "page-2"
     }
   ],
   "annotations": [
@@ -178,7 +194,7 @@
       "y": 1060,
       "w": 320,
       "page": "page-2",
-      "text": "The nine beats of a screening, in order.\n\nDoors open half an hour early and the room starts talking. A countdown runs, then everyone presses play together. Notes arrive while the film runs.\n\nIntermission and falling behind both get their own screen, because both happen on a real night."
+      "text": "The beats of a screening, in order.\n\nDoors open half an hour early and the room starts talking. Her other screenings sit under the marquee board, and her own clips fire into the chat on the way to showtime. A countdown runs, then everyone presses play together. Notes arrive while the film runs.\n\nIntermission and falling behind both get their own screen, because both happen on a real night."
     },
     {
       "id": "board-theroom",
@@ -195,6 +211,22 @@
       "w": 320,
       "page": "page-2",
       "text": "Two screens, both after the credits. The recap closes out one night and points at the curator's next one. The passport accumulates across all of them."
+    },
+    {
+      "id": "board-lightsup",
+      "x": 2680,
+      "y": 3200,
+      "w": 320,
+      "page": "page-2",
+      "text": "The five minutes after the film ends.\n\nThe house comes up, chat stays open, and the questions people left when they reserved get answered live in front of the people who asked them. Her next screening sits above the compose field, because a reservation taken while the room is still talking converts better than one asked for later.\n\nAt minute three a banner carries her live link out to wherever she is continuing. It says where the link goes: TikTok and YouTube resolve to a stream, Instagram only to a profile."
+    },
+    {
+      "id": "board-curatorprofile",
+      "x": 2680,
+      "y": 4260,
+      "w": 320,
+      "page": "page-2",
+      "text": "What a link in her bio should open.\n\nHer socials, what she has screened, what is coming with a reserve action, and the things she wants you to see. It is the Taste Passport's mirror: the passport is what you sat through, this is what she programmed.\n\nA session page is the right destination for one screening and the wrong one for a bio, because it dies the morning after. This survives between screenings and books the next one."
     }
   ],
   "launch": {

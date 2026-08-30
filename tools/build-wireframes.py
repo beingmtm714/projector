@@ -36,9 +36,11 @@ BOARDS = {
     "CuratorPhone": ("1J6 · 1J7 on a phone", "The two curator screens that are not desktop, because hosting happens with the film on the TV."),
     "CuratorShip": ("1J8", "The promo kit, and where the room came from."),
     "Discover": ("1E–1G", "Onboarding, the Marquee, the session page and the two prompts."),
-    "TheNight": ("1D1–1D9", "The nine beats of the night."),
+    "TheNight": ("1D1–1D9", "Doors, the pre-show, the calls, the leader, the film, and falling behind."),
     "TheRoom": ("1A–1C", "The screen you hold during the film, and what happens when a note arrives."),
     "AfterTheShow": ("1H–1I", "The recap, Film DNA, and the Taste Passport."),
+    "LightsUp": ("1D10", "The five minutes after the film, and the handoff out."),
+    "CuratorProfile": ("1K", "What a link in her bio should open."),
 }
 
 
@@ -80,6 +82,8 @@ NOTE_BOARD = {
     "board-thenight": "TheNight.dc.html",
     "board-theroom": "TheRoom.dc.html",
     "board-aftertheshow": "AfterTheShow.dc.html",
+    "board-lightsup": "LightsUp.dc.html",
+    "board-curatorprofile": "CuratorProfile.dc.html",
     # Canvas navigation, not board content: it tells you to switch pages in the
     # canvas toolbar, which these pages do not have. The index lists both pages.
     "audience-page": None,
