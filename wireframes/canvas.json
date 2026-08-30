@@ -1,0 +1,204 @@
+{
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "Curator tools (V1)"
+    },
+    {
+      "id": "page-2",
+      "name": "The audience (V2)"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "page": "page-1",
+      "x": 0,
+      "y": 0,
+      "w": 900,
+      "h": 700
+    },
+    {
+      "file": "CuratorPrep.dc.html",
+      "page": "page-1",
+      "x": 0,
+      "y": 760,
+      "w": 3020,
+      "h": 1040
+    },
+    {
+      "file": "CuratorNotes.dc.html",
+      "page": "page-1",
+      "x": 0,
+      "y": 1900,
+      "w": 3020,
+      "h": 1040
+    },
+    {
+      "file": "CuratorQueue.dc.html",
+      "page": "page-1",
+      "x": 0,
+      "y": 3040,
+      "w": 3020,
+      "h": 1040
+    },
+    {
+      "file": "CuratorLive.dc.html",
+      "page": "page-1",
+      "x": 0,
+      "y": 4180,
+      "w": 3020,
+      "h": 1040
+    },
+    {
+      "file": "CuratorShip.dc.html",
+      "page": "page-1",
+      "x": 0,
+      "y": 5320,
+      "w": 3020,
+      "h": 1040
+    },
+    {
+      "file": "Discover.dc.html",
+      "page": "page-2",
+      "x": 0,
+      "y": 0,
+      "w": 2680,
+      "h": 960
+    },
+    {
+      "file": "TheNight.dc.html",
+      "page": "page-2",
+      "x": 0,
+      "y": 1060,
+      "w": 3920,
+      "h": 960
+    },
+    {
+      "file": "TheRoom.dc.html",
+      "page": "page-2",
+      "x": 0,
+      "y": 2120,
+      "w": 1620,
+      "h": 960
+    },
+    {
+      "file": "AfterTheShow.dc.html",
+      "page": "page-2",
+      "x": 1720,
+      "y": 2120,
+      "w": 1200,
+      "h": 960
+    },
+    {
+      "file": "CuratorPhone.dc.html",
+      "page": "page-1",
+      "x": 3100,
+      "y": 4180,
+      "w": 920,
+      "h": 1040
+    }
+  ],
+  "annotations": [
+    {
+      "id": "audience-page",
+      "x": 980,
+      "y": 320,
+      "w": 300,
+      "page": "page-1",
+      "text": "The audience side is page two.\n\nOpen the pages menu in the toolbar and pick \"The audience (V2)\": onboarding, the Marquee, the session page and the two prompts, the nine beats of the night, the three room layouts, the recap and the Taste Passport.\n\nThat page is what a curator's audience actually sees."
+    },
+    {
+      "id": "board-main",
+      "x": 980,
+      "y": 60,
+      "w": 320,
+      "page": "page-1",
+      "text": "Eleven boards, two audiences. The 1J boards are the tools a curator uses to build a screening. Everything else is what her audience sees.\n\nProjectionist never plays the film. The curator sets a start time, everyone presses play on their own copy, and the notes fire off a shared clock. That is why every film ever made works from day one, with no deal to sign."
+    },
+    {
+      "id": "board-curatorprep",
+      "x": 3100,
+      "y": 760,
+      "w": 320,
+      "page": "page-1",
+      "text": "Where a curator starts a screening. She names the film and the showtime, then writes the notes that will fire during it.\n\nResearch the film and Ask other experts gather material for her. Both come later, so the first build goes straight to Write your notes."
+    },
+    {
+      "id": "board-curatornotes",
+      "x": 3100,
+      "y": 1900,
+      "w": 320,
+      "page": "page-1",
+      "text": "Turning research into notes, and writing one.\n\nA note is a line of text pinned to a moment in the film. The curator types that moment as minutes and seconds, which is the whole of the first build. Later she can drop in a screenshot or describe the scene, and the product finds the moment for her."
+    },
+    {
+      "id": "board-curatorqueue",
+      "x": 3100,
+      "y": 3040,
+      "w": 320,
+      "page": "page-1",
+      "text": "Every note for the night in the order it fires, and the screen that starts the show.\n\nTo move a note the curator changes its time. Go live counts the curtain down. On zero she presses play on her own television and the clock starts for the whole room."
+    },
+    {
+      "id": "board-curatorlive",
+      "x": 4120,
+      "y": 4180,
+      "w": 320,
+      "page": "page-1",
+      "text": "Hosting, and rehearsing.\n\nOn air is what the curator watches during the film: chat, the next note with its countdown, and a button to fire it early.\n\nThe dry run plays her whole screening against a clock with nobody watching, so she can catch a mistimed note before an audience ever sees it."
+    },
+    {
+      "id": "board-curatorphone",
+      "x": 3100,
+      "y": 5760,
+      "w": 320,
+      "page": "page-1",
+      "text": "The only two curator screens built for a phone: starting the show, and hosting it. Everything else a curator does happens on a laptop."
+    },
+    {
+      "id": "board-curatorship",
+      "x": 3100,
+      "y": 5320,
+      "w": 320,
+      "page": "page-1",
+      "text": "What the curator gets once the session is ready, and what she learns afterwards.\n\nEvery channel she posts to gets its own link, so she finds out which of them actually fills a room. Nobody else in her life can tell her that."
+    },
+    {
+      "id": "board-discover",
+      "x": 2780,
+      "y": 0,
+      "w": 320,
+      "page": "page-2",
+      "text": "How someone finds a screening and takes a seat.\n\nOnboarding asks which services they already pay for, so they only see films they can play. The session page is what a shared link opens. A seat is $0.99 and needs an email address, no account."
+    },
+    {
+      "id": "board-thenight",
+      "x": 4020,
+      "y": 1060,
+      "w": 320,
+      "page": "page-2",
+      "text": "The nine beats of a screening, in order.\n\nDoors open half an hour early and the room starts talking. A countdown runs, then everyone presses play together. Notes arrive while the film runs.\n\nIntermission and falling behind both get their own screen, because both happen on a real night."
+    },
+    {
+      "id": "board-theroom",
+      "x": 1720,
+      "y": 3200,
+      "w": 320,
+      "page": "page-2",
+      "text": "The screen you hold during the film. Two states are drawn here: the room before a note arrives, and the moment one does.\n\nTwo other layouts sit behind this one, reached by swiping. The full run of notes so far, for rereading. And one note at a time, for anyone who wants the room quiet."
+    },
+    {
+      "id": "board-aftertheshow",
+      "x": 3020,
+      "y": 2120,
+      "w": 320,
+      "page": "page-2",
+      "text": "Two screens, both after the credits. The recap closes out one night and points at the curator's next one. The passport accumulates across all of them."
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "page-1"
+  }
+}

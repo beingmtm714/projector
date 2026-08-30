@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pre-Seed Bar · Projectionist</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<style>
+  :root{--paper:#e7e3da;--card:#f2efe8;--ink:#1a1917;--ink-soft:#57534a;--ink-faint:#8a8477;
+    --line:rgba(0,0,0,.12);--board:#14110b;--board-line:#453a26;--bulb:#f4e4bc;--pink:#a01a86}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Hanken Grotesk',-apple-system,system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
+    padding:11px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .bar a{color:var(--ink-soft);text-decoration:none}
+  .bar a:hover{color:var(--pink)}
+  .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
+    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+  .bar .meta,.bar .back{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  main{max-width:720px;margin:0 auto;padding:44px 24px 80px}
+  .doc h1{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;
+    font-size:clamp(26px,6vw,38px);letter-spacing:.03em;text-transform:uppercase;
+    margin:0 0 6px;line-height:1.05}
+  .stamp{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:30px}
+  .toc{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:34px}
+  .toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+  .toc li{break-inside:avoid;margin:0 0 5px}
+  .toc a{font-size:13.5px;color:var(--ink-soft);text-decoration:none}
+  .toc a:hover{color:var(--pink)}
+  .doc h2{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;margin:46px 0 0;padding-bottom:9px;
+    border-bottom:1px solid var(--line);scroll-margin-top:60px}
+  .doc h3{font-size:17px;font-weight:700;margin:32px 0 0;scroll-margin-top:60px}
+  .doc h4{font-size:14px;font-weight:700;margin:24px 0 0;color:var(--ink-soft)}
+  .doc p{margin:12px 0;max-width:66ch}
+  .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
+  .doc li{margin:6px 0}
+  .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
+  .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
+    font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}
+  .doc code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.86em;
+    background:rgba(0,0,0,.055);padding:1px 5px;border-radius:3px}
+  .doc pre{background:var(--board);color:#d8cfae;padding:14px 16px;border-radius:8px;overflow-x:auto}
+  .doc pre code{background:none;color:inherit;padding:0;font-size:12.5px;line-height:1.55}
+  .doc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.28)}
+  .doc a:hover{color:var(--pink);border-color:var(--pink)}
+  .lockline{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+    border:1px solid var(--line);border-radius:999px;padding:5px 11px;display:inline-block;
+    margin:0 0 26px}
+  .doc a.xref{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.84em;
+    background:rgba(160,26,134,.07);border-bottom:1px solid rgba(160,26,134,.35);
+    padding:1px 5px;border-radius:3px}
+  .tw{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:400;white-space:nowrap}
+  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
+    border-top:1px solid var(--line);padding-top:18px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase}
+  .pager a{color:var(--ink-soft);text-decoration:none}
+  .pager a:hover{color:var(--pink)}
+  .pager span{color:#bdb8ac}
+  @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="../">← Documents</a>
+  <div class="who"><span class="name">Pre-Seed Bar</span></div>
+  <span class="meta">29 August 2026</span>
+</header>
+<main class="doc">
+<h1>Pre-Seed Bar</h1>
+<div class="stamp">What a $2M round requires, written in the voice of an investor.</div>
+<div class="lockline">Shared by link. Not listed publicly.</div>
+<nav class="toc"><ol><li><a href="#what-i-am-actually-underwriting">What I am actually underwriting</a></li><li><a href="#easy-yeses-and-hard-yeses">Easy yeses and hard yeses</a></li><li><a href="#what-i-would-need-to-see-by-the-time-we-meet">What I would need to see by the time we meet</a></li><li><a href="#the-supply-side-deserves-its-own-metrics-and-i-underweighted">The supply side deserves its own metrics, and I underweighted it</a></li><li><a href="#on-outbound-and-on-the-bigger-play">On outbound, and on the bigger play</a></li><li><a href="#the-pitch-to-a-curator-and-the-metric-i-care-about-are-the-s">The pitch to a curator and the metric I care about are the same number</a></li><li><a href="#on-the-promo-problem-where-i-agree-and-where-i-would-not-sig">On the promo problem, where I agree and where I would not sign anything</a></li><li><a href="#on-the-ringer">On The Ringer</a></li><li><a href="#how-many-design-partners-revised">How many design partners, revised</a></li><li><a href="#the-gates-that-are-not-metrics">The gates that are not metrics</a></li><li><a href="#the-calendar-worked-backwards">The calendar, worked backwards</a></li><li><a href="#on-the-number-itself">On the number itself</a></li><li><a href="#on-tam-and-why-your-formula-gets-you-laughed-at">On TAM, and why your formula gets you laughed at</a></li><li><a href="#the-unit-an-investor-actually-multiplies">The unit an investor actually multiplies</a></li><li><a href="#the-cross-check-and-the-finding-you-will-not-like">The cross-check, and the finding you will not like</a></li><li><a href="#where-the-venture-scale-number-is">Where the venture-scale number is</a></li><li><a href="#the-expansion-axis-which-is-the-actual-answer-to-a-tam-quest">The expansion axis, which is the actual answer to a TAM question</a></li><li><a href="#what-i-would-actually-put-on-the-slide">What I would actually put on the slide</a></li><li><a href="#the-one-line-i-would-leave-you-with">The one line I would leave you with</a></li></ol></nav>
+<p>Written 2026-08-20 in the voice of an early-stage investor in consumer media and creator tooling, at Michael&#x27;s request. The benchmark ranges below are my judgment against adjacent categories rather than verified market data. Treat them as the bar a reasonable investor would hold, not as published figures.</p>
+<h2 id="what-i-am-actually-underwriting">What I am actually underwriting</h2>
+<p>Not whether you can build it. The V1 is small and a repository plus one contract engineer gets you there.</p>
+<p>Not whether you can reach curators. James can, his wife can, and I will assume you can get anyone you name on the phone.</p>
+<p>The only question I am underwriting is this: <strong>will an audience show up at a specific time on a specific night, and will they come back the next week?</strong></p>
+<p>Everything else in the business is downstream of that one behavior. A curator with 821,000 followers who fills forty seats is a hobby. The same curator filling four hundred is a company. Nothing in the deck tells me which one you are, and no amount of James&#x27;s rolodex answers it either.</p>
+<h2 id="easy-yeses-and-hard-yeses">Easy yeses and hard yeses</h2>
+<p>My first pass said curator signings prove nothing and then said one marquee name beats eight hundred attendees. Michael caught that those contradict. As written, they do. Here is the version that holds.</p>
+<p><strong>A curator signing is evidence about whichever thing was actually at risk.</strong> A curator who says yes because James asked, as a favour, is an easy yes. It tests the strength of the relationship, which I never doubted. A curator who says yes because the tool is worth her time is a hard yes, and that is evidence about the product.</p>
+<p><strong>There is no curator fee, and that moves my read in your favour.</strong> The pitch is that the tool monetises an audience they already have and pays them for work they currently do free. Nobody is taking a cheque to try it, so every curator yes is closer to a hard yes. That makes signings more evidentially valuable, not less, and it partly answers the objection I opened with.</p>
+<p>It also raises the bar on you. Asking someone to work free on an unproven tool means the tool has to be good at first contact. The dry run matters more in a no-fee model than in a paid one, because your first meeting with a curator is a demo rather than a transaction.</p>
+<p>So the diligence question on any curator name is not how many followers. It is: <strong>would she have done this if James had not asked?</strong> If the honest answer is no, she belongs on the moat slide as proof of access. If it is yes, she belongs on the traction slide as proof of pull.</p>
+<p>Where my first pass was simply wrong: I treated curator count as noise. In a B2B2C model it is a term in the growth equation, not a vanity number, and it deserves its own evidence.</p>
+<h2 id="what-i-would-need-to-see-by-the-time-we-meet">What I would need to see by the time we meet</h2>
+<h3 id="the-four-that-decide-it">The four that decide it</h3>
+<p><strong>Follower to attendee conversion.</strong> The company&#x27;s whole thesis in one number. Measure it two ways, because I will ask for both: conversion off total following, and conversion off actual reach for the post that drove the screening. The second is fairer to you and more honest.</p>
+<ul><li>Under 0.5% of following: this is a niche hobby, and I pass</li><li>1 to 2%: credible, fundable, the model works at scale</li><li>3% and up: I stop asking about the category and start asking how fast you can hire</li></ul>
+<p><strong>Show rate, reserved to attended.</strong> Free events run 30 to 50% show rates as a rule. This tells me whether a reservation means anything.</p>
+<ul><li>Under 40%: reserving is a like button, not an intent signal</li><li>55 to 65%: normal and acceptable</li><li>70% and up: strong, and it tells me a ticket price will hold</li></ul>
+<p><strong>Return rate.</strong> Of the people who attend a curator&#x27;s first screening, how many come to their second. This is the retention proxy and the one I weight hardest, because it separates novelty from behavior.</p>
+<ul><li>Under 20%: you have built an event, not a product</li><li>30 to 40%: credible</li><li>50% and up: that is the whole investment case, and you should lead with it</li></ul>
+<p><strong>Estimated completion.</strong> What share stay to the end. You cannot measure this properly without player telemetry, so give me your resume-tap estimate and label it as one. If people are leaving at the forty minute mark, the format is broken and more curators will not fix it.</p>
+<h3 id="the-three-that-make-it-feel-real">The three that make it feel real</h3>
+<p><strong>Engagement density.</strong> Chat messages per attendee, and the share of attendees who send at least one. If the second screen does not earn two hours of attention, the product is a notification service. I would want more than half of attendees participating.</p>
+<p><strong>Organic spillover.</strong> The share of attendees who did not already follow the curator. Ten to fifteen percent tells me the room itself has pull and you are not just renting audiences one at a time.</p>
+<p><strong>Curator pull.</strong> Did anyone ask to run another before you asked them. Did anyone bring you a second curator. Did anyone offer to do it without the fee. This is qualitative and I will weight it more than you expect, because it is the only unfakeable signal in the set.</p>
+<h2 id="the-supply-side-deserves-its-own-metrics-and-i-underweighted">The supply side deserves its own metrics, and I underweighted it</h2>
+<p>Michael&#x27;s argument: the model is B2B2C, so more curators with more followers means more audience, and if conversion holds then curator acquisition is the engine. That is right about the business and my first pass buried it.</p>
+<p>What I should have asked for is not a roster count but the <strong>acquisition economics of a curator</strong>:</p>
+<ul><li>How many did you pitch to sign five, and what did the ones who declined say</li><li>What it cost, in money and in what you had to promise</li><li>Whether any of the five churned after one screening, and why</li><li><strong>Whether anyone other than James can close one</strong></li></ul>
+<p>That last one is the whole question, and your own plan raises it. You described founder-led sales through the network first, then a community, influence-partner and content-led motion through existing curators, possibly on rev-share. The second half is a hypothesis. Every investor will ask what happens when James&#x27;s network runs out, and &quot;curator referral takes over&quot; is an answer I have watched fail.</p>
+<p><strong>So the highest-value supply-side metric is a curator-referred curator.</strong> One design partner bringing you another, unprompted, is the flywheel turning once. It is worth more in the raise than your fifth signature, because it is the only evidence the motion survives a world where James does not know everybody.</p>
+<p>Rev-share on referrals is the right instrument and a well-worn playbook. It works when the product sells itself peer to peer, which loops straight back to return rate. A curator refers a peer when her own room came back for a third week. If it did not, no rev-share rate fixes that.</p>
+<h2 id="on-outbound-and-on-the-bigger-play">On outbound, and on the bigger play</h2>
+<p>Two things Michael raised that I did not have and that change my read.</p>
+<p><strong>The supply universe is compilable, and that is a slide.</strong> Founder-led gets the first twenty-five. After that the motion is data-driven outbound against a known population: YouTube video essayists, film TikTok and Instagram accounts, Letterboxd writers with real followings, film podcast hosts, Substack critics, repertory programmers. That population can be enumerated, segmented and sized. Do the work and put it in the deck, because it converts &quot;we can get curators&quot; from a founder claim into an addressable supply market with a cost per head. I do not want your estimate of its size, I want the list.</p>
+<p>That is also the honest answer to the objection I raised earlier about James&#x27;s network running out. A named, sized universe plus a working outbound motion is a better answer than curator referral alone, and it is testable before the raise. Sending fifty cold outbound messages in September and reporting the reply rate would be worth more to me than the fifth signature.</p>
+<p><strong>The B2B motion is the bigger business and you should say so.</strong> Licensing the tooling to organisations that already have talent and audiences: Tubi and MUBI on the streaming side, A24 and Neon on the distribution side, The Ringer and similar on the publishing side. They bring their own hosts and run their own screenings.</p>
+<p>The Ringer example is the sharpest one you have, because The Rewatchables is already the format, done worse. A24 already runs a membership and rep screenings. MUBI&#x27;s whole brand is curation with no live layer. Neon does event screenings by hand. These are not hypothetical buyers, and the deal sizes are an order of magnitude above a curator.</p>
+<p>For this raise I do not need a signed deal. I need <strong>one of those logos in a live conversation</strong> by the time we meet. Given James, that is achievable in eight weeks, and it would change the character of the round from a consumer bet to a consumer business with an enterprise wedge behind it. It is probably worth more to your valuation than three more design partners.</p>
+<h2 id="the-pitch-to-a-curator-and-the-metric-i-care-about-are-the-s">The pitch to a curator and the metric I care about are the same number</h2>
+<p>This is the most useful thing in the memo, so do not skim it.</p>
+<p>Your curator pitch is Patreon for film people: monetise an audience you already have, get paid for what you already do free. Whether that pitch is true depends entirely on the conversion rate I asked you for.</p>
+<p>At a dollar a seat and half to the curator, for someone with a hundred thousand followers:</p>
+<ul><li>0.5% conversion: 500 attendees, 250 dollars a screening, about a thousand a month at weekly cadence. Beer money. She churns by week six.</li><li>1.5%: 1,500 attendees, 750 a screening, roughly 3,200 a month. Real money for a side project. The pitch sells itself.</li><li>3%: 1,500 a screening, 6,500 a month. She quits something else to do this.</li></ul>
+<p>For Cinema How at 821,000, one percent is roughly 4,100 dollars a screening. Weekly, that is a salary.</p>
+<p>So the follower-to-attendee number is not just my diligence metric. It is your value proposition to the supply side, and the two fail together. Under about one percent, the Patreon pitch is not true, curators churn after their novelty screening, and no amount of outbound fixes it because the product is not paying them. Above one and a half, curator acquisition gets much easier and your outbound motion starts working on its own.</p>
+<p>Run this math in the deck. It is the single most convincing slide you can build, and it converts an abstract metric into the curator&#x27;s paycheque.</p>
+<h2 id="on-the-promo-problem-where-i-agree-and-where-i-would-not-sig">On the promo problem, where I agree and where I would not sign anything</h2>
+<p>Michael&#x27;s read is right: if one percent conversion is the hinge, then whatever moves reach or conversion is the highest-leverage thing you can build. The curator&#x27;s promotional work is the step most likely to be done badly, and the gap between a single Instagram story and a scheduled sequence across four channels is roughly the gap between half a percent and two.</p>
+<p>So attack it. I would just not attack it with a partnership, and certainly not before a demo.</p>
+<p><strong>Why a front-end partnership is backwards leverage.</strong> You have no users and no data. A scheduling platform gives you an API key and a logo, and takes engineering commitment in exchange. Signing one now buys you nothing that moves a metric, and to an investor it reads as logo collecting rather than behaviour proving. You have no negotiating position until you have curators, and once you have curators you will not need the deal on their terms.</p>
+<p><strong>Why you probably do not need a partner at all for V1.</strong> What actually drives reach to reservation is a share card that looks right when posted, a reminder sequence the curator can fire without thinking, links that survive an Instagram bio and a story sticker, and the audience-side reminder loop you already have specced. That is your own product surface. It is about a week of work and you own it.</p>
+<p><strong>The argument that settles it is measurement.</strong> Reach is the denominator in the number your whole company is being underwritten on. If a third-party tool does the posting, you cannot see reach, and you have outsourced the measurement of your own linchpin metric to a company with no reason to give it back to you.</p>
+<p><strong>So build a promo kit, with per-channel tracked links.</strong> That last part is the piece worth more than the partnership. If every channel gets its own tracked link, you learn reach to reserve per channel, per curator, per screening. Three things follow:</p>
+<ul><li>You can tell a curator that her Substack converts six times better than her TikTok, which is an insight she cannot get anywhere else and is the reason she stays</li><li>You get a real denominator for the conversion metric instead of an estimate</li><li>Across five curators and fifteen screenings you have a per-channel conversion dataset, which is a genuinely interesting thing to show me and signals that you understand your own funnel</li></ul>
+<p>Patreon does not tell a creator which channel converts. That is a differentiator hiding inside a metrics problem.</p>
+<p><strong>When a partnership does make sense.</strong> Later, as a distribution play rather than a capability one: being in the app directory of a tool film creators already use, once onboarding is a funnel and you are trying to reduce friction for hundreds rather than five. Not now.</p>
+<h2 id="on-the-ringer">On The Ringer</h2>
+<p>You have a path to the editorial director and no meeting yet. Get it. It is the single strongest lever you have named, because The Rewatchables is already your format done worse, and an editorial director is the right altitude for a design partnership conversation rather than a sales one.</p>
+<p>One caution, the same one I gave about marquee curators. It is a depleting asset. Walk in with the dry run working and one screening you are proud of, not with wireframes. A meeting held is worth something to me. A meeting held that produced &quot;interested, show us when it works&quot; is worth a great deal more, and you only get the first conversation once.</p>
+<h2 id="how-many-design-partners-revised">How many design partners, revised</h2>
+<p><strong>Five deep for the raise, with a named bench of the next ten.</strong> The reason is not that breadth lacks evidence value. It is that curator relationships are a depleting asset and you cannot buy them back.</p>
+<p>You get one first screening with a Longworth-tier curator. If the tools are rough and the room is thin, you have spent her, and she is exactly who you want in March when the product is good. James&#x27;s network is finite in the short run, and burning it to build a bigger denominator before you know the room retains is the actual risk. Depth first is a spending discipline, not an evidence argument.</p>
+<p>Two amendments from Michael&#x27;s push:</p>
+<p><strong>Choose the five to span archetypes rather than five of the same thing.</strong> A TikTok film essayist, a repertory programmer, a podcast host, a Letterboxd writer, and one marquee name. Then you learn which segment converts, which is what you spend the two million against. Five of one type is one data point dressed as five.</p>
+<p><strong>Name the next ten in the deck and do not sign them.</strong> That makes the B2B2C scaling story concrete without spending the relationships. It turns &quot;we can get curators&quot; from a claim into a list with a cost per head attached, and it costs you nothing.</p>
+<p><strong>Resolved better than I proposed.</strong> Rather than hoping three of the five run three screenings, all five commit to three dated screenings up front, and keep one hundred percent of ticket revenue across them. That is the right instrument: it costs almost nothing across fifteen beta rooms, it scales with their own effort rather than being a cheque, and the money they make is itself the proof the model works. Fifteen screenings, five partners with three each, and two return-rate data points per curator rather than one.</p>
+<h2 id="the-gates-that-are-not-metrics">The gates that are not metrics</h2>
+<p>These will not win you the round and any one of them can lose it.</p>
+<p><strong>The cap table.</strong> Resolve the Tongal question before you take a first meeting. &quot;We are still figuring out what Tongal gets&quot; is a sentence that ends pre-seed conversations. Clean entity, founder vesting, IP assigned. If Tongal funds early development, paper it now, at a number, in writing.</p>
+<p><strong>The rights story.</strong> I do not need a signed deal. I need ninety seconds of you explaining why a studio is not a threat to you, and one live conversation to point at. Your companion-mode answer is genuinely strong. Make sure it is crisp, because if you fumble it I will assume you have not thought about it.</p>
+<p><strong>One paid screening.</strong> Run two or three at a dollar or two in October. Even a small sample retires the entire monetization question and costs you almost nothing. Founders skip this and then spend the whole meeting speculating about willingness to pay. Do not be that.</p>
+<h2 id="the-calendar-worked-backwards">The calendar, worked backwards</h2>
+<p>This is the part I would push back on hardest, and it is about your timeline rather than your metrics.</p>
+<p>A pre-seed process runs six to eight weeks from first meeting to money in the bank, and that assumes it goes well. Mid-November close means first meetings in the first half of October. Materials and data locked by the end of September.</p>
+<p>To have twelve to fifteen screenings by late September, working back:</p>
+<ul><li>Curator tools functional and partners onboarded: first week of September</li><li>First screenings: week of September 8</li><li>Four weeks of screenings: through October 6</li><li>First investor meetings: October 13</li><li>Close: late November at the earliest</li></ul>
+<p><strong>Mid-November is tight to the point of unrealistic on a cold process.</strong> The build has not started, and every week it slips pushes the close a week. Early December is the honest target on this path.</p>
+<p>Two ways to actually hit mid-November:</p>
+<p><strong>Raise warm and in parallel.</strong> Start conversations in early October on six to eight screenings of partial data, through James&#x27;s network first. Warm intros compress a six week process to three. Half your round probably comes from people who already know him. This is the realistic play and I would run it.</p>
+<p><strong>Raise on team and access, with less data.</strong> Given James&#x27;s track record and one committed marquee curator, you could get this done on story. But understand the trade: you are being priced on the team rather than on traction, which means a lower number or more dilution, and a seed round that will need real revenue rather than more of the same.</p>
+<h2 id="on-the-number-itself">On the number itself</h2>
+<p>Two million is on the high end for a pre-seed at this stage, and it is defensible given James. Just be deliberate about it.</p>
+<p>At two million you are likely looking at a ten to fourteen million post, so fifteen to twenty percent. It should buy eighteen to twenty-four months and a team of four or five, which is the right shape if you are building the audience app and doing rights work in parallel.</p>
+<p>The thing to understand is what it commits you to. A two million pre-seed sets the bar for the seed. You will need revenue or an order of magnitude more audience to clear it. If one and a quarter gets you to the same milestone, take the smaller round and the cleaner story.</p>
+<h2 id="on-tam-and-why-your-formula-gets-you-laughed-at">On TAM, and why your formula gets you laughed at</h2>
+<p>Your version: everyone with a film podcast, Substack, Letterboxd, Instagram or TikTok, times their total audience, times a dollar a ticket.</p>
+<p>The shape is right. It is bottom-up rather than a slide that says the creator economy is worth 250 billion dollars, and any investor prefers that. The arithmetic has four errors, two of which inflate it and two of which deflate it, and they do not cancel.</p>
+<p><strong>It assumes every follower buys a ticket.</strong> They will not. One to two percent is the number, which is the same number the rest of this memo is about. That alone overstates you by fifty to a hundred times.</p>
+<p><strong>It counts the same person many times over.</strong> Film-content audiences overlap enormously. Someone who follows Cinema How also follows four other film accounts. Summing curator followings counts that person five times, and in a niche as tight as film criticism the overlap is severe rather than marginal.</p>
+<p><strong>It has no time in it.</strong> This is the error that costs you most. A ticket is not a one-time purchase, it is a weekly one. A curator running fifty-two screenings a year is worth fifty-two times what your formula gives her. Frequency is the term that makes the number large, and you left it out.</p>
+<p><strong>It ignores two of your three revenue lines.</strong> Tickets are the smallest one. Sponsorship and tooling licences are not in the formula at all, and by your own business model the licensing line is the larger business.</p>
+<h2 id="the-unit-an-investor-actually-multiplies">The unit an investor actually multiplies</h2>
+<p>Build it from one curator and one year, and make every assumption visible.</p>
+<p>A curator with a hundred thousand followers, converting at one and a half percent, at a dollar a seat, running weekly:</p>
+<ul><li>1,500 attendees a screening</li><li>78,000 dollars a year in gross ticket sales</li><li>Roughly 39,000 to her, 39,000 to you</li></ul>
+<p><strong>That is your unit: about 39,000 dollars of annual net revenue per active mid-size curator.</strong> It is a number a partner can hold in their head and multiply, and it is far more persuasive than a billion-dollar market slide because every input is one you will actually measure in the POC.</p>
+<p>Then the only question left is how many such curators exist, which is the homework I already asked for. Do not estimate it. Compile it. My rough expectation, entirely for you to verify rather than to quote:</p>
+<ul><li>Film-focused creators above ten thousand followers, in English: tens of thousands</li><li>Above a hundred thousand: low thousands</li><li>Above five hundred thousand: hundreds</li></ul>
+<p>If the compiled list shows two thousand curators at roughly that size, the fully-penetrated ticket line is somewhere near 156 million gross and 78 million net. At full penetration, of the entire English-language film-creator universe, all running weekly.</p>
+<h2 id="the-cross-check-and-the-finding-you-will-not-like">The cross-check, and the finding you will not like</h2>
+<p>Size it from the demand side too, because it catches the double-counting your formula has.</p>
+<p>Letterboxd&#x27;s seventeen million members are a fair proxy for the population that organises its cultural life around film opinion. If a tenth of them ever attend a screening, at twenty screenings a year and a dollar, that is around 34 million gross.</p>
+<p>Both methods land in the same tens of millions. That agreement is worth having, and it delivers the finding:</p>
+<p><strong>The ticket line on its own is not a venture-scale TAM.</strong> Seventy-eight million of net revenue at total penetration of a market you will never fully penetrate is a good business and it is not what a fund raising from institutional LPs is underwriting. If you present tickets as the market, a partner does this arithmetic in their head during your meeting and passes without telling you why.</p>
+<p>So do not present tickets as the market. Present tickets as the wedge that proves the behaviour, and put the scale somewhere it can actually live.</p>
+<h2 id="where-the-venture-scale-number-is">Where the venture-scale number is</h2>
+<p><strong>Licensing, which is your own third line and you are burying it.</strong> Organisations that already have talent and audiences and no live layer. Streamers and distributors, publishers, and two segments you have not named:</p>
+<ul><li><strong>Film festivals.</strong> Thousands globally, all of them programming already, all of them wanting reach beyond the people who can physically attend. Hybrid and remote programming is a live problem for them and nobody has built the tool.</li><li><strong>Repertory and arthouse cinemas.</strong> Hundreds, programming weekly, with audiences and no way to reach past the room. This is the same customer as your curator, with a venue and a budget.</li></ul>
+<p>Add film schools and university film programmes as an adjacent third. Teaching with synced commentary is the same product.</p>
+<p>If a few hundred such organisations pay in the low six figures a year for tooling plus a share, that pool is comparable to the entire ticket line and it carries far better margins, much lower support cost, and contracts rather than a churning creator roster.</p>
+<h2 id="the-expansion-axis-which-is-the-actual-answer-to-a-tam-quest">The expansion axis, which is the actual answer to a TAM question</h2>
+<p>Every investor will ask why only film. The right answer is not a defence of film. It is this:</p>
+<p><strong>Film is the wedge. Timed media is the market.</strong> Nothing in the architecture is film-specific. A shared start time, notes on marks, a room, and never touching the content works identically for a television episode, a sports broadcast, a conference keynote, or a rewatch of a season finale.</p>
+<p>Television is the obvious next one and it is far larger than film, which your own problem slide concedes when it says everyone talks about shows. Music was cut deliberately and stays cut. But the sentence that turns a tens-of-millions TAM into a venture story is that you are building the companion layer for scheduled media and starting with the audience that is most starved for it.</p>
+<p>Say it in one line on the market slide and do not build a roadmap around it. A partner needs to see that the ceiling is not film, and then needs you to go back to talking about the five curators.</p>
+<h2 id="what-i-would-actually-put-on-the-slide">What I would actually put on the slide</h2>
+<p>Three numbers and a sentence.</p>
+<ul><li>The unit: 39,000 dollars of net revenue per active curator per year, with every input shown</li><li>The compiled supply universe, from the real list, segmented by size</li><li>The licensing pool, from a named count of streamers, distributors, publishers, festivals and rep houses</li><li>One line that film is the wedge and timed media is the market</li></ul>
+<p>No billion-dollar creator-economy slide. No total-addressable-audience number that assumes everyone buys. A partner who can rebuild your TAM from your own inputs trusts everything else you say, and a partner who catches you multiplying followers by a dollar stops listening at that slide.</p>
+<h2 id="the-one-line-i-would-leave-you-with">The one line I would leave you with</h2>
+<p>Sign five across five archetypes, go deep with three, get one hard yes, run fifty cold outbound messages and report the reply rate, take the Ringer meeting once the dry run is working, run one paid screening, and lead every conversation with return rate.</p>
+<p>If a third of the people who come to a screening come back for the next one, you will not have trouble raising this money. If it is under a fifth, no amount of James&#x27;s network will fix it, and you will want to know that in October rather than in February.</p>
+<nav class="pager"><a href="../engineer-brief.html">← Engineer Brief</a><a href="../short-copy.html">Short Copy →</a></nav>
+</main>
+</body>
+</html>

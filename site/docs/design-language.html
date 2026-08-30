@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Design Language · Projectionist</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<style>
+  :root{--paper:#e7e3da;--card:#f2efe8;--ink:#1a1917;--ink-soft:#57534a;--ink-faint:#8a8477;
+    --line:rgba(0,0,0,.12);--board:#14110b;--board-line:#453a26;--bulb:#f4e4bc;--pink:#a01a86}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Hanken Grotesk',-apple-system,system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
+    padding:11px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .bar a{color:var(--ink-soft);text-decoration:none}
+  .bar a:hover{color:var(--pink)}
+  .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
+    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+  .bar .meta,.bar .back{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  main{max-width:720px;margin:0 auto;padding:44px 24px 80px}
+  .doc h1{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;
+    font-size:clamp(26px,6vw,38px);letter-spacing:.03em;text-transform:uppercase;
+    margin:0 0 6px;line-height:1.05}
+  .stamp{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:30px}
+  .toc{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:34px}
+  .toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+  .toc li{break-inside:avoid;margin:0 0 5px}
+  .toc a{font-size:13.5px;color:var(--ink-soft);text-decoration:none}
+  .toc a:hover{color:var(--pink)}
+  .doc h2{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;margin:46px 0 0;padding-bottom:9px;
+    border-bottom:1px solid var(--line);scroll-margin-top:60px}
+  .doc h3{font-size:17px;font-weight:700;margin:32px 0 0;scroll-margin-top:60px}
+  .doc h4{font-size:14px;font-weight:700;margin:24px 0 0;color:var(--ink-soft)}
+  .doc p{margin:12px 0;max-width:66ch}
+  .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
+  .doc li{margin:6px 0}
+  .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
+  .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
+    font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}
+  .doc code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.86em;
+    background:rgba(0,0,0,.055);padding:1px 5px;border-radius:3px}
+  .doc pre{background:var(--board);color:#d8cfae;padding:14px 16px;border-radius:8px;overflow-x:auto}
+  .doc pre code{background:none;color:inherit;padding:0;font-size:12.5px;line-height:1.55}
+  .doc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.28)}
+  .doc a:hover{color:var(--pink);border-color:var(--pink)}
+  .lockline{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+    border:1px solid var(--line);border-radius:999px;padding:5px 11px;display:inline-block;
+    margin:0 0 26px}
+  .doc a.xref{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.84em;
+    background:rgba(160,26,134,.07);border-bottom:1px solid rgba(160,26,134,.35);
+    padding:1px 5px;border-radius:3px}
+  .tw{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:400;white-space:nowrap}
+  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
+    border-top:1px solid var(--line);padding-top:18px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase}
+  .pager a{color:var(--ink-soft);text-decoration:none}
+  .pager a:hover{color:var(--pink)}
+  .pager span{color:#bdb8ac}
+  @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="./">← Documents</a>
+  <div class="who"><span class="name">Design Language</span></div>
+  <span class="meta"></span>
+</header>
+<main class="doc">
+<h1>Design Language</h1>
+<div class="stamp">The settled system. Two lighting states, the curtain, type, motion.</div>
+
+<nav class="toc"><ol><li><a href="#the-thesis">The thesis</a></li><li><a href="#expressionism-as-a-lighting-model">Expressionism as a lighting model</a></li><li><a href="#two-states">Two states</a></li><li><a href="#palette">Palette</a></li><li><a href="#the-live-signal">The live signal</a></li><li><a href="#the-curtain">The curtain</a></li><li><a href="#grain">Grain</a></li><li><a href="#type">Type</a></li><li><a href="#chat">Chat</a></li><li><a href="#always-on-screen">Always on screen</a></li><li><a href="#motion">Motion</a></li><li><a href="#the-pre-show">The pre-show</a></li><li><a href="#form-factors">Form factors</a></li><li><a href="#don-x27-ts">Don&amp;#x27;ts</a></li><li><a href="#working-against-this">Working against this</a></li></ol></nav>
+<h2 id="the-thesis">The thesis</h2>
+<p><strong>The system is the room, not the film.</strong></p>
+<p>A repertory house in Los Angeles has enormous personality and does not change it when the programme changes. The Vista is the Vista whether it is showing Murnau or a midnight Hangover 2. The room is the constant, the film is the variable, and an audience understands that without being told.</p>
+<p>Everything below follows. The interface never comments on what is being screened. It is the place you came to watch it. <strong>A film&#x27;s identity appears in exactly one place, the one-sheet, and nowhere else.</strong> The marquee changes weekly. The building does not.</p>
+<h2 id="expressionism-as-a-lighting-model">Expressionism as a lighting model</h2>
+<p>The reference is German Expressionism and the noir that came out of it, taken as technique rather than costume.</p>
+<p>The lasting contribution of Caligari is not crooked sets. It is that <strong>light and shadow do the emotional work, and shadow is an active agent rather than an absence</strong>. Noir points the same technique at moral ambiguity: a hard key, deep falloff, things half seen. Sunset Boulevard is lit the way it is because the film is about what a house conceals.</p>
+<p>That is also what this product does. A curator takes an audience past the surface of a film into what is going on underneath. The design enacts that rather than illustrating it, which is why there is no set dressing anywhere in this document.</p>
+<p><strong>The test: light has a direction and a source.</strong> Every surface is legible because something is lighting it. If a screen could be flipped upside down without looking wrong, it is painted rather than lit, and it is not finished.</p>
+<h2 id="two-states">Two states</h2>
+<p><strong>House up.</strong> Everything before and after the film. Warm ambient falling from above, no visible source. Matte, low contrast, no glow. A lobby with the lamps low.</p>
+<p><strong>House down.</strong> The film itself. Near black, one cold key from above and behind, the way a projector sits over your shoulder. Everything falls off toward the bottom of the screen.</p>
+<p>A surface declares its state with <code>.up</code> or <code>.dn</code>, which supply the light. Nothing else sets a ground.</p>
+<p><strong>Squint at any two screens from opposite states. They must read as the same building at a different time of night.</strong> If either reads as a different place, the model is broken and no token will fix it.</p>
+<h2 id="palette">Palette</h2>
+<div class="tw"><table><thead><tr><th>Token</th><th>Value</th><th>Job</th></tr></thead><tbody><tr><td><code>--house-up</code></td><td><code>#141210</code></td><td>Warm ground, before and after</td></tr><tr><td><code>--house-down</code></td><td><code>#0a0b10</code></td><td>Cold ground, during the film</td></tr><tr><td><code>--paper</code></td><td><code>oklch(0.93 0.005 75)</code></td><td>Primary type</td></tr><tr><td><code>--gold</code></td><td><code>#f4e4bc</code></td><td>Warm light. Never hardware</td></tr><tr><td><code>--silver</code></td><td><code>#f2f7ff</code></td><td>The live signal, rationed</td></tr><tr><td><code>--time</code></td><td><code>oklch(0.72 0.13 240)</code></td><td>Sync position</td></tr><tr><td><code>--curtain</code></td><td><code>#7c1f2e</code></td><td>Light on cloth, T-0 and intermission only</td></tr><tr><td><code>--hair</code></td><td><code>oklch(0.30 0.006 60)</code></td><td>Borders</td></tr><tr><td><code>--dim</code> / <code>--dimmer</code></td><td><code>oklch(0.58 / 0.44 …)</code></td><td>Secondary and tertiary type</td></tr></tbody></table></div>
+<p>Values live in <code>projectionist-wireframes/_kit.txt</code> and nowhere else. <strong>Never invent one.</strong> If a colour, size or weight is needed and it is not there, that is a question, not a decision to make in CSS.</p>
+<h2 id="the-live-signal">The live signal</h2>
+<p>Electric silver is the only thing that says <em>this is happening now</em>. It is rationed to four places: the ON AIR sign and its dot, the curator&#x27;s name on a firing note, the primary action at showtime, and telestrator ink.</p>
+<p>It always carries its glow.</p>
+<pre><code>color: #f2f7ff;
+text-shadow: 0 0 8px rgba(244,248,255,.85), 0 0 22px rgba(150,190,255,.5);
+box-shadow: 0 0 7px rgba(255,255,255,.6), 0 0 20px rgba(160,195,255,.55);</code></pre>
+<p><strong>A resting surface never gets silver and never glows.</strong> On the Marquee the single on-air card is the only lit thing in a warm dim room. That contrast is the system working, not a decorative choice.</p>
+<h2 id="the-curtain">The curtain</h2>
+<p>You never see a cinema curtain evenly lit. You see it raked, almost always from below, and its whole visual identity is vertical bands of light and shadow. It is the most Expressionist object in the building, which is why it survives when the rest of the memorabilia did not.</p>
+<p>Oxblood is <strong>the colour light picks up off cloth</strong>: deep in the folds, warmer where the wash catches. It is never a fill. Use <code>.cloth</code>.</p>
+<p><strong>It parts as darkness opening, not as panels sliding.</strong> The gap is black and the inner edges catch a cold rim as they turn into the light. Use <code>.lip</code>.</p>
+<p>Oxblood appears at T-0 and at intermission. Nowhere else, on any screen, for any reason.</p>
+<h2 id="grain">Grain</h2>
+<p>Film grain, scratches and dust appear where light is <strong>projected</strong>: the leader, the curtain wash, T-0. Use <code>.grain</code> and <code>.scratch</code>.</p>
+<p>They never touch chat, the note editor, the Marquee, or any resting surface. That single rule is what keeps this from being a filter, keeps type legible, and stops a phone rendering noise for two hours.</p>
+<p>The leader carries the most, which is true to life: the academy leader is the most-handled few feet of any print.</p>
+<h2 id="type">Type</h2>
+<ul><li><strong>Archivo Expanded</strong>, 125% width, for title cards and the marquee.</li><li><strong>Hanken Grotesk</strong> for interface.</li><li><strong>Source Serif 4</strong> is <strong>the curator&#x27;s voice</strong>: Liner Notes, the one-sheet, her answers in the wrap. Never chat, never an interface label. The rule is about whose voice it is, not which component it is.</li><li><strong>JetBrains Mono</strong>, tabular, for timecode, countdowns, and anything that ticks.</li></ul>
+<h2 id="chat">Chat</h2>
+<p>Chat is the room&#x27;s default surface, always labelled, and it never leaves the screen. When a curator element fires it settles to a strip at the bottom, then expands back.</p>
+<p>In house down it lives in the deepest part of the falloff. That is correct rather than incidental: it is the murmur of the room, and it belongs below the beam.</p>
+<h2 id="always-on-screen">Always on screen</h2>
+<p>Once the film runs, the title and the min:sec position are visible on every surface. Intermission shows <code>paused</code> with the timestamp. A viewer glancing at their phone always knows what is playing and where the room is.</p>
+<h2 id="motion">Motion</h2>
+<p><strong>The beam is struck, then allowed to decay.</strong> Light arriving is an event; light leaving is not. <code>--beam-rise: 220ms</code> on <code>--ease-strike</code>, <code>--beam-fall: 640ms</code> on <code>--ease-decay</code>. Symmetrical timing makes a note cross-fade rather than land.</p>
+<p><strong>One cue, then the next. Never both.</strong> When a note fires, chat settles to its strip first over <code>--settle: 900ms</code>, and the beam comes up as it lands. Moving them together reads as a glitch.</p>
+<p><strong>A note holds long enough to be read twice</strong>, because the viewer looks up at the television in between. Four seconds plus reading time, floored at five, capped at nine. A fixed hold is too long for a short note and too short for a long one.</p>
+<p><strong>Notes fade up like subtitles</strong>: 4px rise, soft haptic, no badge.</p>
+<p><strong>The curtain travels for ten seconds.</strong> Real curtains take eight to twelve, and a fast curtain reads as cheap in a way that is hard to name and easy to feel.</p>
+<p>Everything respects <code>prefers-reduced-motion</code>.</p>
+<h2 id="the-pre-show">The pre-show</h2>
+<p>The house settles first, and the leader only begins once the curtain is fully open, so nobody arrives mid-countdown.</p>
+<div class="tw"><table><thead><tr><th>When</th><th>What</th></tr></thead><tbody><tr><td>T&amp;minus;30:00</td><td>Doors. The Lobby opens, chat with the curator begins</td></tr><tr><td>T&amp;minus;10:00</td><td>The house call</td></tr><tr><td>T&amp;minus;2:00</td><td>The last call: starting in two minutes, cue the film on your TV</td></tr><tr><td>T&amp;minus;1:00</td><td>The curtain appears behind the chat</td></tr><tr><td>T&amp;minus;0:25</td><td>Chat settles to a strip, then the curtain begins to part</td></tr><tr><td>T&amp;minus;0:15</td><td>Fully open. The leader runs on the revealed surface, with grain</td></tr><tr><td>T&amp;minus;0:00</td><td>The leader ends, the sign ignites, the Room</td></tr></tbody></table></div>
+<p><strong>There is no notification at T-1.</strong> The curtain appearing is the one-minute call, and it is a better one: visible, permissionless, impossible to miss by someone already looking at the screen.</p>
+<p>The surface revealed by the curtain is the app&#x27;s own live area. The leader plays on it, then it becomes the Room. The curtain is not decoration around a screen; it reveals the thing you will spend two hours in.</p>
+<p>Falling behind later is never a failure. It is a reel change.</p>
+<h2 id="form-factors">Form factors</h2>
+<p>Curator authoring screens are <strong>desktop, 1440 by 900</strong>, and are not responsive down to a phone. Below about 1100px they show a come-back-on-a-laptop message rather than a squeezed layout.</p>
+<p>Two exceptions get a phone layout at <strong>390 by 800</strong>: Go live and On air. The curator hosts with the film on her television and the app in her hand, so she is an audience member with extra controls. Controls sit at the bottom, within reach of a thumb.</p>
+<p>Every audience screen is a phone.</p>
+<h2 id="don-x27-ts">Don&#x27;ts</h2>
+<ul><li>No silver and no glow on a resting surface, prep and session ready included.</li><li>The serif never appears in chat and never on an interface label.</li><li>Gold never appears mid-film, chat handles included; those take paper on the house-down ground.</li><li>Curtain oxblood appears at T-0 and intermission and nowhere else.</li><li>No grain on a resting surface.</li><li>No badges and no unread counters on Liner Notes.</li><li>Intermission stays matte and empty. No countdown glow, no decoration.</li><li>No bulbs, no chases, no marquee hardware. The gold is light.</li><li>Never design a surface that works for arthouse but not popcorn, or the reverse.</li></ul>
+<h2 id="working-against-this">Working against this</h2>
+<p>The eleven artboards in <code>projectionist-wireframes/</code> are the pixel references, and <code>_kit.txt</code> is the only source of values. Build against the artboard rather than against taste: serve, screenshot, compare image to image, change one property, re-screenshot. The <code>visual-loop</code> skill carries that discipline.</p>
+<p>Do not run aesthetic-direction skills against this repo. The look is settled and lives in the tokens.</p>
+<p><strong>A screen that is not already an artboard gets drawn as one first</strong>, in the canvas, and only then built against the picture. An agent should only ever be implementing a design.</p>
+<nav class="pager"><a href="./private/investor-deck.html">← Investor Deck</a><a href="./build-plan.html">Build Plan →</a></nav>
+</main>
+</body>
+</html>

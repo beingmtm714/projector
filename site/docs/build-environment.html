@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Build Environment · Projectionist</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<style>
+  :root{--paper:#e7e3da;--card:#f2efe8;--ink:#1a1917;--ink-soft:#57534a;--ink-faint:#8a8477;
+    --line:rgba(0,0,0,.12);--board:#14110b;--board-line:#453a26;--bulb:#f4e4bc;--pink:#a01a86}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Hanken Grotesk',-apple-system,system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
+    padding:11px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .bar a{color:var(--ink-soft);text-decoration:none}
+  .bar a:hover{color:var(--pink)}
+  .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
+    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+  .bar .meta,.bar .back{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  main{max-width:720px;margin:0 auto;padding:44px 24px 80px}
+  .doc h1{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;
+    font-size:clamp(26px,6vw,38px);letter-spacing:.03em;text-transform:uppercase;
+    margin:0 0 6px;line-height:1.05}
+  .stamp{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:30px}
+  .toc{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:34px}
+  .toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+  .toc li{break-inside:avoid;margin:0 0 5px}
+  .toc a{font-size:13.5px;color:var(--ink-soft);text-decoration:none}
+  .toc a:hover{color:var(--pink)}
+  .doc h2{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;margin:46px 0 0;padding-bottom:9px;
+    border-bottom:1px solid var(--line);scroll-margin-top:60px}
+  .doc h3{font-size:17px;font-weight:700;margin:32px 0 0;scroll-margin-top:60px}
+  .doc h4{font-size:14px;font-weight:700;margin:24px 0 0;color:var(--ink-soft)}
+  .doc p{margin:12px 0;max-width:66ch}
+  .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
+  .doc li{margin:6px 0}
+  .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
+  .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
+    font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}
+  .doc code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.86em;
+    background:rgba(0,0,0,.055);padding:1px 5px;border-radius:3px}
+  .doc pre{background:var(--board);color:#d8cfae;padding:14px 16px;border-radius:8px;overflow-x:auto}
+  .doc pre code{background:none;color:inherit;padding:0;font-size:12.5px;line-height:1.55}
+  .doc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.28)}
+  .doc a:hover{color:var(--pink);border-color:var(--pink)}
+  .lockline{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+    border:1px solid var(--line);border-radius:999px;padding:5px 11px;display:inline-block;
+    margin:0 0 26px}
+  .doc a.xref{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.84em;
+    background:rgba(160,26,134,.07);border-bottom:1px solid rgba(160,26,134,.35);
+    padding:1px 5px;border-radius:3px}
+  .tw{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:400;white-space:nowrap}
+  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
+    border-top:1px solid var(--line);padding-top:18px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase}
+  .pager a{color:var(--ink-soft);text-decoration:none}
+  .pager a:hover{color:var(--pink)}
+  .pager span{color:#bdb8ac}
+  @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="./">← Documents</a>
+  <div class="who"><span class="name">Build Environment</span></div>
+  <span class="meta">29 August 2026</span>
+</header>
+<main class="doc">
+<h1>Build Environment</h1>
+<div class="stamp">A repository rather than a hosted builder, agents, and the visual loop.</div>
+
+<nav class="toc"><ol><li><a href="#the-decision-a-git-repository-not-lovable">The decision: a git repository, not Lovable</a></li><li><a href="#conductor-as-the-shell-and-its-honest-limits">Conductor as the shell, and its honest limits</a></li><li><a href="#the-design-language-the-problem-is-real-in-general-and-solve">The design language: the problem is real in general and solved here in particular</a></li><li><a href="#the-thing-that-is-actually-missing-the-agent-cannot-see">The thing that is actually missing: the agent cannot see</a></li><li><a href="#which-installed-skills-to-use-and-which-to-keep-away-from-th">Which installed skills to use, and which to keep away from this</a></li><li><a href="#where-an-agent-should-not-be-doing-the-work-at-all">Where an agent should not be doing the work at all</a></li></ol></nav>
+<p>Written 28 August 2026. Two decisions that sit underneath <a class="xref" href="./build-plan.html">Projectionist-Build-Plan.md</a> and explain its numbers: what the build happens in, and how the design language survives contact with generated code.</p>
+<h2 id="the-decision-a-git-repository-not-lovable">The decision: a git repository, not Lovable</h2>
+<p>The 27 August sprint plan already contained the argument without acting on it. It said the engineer has to build the realtime spine &quot;because the session clock and the note-firing engine are the parts Lovable produces convincingly and wrongly.&quot; That is a statement about a ceiling.</p>
+<p>Confidently wrong is the worst output available on this build, and there is a worked example in this vault from the day before. Ruskin&#x27;s <code>bin/build.mjs</code> threw a <code>ReferenceError</code> on its first LARB article, printed the stack trace, and exited 0. Nothing flagged it. The feed would have gone stale in silence. It was caught because the output was checked rather than the exit code, and the fix is now a guard in the publish path that requires <code>feed.json</code> to be newer than it was and to parse with a non-empty <code>books</code> array. Neither the guard nor the catch is available inside a hosted prompt-to-app builder: there is no test runner to hold it and no diff to read.</p>
+<p>Three other things follow from a repository, in descending order of how much they matter.</p>
+<p><strong>The engineer inherits an ordinary codebase.</strong> No generated React to correct, no eject moment between the beta and whatever comes after. His brief used to warn him to expect to correct the front end rather than admire it. That warning is gone.</p>
+<p><strong>The design system can live as code.</strong> See below; this is the larger of the two design points.</p>
+<p><strong>There is a real history.</strong> Every change is a diff someone can read, which is the only mechanism that catches the class of bug above.</p>
+<p>The evidence that the mode works for this project is already in the folder: <code>projectionist-wireframes/</code> is eleven hand-built artboards with a real token sheet, produced this way.</p>
+<h2 id="conductor-as-the-shell-and-its-honest-limits">Conductor as the shell, and its honest limits</h2>
+<p><a href="https://www.conductor.build/">Conductor</a> is a Mac app from Melty Labs that runs Claude Code, Codex and Cursor agents in parallel, each in its own git worktree with its own branch, terminal and diff, then walks through review, pull request and merge. Free with an existing Claude or Codex subscription. Pro at $50 a month adds cloud workspaces, multiplayer to five people, an API and a mobile app.</p>
+<p><strong>Its marginal value over plain Claude Code with git worktrees is the interface</strong>, for running three or four lanes at once and reviewing their diffs side by side. That is worth less at 35 hours of work than it would be at a hundred. It is free, the download is small, and the failure mode is an hour lost and a return to the Ruskin workflow.</p>
+<p>So the decision that actually matters is Lovable versus a repository, and Ruskin already answered it. Conductor is one comfortable wrapper on the answer, not the answer.</p>
+<p><strong>The bounded risk in either case is review throughput.</strong> The value of running four agents at once is capped by the ability to judge what four agents produced, and four lanes producing code nobody reads is worse than one Lovable app that can at least be seen. Not every line needs reading. Running the app after each merge does, and so does noticing when a diff is doing something it should not.</p>
+<p><strong>A one-day spike settles the Conductor question</strong>, which is the only one still open here. Build the note editor screen against the existing spec, including manual mm:ss and the still upload, in Conductor rather than in plain Claude Code with git worktrees. If the lanes are worth the interface and the diffs are legible side by side, keep it. If setup eats the day, drop it and use worktrees directly. One day out of twelve weeks either way, and nothing about the repository decision depends on the answer.</p>
+<h2 id="the-design-language-the-problem-is-real-in-general-and-solve">The design language: the problem is real in general and solved here in particular</h2>
+<p>The general worry is correct. A coding agent handed a prose prompt produces the house style everyone recognises, and no quantity of &quot;make it premium&quot; fixes it.</p>
+<p>It does not apply to this build, because the invention has already happened. <strong><code>projectionist-wireframes/_kit.txt</code> is a complete design system expressed as code</strong>: Archivo at 125% width for the marquee, Hanken Grotesk, JetBrains Mono with tabular numerals, Source Serif 4 for the curator&#x27;s voice; oklch tokens for both lighting states; component classes down to <code>.livedot</code>&#x27;s two-layer glow and the <code>.desk</code> chrome that fakes a browser bar. Section 8 of the product spec supplies the rules and, more usefully, the don&#x27;ts: no silver on resting surfaces, no serif in chat, oxblood exactly twice.</p>
+<p><strong>So the design language pass is a compile step, not a creative one.</strong> Lift <code>_kit.txt</code> into the application stylesheet as the single source of truth and build every screen against those tokens. The two lighting states, the serif as the curator&#x27;s voice and nowhere else, and the chat rule are then enforced by the tokens rather than requested in a prompt. This is why the build plan prices that pass at two to three hours rather than six to ten, and it is the strongest single reason the numbers moved.</p>
+<h2 id="the-thing-that-is-actually-missing-the-agent-cannot-see">The thing that is actually missing: the agent cannot see</h2>
+<p>An agent writes CSS and never looks at the result, which is how the tenth screen drifts from the first.</p>
+<p><strong>Install Playwright MCP and close the loop</strong>: change, navigate, screenshot, compare against the artboard, iterate. That one addition is the difference between guessing at spacing and being able to tell that a note is holding six seconds rather than seven. Two skills wrap the workflow if it should be enforced rather than remembered, Visual Review for screenshot-and-evaluate and Eyes for a capture, propose, confirm and verify cycle, but the MCP server is the part that matters. It belongs in the engineer&#x27;s first three days, before any screen exists.</p>
+<p>Second, and free: the eleven artboards in <code>projectionist-wireframes/</code> are pixel references. Pointing an agent at the artboard and the screenshot together and asking what differs is a far sharper instruction than any adjective.</p>
+<h2 id="which-installed-skills-to-use-and-which-to-keep-away-from-th">Which installed skills to use, and which to keep away from this</h2>
+<p>Already installed and worth running here:</p>
+<ul><li><strong><code>impeccable-craft</code></strong> for building a screen end to end against the tokens.</li><li><strong><code>critique</code></strong> and <strong><code>audit</code></strong> against each finished screen. Audit catches the contrast failure in <code>--dim</code> on <code>--night</code> before a curator does.</li><li><strong><code>ui-build-quality</code></strong> for the states nothing else writes: an empty note queue, a failed upload, a dropped connection. These overlap the engineer&#x27;s failure-states deliverable and are where a build stops looking like a demo.</li></ul>
+<p><strong>Keep away from this project:</strong> <code>frontend-design</code>, <code>high-end-visual-design</code>, <code>design-taste-frontend</code>, <code>gpt-taste</code>, <code>minimalist-ui</code>, <code>industrial-brutalist-ui</code>. Every one of them exists to make an agent commit to an aesthetic. The aesthetic was committed to in August. Running them now is how the serif ends up in chat.</p>
+<p>Outside references rather than installs: <a href="https://github.com/rohitg00/awesome-claude-design">awesome-claude-design</a> is a curated collection whose Cinematic Dark and Cult/Indie families, the latter listing Criterion and A24 explicitly, are the nearest published analogues to what already exists here, useful as a check rather than a replacement. <a href="https://github.com/wilwaldon/Claude-Code-Frontend-Design-Toolkit">Claude-Code-Frontend-Design-Toolkit</a> is the best single index of what is available. Ignore the star counts quoted in write-ups about either; several looked inflated and none were verified.</p>
+<h2 id="where-an-agent-should-not-be-doing-the-work-at-all">Where an agent should not be doing the work at all</h2>
+<p>Net-new visual invention. A screen that is not among the eleven artboards should be drawn as an artboard first, in the Claude canvas the wireframes came from, and only then built against the picture. That discipline already exists in the spec, which records the canvas URL and the <code>build-wireframes.py</code> step that stops the pages and the canvas drifting apart. Kept, it means an agent is only ever implementing a design, which is the thing it is reliably good at.</p>
+<nav class="pager"><a href="./build-plan.html">← Build Plan</a><a href="./engineer-brief.html">Engineer Brief →</a></nav>
+</main>
+</body>
+</html>

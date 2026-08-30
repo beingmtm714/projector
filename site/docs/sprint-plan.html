@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sprint Plan · Projectionist</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<style>
+  :root{--paper:#e7e3da;--card:#f2efe8;--ink:#1a1917;--ink-soft:#57534a;--ink-faint:#8a8477;
+    --line:rgba(0,0,0,.12);--board:#14110b;--board-line:#453a26;--bulb:#f4e4bc;--pink:#a01a86}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Hanken Grotesk',-apple-system,system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
+    padding:11px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .bar a{color:var(--ink-soft);text-decoration:none}
+  .bar a:hover{color:var(--pink)}
+  .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
+    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+  .bar .meta,.bar .back{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  main{max-width:720px;margin:0 auto;padding:44px 24px 80px}
+  .doc h1{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;
+    font-size:clamp(26px,6vw,38px);letter-spacing:.03em;text-transform:uppercase;
+    margin:0 0 6px;line-height:1.05}
+  .stamp{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:30px}
+  .toc{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:34px}
+  .toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+  .toc li{break-inside:avoid;margin:0 0 5px}
+  .toc a{font-size:13.5px;color:var(--ink-soft);text-decoration:none}
+  .toc a:hover{color:var(--pink)}
+  .doc h2{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;margin:46px 0 0;padding-bottom:9px;
+    border-bottom:1px solid var(--line);scroll-margin-top:60px}
+  .doc h3{font-size:17px;font-weight:700;margin:32px 0 0;scroll-margin-top:60px}
+  .doc h4{font-size:14px;font-weight:700;margin:24px 0 0;color:var(--ink-soft)}
+  .doc p{margin:12px 0;max-width:66ch}
+  .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
+  .doc li{margin:6px 0}
+  .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
+  .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
+    font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}
+  .doc code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.86em;
+    background:rgba(0,0,0,.055);padding:1px 5px;border-radius:3px}
+  .doc pre{background:var(--board);color:#d8cfae;padding:14px 16px;border-radius:8px;overflow-x:auto}
+  .doc pre code{background:none;color:inherit;padding:0;font-size:12.5px;line-height:1.55}
+  .doc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.28)}
+  .doc a:hover{color:var(--pink);border-color:var(--pink)}
+  .lockline{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+    border:1px solid var(--line);border-radius:999px;padding:5px 11px;display:inline-block;
+    margin:0 0 26px}
+  .doc a.xref{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.84em;
+    background:rgba(160,26,134,.07);border-bottom:1px solid rgba(160,26,134,.35);
+    padding:1px 5px;border-radius:3px}
+  .tw{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:400;white-space:nowrap}
+  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
+    border-top:1px solid var(--line);padding-top:18px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase}
+  .pager a{color:var(--ink-soft);text-decoration:none}
+  .pager a:hover{color:var(--pink)}
+  .pager span{color:#bdb8ac}
+  @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="./">← Documents</a>
+  <div class="who"><span class="name">Sprint Plan</span></div>
+  <span class="meta">30 August 2026</span>
+</header>
+<main class="doc">
+<h1>Sprint Plan</h1>
+<div class="stamp">Six sprints, 31 August to 20 November. The operating document.</div>
+
+<nav class="toc"><ol><li><a href="#the-division-of-labour-that-makes-this-work">The division of labour that makes this work</a></li><li><a href="#the-calendar">The calendar</a></li><li><a href="#founding-curator-terms">Founding curator terms</a></li><li><a href="#sprint-1-31-aug-to-11-sep">Sprint 1 · 31 Aug to 11 Sep</a></li><li><a href="#sprint-2-14-sep-to-25-sep">Sprint 2 · 14 Sep to 25 Sep</a></li><li><a href="#sprint-3-28-sep-to-9-oct">Sprint 3 · 28 Sep to 9 Oct</a></li><li><a href="#sprint-4-12-oct-to-23-oct">Sprint 4 · 12 Oct to 23 Oct</a></li><li><a href="#sprint-5-26-oct-to-6-nov">Sprint 5 · 26 Oct to 6 Nov</a></li><li><a href="#sprint-6-9-nov-to-20-nov">Sprint 6 · 9 Nov to 20 Nov</a></li><li><a href="#what-gets-cut-first-in-order">What gets cut first, in order</a></li><li><a href="#the-three-things-that-decide-whether-this-holds">The three things that decide whether this holds</a></li></ol></nav>
+<p>Written 27 August 2026. <strong>Hours and division of labour revised 28 August 2026</strong> against the build plan&#x27;s rewrite; the calendar, the curator terms and the cut order are unchanged. Twelve weeks, six two-week sprints, from nothing built to investor meetings with real screening data.</p>
+<p>Two things shape the whole plan. <strong>Michael has roughly two solid days a week</strong>, so a sprint is about 32 hours of his time and never more. And <strong>the research agent and AI timestamping are cut</strong> from everything below; they come after the raise, because a half-built AI-generated version of either is worse than nothing to the engineer who inherits it.</p>
+<p>At the revised hours no sprint comes near that 32-hour ceiling. That is the point of the revision and it changes what this plan is: it is now a calendar for recruiting curators, testing with them, and raising, with the build fitted around it rather than the reverse. <strong>When a sprint is at risk, it is at risk because of curators or the calendar, not because of build capacity.</strong> Do not spend the slack widening scope.</p>
+<h2 id="the-division-of-labour-that-makes-this-work">The division of labour that makes this work</h2>
+<p>The build happens in a git repository with coding agents, not in Lovable. Michael builds schema, forms, CRUD, layout and routing against a design token sheet that already exists. The engineer does three things: he sets the repository up before anything is built, he builds the realtime spine, and he reads what the agents produced.</p>
+<p>The spine is the session clock, the note-firing engine, and chat. It has to be right, it is the part generated code produces convincingly and wrongly, and it is the part a curator&#x27;s evening depends on.</p>
+<p><strong>The engineer starts in sprint one, not sprint two.</strong> His first three days are the repository, the schema, the migrations, the row-level security policies, CI, deploy, environments and secrets, and a <code>CLAUDE.md</code> carrying the spec and the design rules. Everything Michael builds afterwards is built inside guardrails the engineer set, rather than audited against them at the midpoint. Twelve days total: three on setup, four on the spine, five on review spread across the whole build.</p>
+<h2 id="the-calendar">The calendar</h2>
+<div class="tw"><table><thead><tr><th>Sprint</th><th>Dates</th><th>What it produces</th></tr></thead><tbody><tr><td>1</td><td>Mon 31 Aug – Fri 11 Sep</td><td>Login, sessions, and a curator pipeline</td></tr><tr><td>2</td><td>Mon 14 Sep – Fri 25 Sep</td><td>The authoring loop, and five signed partners</td></tr><tr><td>3</td><td>Mon 28 Sep – Fri 9 Oct</td><td>The clock, the dry run, and a demo worth showing</td></tr><tr><td>4</td><td>Mon 12 Oct – Fri 23 Oct</td><td>The audience side, and partners breaking the tools</td></tr><tr><td>5</td><td>Mon 26 Oct – Fri 6 Nov</td><td>First screenings and first numbers</td></tr><tr><td>6</td><td>Mon 9 Nov – Fri 20 Nov</td><td>Return rate, and the raise in market</td></tr></tbody></table></div>
+<hr>
+<h2 id="founding-curator-terms">Founding curator terms</h2>
+<p>The whole package, so it can be said in one breath and does not get renegotiated later.</p>
+<ul><li><strong>They commit to three screenings</strong>, dated, inside the founding season. Weekly is the ask. Bi-weekly is acceptable from one or two of them.</li><li><strong>They keep one hundred percent of ticket revenue on all three.</strong> We waive our share entirely for the founding season.</li><li><strong>Afterwards they keep seventy percent, permanently</strong>, against a standard rate of fifty. Founding is a rate they hold, not a badge they wore once.</li><li><strong>Founding credit</strong> in the launch and in the press.</li><li><strong>Introductions to streaming editorial</strong>, brokered by us, so they never negotiate cold.</li><li><strong>Their own per-channel conversion data</strong>, which nobody else in their life can give them.</li></ul>
+<p><strong>Why the waiver is the right instrument and a fee is not.</strong> It costs almost nothing in absolute terms across fifteen beta screenings, and unlike a cheque it scales with their own effort, so the money they make is itself the proof that the model works. At the size the wireframes demo, 142 seats at $0.99, that is $140.58 a screening and <strong>$421.74 across the three</strong>, every cent of it hers. A curator who clears that on nights she would have run free is a curator who books a fourth without being asked.</p>
+<p><strong>Time-box it in writing, in the first conversation.</strong> The waiver ends with the founding season. Say so when you make the offer, not when you end it. The alternative is an awkward negotiation with your five best advocates at exactly the moment you need them to refer the next ten.</p>
+<p><strong>And charge from screening one.</strong> There is no reason to run anything free now that the curator keeps the takings, and it makes every number in the proof of concept honest. Free-event show rates are inflated and an investor discounts them. A paid room is a real room, and reserved-to-attended measured at $0.99 is a number you can put in the deck without an asterisk.</p>
+<hr>
+<h2 id="sprint-1-31-aug-to-11-sep">Sprint 1 · 31 Aug to 11 Sep</h2>
+<h3 id="login-sessions-and-a-curator-pipeline">Login, sessions, and a curator pipeline</h3>
+<p><strong>Goal.</strong> A curator can sign in and create a session. Separately, the recruiting pipeline exists on paper and the first conversations have happened.</p>
+<p><strong>Michael builds</strong> (about 7 hours, on the repository the engineer set up in his first three days)</p>
+<ul><li>Supabase project. Postgres, Auth, Realtime enabled.</li><li>The schema from spec section 9: <code>sessions</code>, <code>liner_notes</code>, <code>intermissions</code>, <code>session_seats</code>, <code>promo_links</code>, <code>chat_messages</code>, <code>note_reactions</code>, <code>dry_runs</code>.</li><li>Row-level security on every table, written by the engineer in his first three days rather than by Michael and audited later. <strong>It is still the single line most likely to double</strong>, which is exactly why it moved.</li><li>Google OAuth for curators. No email and password path.</li><li>Session creation: film, year, runtime, showtime, one-sheet.</li><li>Prep home (1J①) with the three actions, Go live disabled.</li></ul>
+<p><strong>In parallel, and this is half the sprint</strong></p>
+<ul><li><strong>Compile the curator universe.</strong> The actual list, not an estimate: video essayists, film TikTok and Instagram, Letterboxd writers, film podcast hosts, Substack critics, repertory programmers. Segment by audience size. This one artefact does double duty as the recruiting pipeline and as the market slide.</li><li><strong>Ten first conversations</strong>, using the wireframes as the demo. The wireframes are a shareable link and they are good enough to hold a conversation. Recruiting does not wait for the build.</li><li><strong>Write the engineer job post</strong> and run it. Include the product spec and the wireframes; almost nobody hands a contract engineer an eleven-section spec with acceptance criteria, and it will tell you fast who actually reads things.</li></ul>
+<p><strong>Exit criteria</strong></p>
+<ul><li>A curator signs in and creates a session that persists</li><li>The curator list exists, segmented, with names</li><li>Ten conversations held, and a read on who is interested</li><li>Engineer signed and started, with the repository, migrations, RLS policies, CI and deploy standing before Michael builds a screen</li></ul>
+<p><strong>The risk.</strong> The engineer is not hired in time and Michael builds the first screens outside the guardrails. That is now the sprint&#x27;s only real risk, because at 7 hours of build there is no capacity problem to have. Hiring is the sprint&#x27;s critical path, not the code.</p>
+<hr>
+<h2 id="sprint-2-14-sep-to-25-sep">Sprint 2 · 14 Sep to 25 Sep</h2>
+<h3 id="the-authoring-loop-and-five-signed-partners">The authoring loop, and five signed partners</h3>
+<p><strong>Goal.</strong> A curator authors a complete session end to end and walks away with a shareable link. Five design partners have said yes.</p>
+<p><strong>Michael builds</strong> (about 6 hours)</p>
+<ul><li>Note editor (1J④): body text, still upload to Supabase storage, manual mm:ss. <strong>Manual entry only.</strong> No screenshot inference, no natural language.</li><li>Note queue (1J⑤): fire order, still indicator, intermission rows, plus and minus five second nudge.</li><li>Intermission creation: at a mark, with a duration and a message.</li><li>Promo kit (1J⑧): the share card preview, per-channel tracked links with the redirect route and click counting, draft posts per channel.</li><li>Session ready: the summary and the link.</li></ul>
+<p><strong>Engineer, continuing</strong> (about 2 days)</p>
+<ul><li>Auth and row-level security audit. Fix what is broken. This comes before anything else they touch.</li><li>Read the spec, agree the shape of the realtime spine, and set up environments and secrets properly.</li></ul>
+<p><strong>In parallel</strong></p>
+<ul><li><strong>Convert conversations into five signed design partners</strong>, spanning archetypes rather than five of the same thing: a video essayist, a repertory programmer, a podcast host, a Letterboxd writer, and one bigger name.</li><li><strong>The ask is three screenings, with three dates.</strong> Not one, and not an open-ended trial. Return rate does not exist below two, and a partner who will not put three dates on a calendar is a trial user rather than a design partner.</li><li><strong>The offer is that they keep everything.</strong> See the founding curator terms below.</li><li>Name the next ten without signing them. That list goes in the deck.</li><li>Start fifty cold outbound messages against the compiled universe and record the reply rate. That number is worth more to an investor than the fifth signature.</li></ul>
+<p><strong>Exit criteria</strong></p>
+<ul><li>A curator authors six notes with one still, an intermission, and reaches session ready</li><li>Four tracked links resolve and each registers a click against its own channel</li><li><strong>Five partners signed to three screenings each, with fifteen dates on a calendar</strong></li><li>Auth and row-level security standing, written by the engineer, with Michael&#x27;s first sprint of work reviewed against them</li></ul>
+<p><strong>The risk.</strong> A three-screening ask converts worse than a one-screening ask, so expect to hold more conversations to get five. That is the right trade: five partners at one screening each produce no return rate, which is the number the raise turns on. Pitch fifteen to land five.</p>
+<hr>
+<h2 id="sprint-3-28-sep-to-9-oct">Sprint 3 · 28 Sep to 9 Oct</h2>
+<h3 id="the-clock-the-dry-run-and-a-demo-worth-showing">The clock, the dry run, and a demo worth showing</h3>
+<p><strong>Goal.</strong> A curator watches her own session fire against a running clock. The tool looks like the wireframes.</p>
+<p><strong>Engineer builds</strong> (about a week)</p>
+<ul><li><strong>The session clock, server-authoritative.</strong> Elapsed time from a shared start, resilient to a phone locking or a tab backgrounding.</li><li><strong>The note-firing engine.</strong> Notes fire when the clock crosses their mark, with a manual override.</li><li>The realtime channel that both the dry run and the Room will sit on.</li></ul>
+<p><strong>Michael builds</strong> (about 7 hours)</p>
+<ul><li>The dry run (1J⑨) on top of the engineer&#x27;s clock: press play, real speed or eight times, notes fire on their marks. <strong>Skip scrub-to-any-mark and fix-in-place this pass.</strong></li><li>The design language pass. The two lighting states, the serif as the curator&#x27;s voice and nowhere else, chat settling to a strip when a curator element fires. This is a compile step rather than a creative one: <code>projectionist-wireframes/_kit.txt</code> already holds the faces, the oklch tokens and the component classes, so lift it into the application stylesheet as the single source of truth and build every screen against it. Not optional, because in a no-fee model your first meeting with a curator is a demo.</li><li><strong>Go live on a phone (1J⑥).</strong> About two hours. It needs nothing but a countdown and a button, so it lands here rather than in the crowded sprint.</li><li><strong>The desktop-only guard.</strong> Every authoring screen, which is everything in 1J except ⑥ and ⑦, shows an honest come-back-on-a-laptop message below about 1100px rather than a squeezed layout. Cheap, and the kind of thing that gets forgotten until a curator opens the note editor on a train.</li></ul>
+<p><strong>In parallel</strong></p>
+<ul><li><strong>Start warming investor conversations.</strong> Not a raise, not a deck. James&#x27;s warmest five to ten contacts, informally: here is what we are building, here is the demo, we will have numbers in six weeks. This is the step that compresses a six week process to three later.</li><li><strong>Request the Ringer meeting</strong> for late October, once screenings have run. Not now.</li></ul>
+<p><strong>Exit criteria</strong></p>
+<ul><li>A curator rehearses a full session, notes fire on their marks, and she can fix a mistimed note and re-run</li><li>The tool is visually the wireframes</li><li>Five to ten warm investor conversations opened</li></ul>
+<p><strong>The risk.</strong> The design pass is the thing that gets cut when the sprint runs long. Do not cut it. Cut the dry run&#x27;s speed toggle instead.</p>
+<hr>
+<h2 id="sprint-4-12-oct-to-23-oct">Sprint 4 · 12 Oct to 23 Oct</h2>
+<h3 id="the-audience-side-and-partners-breaking-the-tools">The audience side, and partners breaking the tools</h3>
+<p><strong>Goal.</strong> A screening can actually happen. In parallel, the five partners spend two weeks trying to break the authoring tools with no audience watching.</p>
+<p><strong>Michael builds</strong> (about 9 hours; at the old numbers this sprint scraped its 32-hour ceiling and it no longer does)</p>
+<ul><li>Session detail and reserve a seat (1G①): film, curator, showtime, the one-sheet, where you can play it entered manually by the curator, seat count.</li><li>The two prompts on the way in (1G②): what would you add, what do you want to ask.</li><li>The Room (1C): chat as the default surface, Liner Notes arriving in the serif and landing in chat as well.</li><li>The Lobby (1D①), minimal: doors at T-30, marquee board over open chat.</li><li>T-0: the curtains, the clock starting.</li><li><strong>On air on a phone (1J⑦).</strong> The curator hosts with the film on her television and this in her hand, so she is an audience member with extra controls: the next note and its countdown at the top, chat in the middle, and pause, intermission, telestrator and end session in a fixed bar at the bottom in reach of a thumb. It shares the chat component with the Room, which is why it is here and not in sprint three.</li></ul>
+<p><strong>Engineer builds</strong> (about 4 days)</p>
+<ul><li>Chat over the realtime channel, with the note-firing engine already built in sprint three.</li><li>Intermission: pausing the clock, the countdown, the &quot;I have paused my TV&quot; tap and its counter.</li><li><strong>Ticketing.</strong> <strong>$0.99</strong> taken at reserve. Stripe checkout on the session page, the seat only held once payment clears, and a refund path for a screening that does not happen.</li><li><strong>Build the charge, not the payout.</strong> Do not build Stripe Connect. Record what each curator is owed and pay them by transfer. Automated payouts are worth building at fifty curators, not at five, and skipping it saves the engineer several days on the tightest sprint in the plan.</li><li>Failure states. What a curator sees when a save fails, an upload fails, or the connection drops. Generated code does not write these unprompted, and a curator hitting one mid-session is the worst thing that can happen to you.</li><li>Data integrity. Whether a curator can lose an evening of notes, and what two open tabs do.</li></ul>
+<p><strong>In parallel: the tools beta</strong></p>
+<ul><li>All five partners in the authoring tools for two weeks. They research films, write notes, rehearse. <strong>No audience.</strong> This is spec Phase one of the proof of concept.</li><li>Collect what breaks and what confuses them. Fix the confusions, log the rest.</li></ul>
+<p><strong>Exit criteria</strong></p>
+<ul><li>An end-to-end screening with the two founders and a handful of friends, start to finish, including an intermission</li><li><strong>The whole screening hosted from a phone</strong>, not a laptop, because that is how at least one of the five will do it</li><li><strong>A real $0.99 taken and refunded</strong>, with the amount owed to the curator recorded correctly</li><li>Five partners have each authored at least one full session and rehearsed it</li><li>No partner has hit a data-loss bug</li></ul>
+<p><strong>The risk.</strong> At 9 hours of Michael and 4 engineer days this sprint is no longer capacity-bound, but it is still the one where slipping costs the most, because ticketing is on the critical path and every screening in sprint five is paid. The risk moved from hours to verification: the end-to-end screening in the exit criteria has to actually be run, on real phones, and that cannot be compressed.</p>
+<p>Cut the Lobby before anything else; people can arrive at T-0. After that, cut the On air phone layout and let the founding five host from a laptop for their first season. It is a real loss and it is survivable with five curators you can talk to.</p>
+<p><strong>And if ticketing itself slips, do not slip the sprint.</strong> Run each curator&#x27;s first screening free and start charging at their second. It costs one screening of honest willingness-to-pay data per curator and it protects the calendar, which is worth more. Say so to the partners in advance rather than changing the deal on them mid-season.</p>
+<hr>
+<h2 id="sprint-5-26-oct-to-6-nov">Sprint 5 · 26 Oct to 6 Nov</h2>
+<h3 id="first-screenings-and-first-numbers">First screenings and first numbers</h3>
+<p><strong>Goal.</strong> Real screenings with real audiences. The first conversion numbers exist.</p>
+<p><strong>What happens</strong></p>
+<ul><li>Each of the five partners runs screenings one and two of their three. Target eight to ten screenings across the sprint.</li><li>Small on purpose. A room of forty that works beats a room of four hundred that breaks.</li><li><strong>Every screening is paid, at $0.99, and the curator keeps all of it.</strong> Willingness to pay is measured on every room rather than sampled once, and nothing in the data needs discounting later.</li></ul>
+<p><strong>Michael</strong> (about 4 hours, mostly reactive)</p>
+<ul><li>Sit in every screening. Fix what breaks between them.</li><li>Watch the per-channel numbers land and hand each curator her own read: which of her channels actually converts.</li></ul>
+<p><strong>In parallel</strong></p>
+<ul><li><strong>The Ringer meeting</strong>, now that there is something to show.</li><li>Move the warm investor conversations to real ones. You have partial data, which is the honest thing to lead with: five curators, eight screenings, here is what we are seeing, we will have return rate in two weeks.</li></ul>
+<p><strong>Exit criteria</strong></p>
+<ul><li>Eight to ten screenings run, all paid</li><li>Seats reserved, show rate, and reach-to-reservation by channel all measured</li><li><strong>Return rate exists for the partners who have run two</strong>, which is the first real read on the number that decides the company</li><li>Gross ticket revenue earned by curators, tracked even though we take none of it</li><li>Ringer meeting held</li></ul>
+<p><strong>The risk.</strong> A curator posts once to a story and eleven people show up. That is a promo failure, not a product failure, and you will not know which unless the tracked links are working. They are the instrument.</p>
+<hr>
+<h2 id="sprint-6-9-nov-to-20-nov">Sprint 6 · 9 Nov to 20 Nov</h2>
+<h3 id="return-rate-and-the-raise-in-market">Return rate, and the raise in market</h3>
+<p><strong>Goal.</strong> The number that decides the company exists, and the round is open.</p>
+<p><strong>What happens</strong></p>
+<ul><li>Third screenings, closing out the fifteen committed dates.</li><li><strong>Return rate across two and three screenings</strong>, which is the metric an investor weighs hardest and the one that separates novelty from behaviour. Two data points per curator, not one.</li><li>Deck finalised with real numbers in every bracket.</li></ul>
+<p><strong>Exit criteria</strong></p>
+<ul><li>Fifteen screenings, five partners with three each</li><li>Return rate measured to both the second and the third screening</li><li>Total gross earned by the founding curators, which is the number that sells the next ten</li><li>The deck&#x27;s placeholders filled</li><li>Investor meetings running</li></ul>
+<p><strong>Realistic close.</strong> Six to eight weeks from first real meetings, so <strong>mid to late December</strong>, compressed toward the earlier end by how much warming happened in sprint three. Mid-November was never reachable from a 27 August start with nothing built.</p>
+<hr>
+<h2 id="what-gets-cut-first-in-order">What gets cut first, in order</h2>
+<p>When a sprint runs long, cut in this order and do not improvise a different one:</p>
+<ol><li>The dry run&#x27;s speed toggle</li><li>The Lobby</li><li>On air on a phone (1J⑦), which means the founding five host from a laptop. Survivable at five curators, not at fifty</li><li>The promo kit&#x27;s draft posts and reminder sequence, <strong>keeping the tracked links</strong>, which are the instrument</li><li>The recap screen</li><li>The Marquee, which nobody needs while there are five curators</li></ol>
+<p><strong>Never cut:</strong> row-level security, the design language pass, the tracked links, the desktop-only guard, or the engineer&#x27;s failure states. The guard is twenty minutes of work and its absence is a curator&#x27;s first impression of the product being a broken screen.</p>
+<p><strong>Ticketing is not on the cut list, it has a fallback.</strong> If it is not ready, the first screening of each partner runs free and charging starts at the second. That is a schedule decision, not a scope cut, and it needs telling the partners up front.</p>
+<h2 id="the-three-things-that-decide-whether-this-holds">The three things that decide whether this holds</h2>
+<p><strong>Michael&#x27;s calendar.</strong> Two days a week was the assumption, and at 35 hours across twelve weeks the build no longer needs all of it. What needs it is recruiting, sitting in every screening, and the investor conversations. At one day a week the build still fits; the recruiting and the screenings are what slip, so add three weeks and move the close to mid January.</p>
+<p><strong>The engineer starting on time.</strong> They are on the critical path from day one, not from sprint three, because the repository and the RLS policies are theirs and everything else is built on top. Hire before sprint one starts. This is now the single highest-leverage thing in the plan.</p>
+<p><strong>Partners who show up.</strong> Five signed with no dates is not five partners. Fifteen dates on a calendar before sprint two closes, and a written note of the waiver&#x27;s end so nobody is surprised by it.</p>
+<p><strong>Cadence.</strong> Three screenings at weekly cadence fits sprints five and six exactly. At bi-weekly it runs to early December, and that partner&#x27;s third screening lands after the first investor meetings. Survivable if at least three of the five go weekly. Ask for weekly and take bi-weekly from the two who cannot.</p>
+<nav class="pager"><a href="./product-spec.html">← Product Spec</a><a href="./private/investor-deck.html">Investor Deck →</a></nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<title>The Playback Room — Naming Decision</title>
+<style>
+  :root {
+    --paper: #E8E4DC;
+    --paper-raised: #DED9CB;
+    --ink: #1B1A18;
+    --ink-soft: #58524A;
+    --ink-faint: #837C70;
+    --accent: #B85E1C;
+    --accent-2: #7A1F2B;
+    --line: rgba(27,26,24,0.16);
+    --line-strong: rgba(27,26,24,0.32);
+    --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Neue Haas Grotesk Text Pro", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #15141A;
+      --paper-raised: #1E1C24;
+      --ink: #EDEAE2;
+      --ink-soft: #B5AFA3;
+      --ink-faint: #7C766C;
+      --accent: #E8A33D;
+      --accent-2: #D06E82;
+      --line: rgba(237,234,226,0.14);
+      --line-strong: rgba(237,234,226,0.28);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #15141A;
+    --paper-raised: #1E1C24;
+    --ink: #EDEAE2;
+    --ink-soft: #B5AFA3;
+    --ink-faint: #7C766C;
+    --accent: #E8A33D;
+    --accent-2: #D06E82;
+    --line: rgba(237,234,226,0.14);
+    --line-strong: rgba(237,234,226,0.28);
+  }
+  :root[data-theme="light"] {
+    --paper: #E8E4DC;
+    --paper-raised: #DED9CB;
+    --ink: #1B1A18;
+    --ink-soft: #58524A;
+    --ink-faint: #837C70;
+    --accent: #B85E1C;
+    --accent-2: #7A1F2B;
+    --line: rgba(27,26,24,0.16);
+    --line-strong: rgba(27,26,24,0.32);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+
+  header.masthead { border-bottom: 3px solid var(--ink); padding-bottom: 1.75rem; margin-bottom: 2.25rem; }
+  .kicker {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 0.9rem;
+  }
+  h1 {
+    font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 400; letter-spacing: -0.01em; margin: 0 0 0.6rem; text-wrap: balance;
+  }
+  h1 em { color: var(--accent); font-style: italic; }
+  .dek { font-size: 1.05rem; color: var(--ink-soft); max-width: 62ch; margin: 0; }
+
+  .brief { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 2.5rem 0 3rem; border: 1px solid var(--line-strong); }
+  .brief > div { padding: 1.4rem 1.6rem; }
+  .brief > div:first-child { border-right: 1px solid var(--line-strong); }
+  @media (max-width: 620px) {
+    .brief { grid-template-columns: 1fr; }
+    .brief > div:first-child { border-right: none; border-bottom: 1px solid var(--line-strong); }
+  }
+  .brief h3 {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0 0 0.6rem; font-weight: 500;
+  }
+  .brief p { margin: 0; font-size: 0.95rem; color: var(--ink-soft); }
+  .brief strong { color: var(--ink); font-weight: 600; }
+
+  /* Verdict banner */
+  .verdict {
+    border-top: 4px solid var(--accent);
+    background: var(--paper-raised);
+    padding: 2rem 2rem 2.2rem;
+    margin: 0 0 3.5rem;
+  }
+  .verdict .kicker { margin-bottom: 0.5rem; }
+  .verdict h2 {
+    font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.4rem);
+    margin: 0 0 0.9rem; font-weight: 600; text-wrap: balance;
+  }
+  .verdict p { font-size: 0.98rem; color: var(--ink-soft); max-width: 68ch; margin: 0 0 0.8rem; }
+  .verdict p:last-child { margin-bottom: 0; }
+  .verdict strong { color: var(--ink); }
+
+  /* Reels / dive sections */
+  .reel { margin-bottom: 3.2rem; }
+  .reel-head { display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 0.3rem; flex-wrap: wrap; }
+  .reel-label {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); white-space: nowrap;
+  }
+  .reel h2 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 400; margin: 0; }
+  .reel-sub { font-size: 0.9rem; color: var(--ink-faint); margin: 0.2rem 0 1.3rem; max-width: 62ch; }
+
+  .fit-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line-strong); border: 1px solid var(--line-strong); margin-top: 1.4rem;
+  }
+  @media (max-width: 620px) { .fit-grid { grid-template-columns: 1fr; } }
+  .fit-card { background: var(--paper); padding: 1.5rem 1.6rem; }
+  .fit-card h4 {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 0.6rem;
+  }
+  .fit-card p { font-size: 0.92rem; color: var(--ink-soft); margin: 0; }
+  .fit-card p + p { margin-top: 0.6rem; }
+  .fit-card em { color: var(--ink); font-style: italic; }
+
+  .caution-block {
+    margin-top: 1.6rem; padding: 1.3rem 1.5rem;
+    border: 1px dashed var(--line-strong); font-size: 0.9rem; color: var(--ink-soft);
+  }
+  .caution-block strong { color: var(--ink); }
+  .caution-block ul { margin: 0.5rem 0 0; padding-left: 1.2rem; }
+  .caution-block li { margin-bottom: 0.4rem; }
+
+  /* Taglines */
+  .taglines { margin-top: 3.5rem; }
+  .tagline-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line);
+  }
+  .tagline-row:first-of-type { border-top: 1px solid var(--line); }
+  .tagline-text { font-family: var(--font-display); font-style: italic; font-size: 1.25rem; }
+  .tagline-why { font-size: 0.82rem; color: var(--ink-faint); max-width: 30ch; text-align: right; }
+  @media (max-width: 620px) {
+    .tagline-row { flex-direction: column; gap: 0.3rem; }
+    .tagline-why { text-align: left; }
+  }
+
+  /* Journey (consolidated history) */
+  .journey { margin-top: 4.5rem; padding-top: 2.5rem; border-top: 3px double var(--line-strong); }
+  .journey > .reel-sub { margin-bottom: 2rem; }
+  .journey-round { padding: 1.3rem 0; border-bottom: 1px solid var(--line); }
+  .journey-round:first-of-type { border-top: 1px solid var(--line); }
+  .journey-round-head { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; }
+  .journey-round .round-label {
+    font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent-2);
+  }
+  .journey-round h4 { font-family: var(--font-display); font-size: 1.2rem; margin: 0; font-weight: 600; }
+  .journey-round .genesis { font-size: 0.88rem; color: var(--ink-soft); font-style: italic; margin: 0.4rem 0 0.55rem; max-width: 62ch; }
+  .journey-round .names { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-faint); letter-spacing: 0.01em; }
+
+  /* Footer notes */
+  .notes { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line-strong); display: grid; gap: 1.4rem; }
+  .notes h3 {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent-2); margin: 0 0 0.4rem;
+  }
+  .notes p { margin: 0; font-size: 0.92rem; color: var(--ink-soft); max-width: 68ch; }
+  .notes ol { margin: 0.3rem 0 0; padding-left: 1.2rem; font-size: 0.92rem; color: var(--ink-soft); }
+  .notes li { margin-bottom: 0.3rem; }
+  .notes a { color: var(--accent); }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">Naming Session &middot; Decision Draft</p>
+    <h1>The <em>Playback</em> Room.</h1>
+    <p class="dek">Four passes in, this is where they converged. It holds up under both of your tests and the wireframes. The full trail is below.</p>
+  </header>
+
+  <div class="brief">
+    <div>
+      <h3>James wants</h3>
+      <p>A name he never has to <strong>describe</strong>. It should tell you what it is on first read.</p>
+    </div>
+    <div>
+      <h3>Michael wants</h3>
+      <p>Something that reads <strong>modern without reading trendy</strong>. Right in five years, not five months.</p>
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="verdict">
+    <p class="kicker">The Pick</p>
+    <h2>The Playback Room does double duty as the company. &ldquo;A playback&rdquo; is what you call one session.</h2>
+    <p>Two forms, one system. <strong>The Playback Room</strong> is the brand: the wordmark, the domain, the thing on a deck. <strong>Playback</strong> is how you&rsquo;d say it out loud, the way you&rsquo;d tell a friend &ldquo;I was at a playback last night.&rdquo; Neither name needs the other explained first.</p>
+  </div>
+
+  <!-- WHY IT FITS -->
+  <section class="reel">
+    <div class="reel-head">
+      <span class="reel-label">The Deep Dive</span>
+      <h2>Why it holds up</h2>
+    </div>
+    <p class="reel-sub">Run against both of your tests, the wireframes, and the comp set researched over the last few passes.</p>
+
+    <div class="fit-grid">
+      <div class="fit-card">
+        <h4>The Ritual, Intact</h4>
+        <p>Dailies work because someone with real authority sees the unfinished thing before the public does. A playback is the same room, one door over: artist, A&amp;R rep, and label staff hearing a record together for the first time. The Playback Room opens that door. The curator is the one whose eye you trust, and you get let into the screening.</p>
+      </div>
+      <div class="fit-card">
+        <h4>Native to Both Crafts</h4>
+        <p>&ldquo;Playback&rdquo; is standing vocabulary on a film set (on-set video playback of a take just shot) <em>and</em> in a control room (a mix playback for the artist). Cue, Sync, and Sleeve all needed a sentence of explanation to work for both formats. Playback doesn&rsquo;t need one. It&rsquo;s also the only name across four passes that can carry the company through the Phase 2 music launch without a rename.</p>
+      </div>
+      <div class="fit-card">
+        <h4>The Place You Asked For</h4>
+        <p>A playback room is a real, physical room: the space off a soundstage or a control room where the reviewing happens. It sits in the same register as Record Plant, Electric Lady, and Abbey Road, a plainly named room where the work does the talking. Government-grade, without borrowing an actual government word.</p>
+      </div>
+      <div class="fit-card">
+        <h4>Modern, Not Trend-Coded</h4>
+        <p>&ldquo;Playback&rdquo; predates streaming by decades. It&rsquo;s tape-era vocabulary that never went out of use. Nothing about it dates to a specific year the way Drop, Needle Drop, or Spin risk doing. It&rsquo;ll read the same in 2031 as it does now.</p>
+      </div>
+      <div class="fit-card">
+        <h4>Clear of the Comp Set</h4>
+        <p>Scener, Kast, Teleparty, Rave, Watchly, and Turntable Live all read like apps. Ministry of Sound and Public Records both already own their specific bureaucratic-pun move. Playback Room borrows the same authority as those without copying either one&rsquo;s actual joke.</p>
+      </div>
+      <div class="fit-card">
+        <h4>Already Living in the Wireframes</h4>
+        <p>The live session screen is already unlabeled in the nav except for an icon, and its own design notes call the ON AIR ignition the product&rsquo;s &ldquo;signature&rdquo; moment. Call the company Playback Room and that screen can finally say <em>Playback</em>. The brand and the core screen become the same idea instead of competing for the word, the way Marquee or bare Room would have.</p>
+      </div>
+    </div>
+
+    <div class="caution-block">
+      <strong>Worth resolving before it&rsquo;s final:</strong>
+      <ul>
+        <li><strong>Trademark and domain:</strong> &ldquo;playback&rdquo; is common enough that a proper search matters more here than it did for Cue or The Rep. Run it before getting attached.</li>
+        <li><strong>Length in tight UI:</strong> &ldquo;The Playback Room&rdquo; is long for a nav bar or app icon label. The two-tier system above (full name for the brand, &ldquo;Playback&rdquo; for in-product use) is the fix, but worth deciding on purpose rather than by default.</li>
+        <li><strong>Say it out loud:</strong> &ldquo;I was at a playback last night&rdquo; and &ldquo;come to the Playback Room&rdquo; both need to survive being said by a real person to a friend. Reading well on a page is a different, easier test.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TAGLINES -->
+  <section class="taglines">
+    <div class="reel-head">
+      <span class="reel-label">House Style</span>
+      <h2 style="font-size:1.5rem;">Four ways to say what happens inside it</h2>
+    </div>
+    <div class="tagline-row">
+      <div class="tagline-text">Where the room hears it first.</div>
+      <div class="tagline-why">States the insider-access benefit directly.</div>
+    </div>
+    <div class="tagline-row">
+      <div class="tagline-text">Yesterday&rsquo;s rushes. Tonight&rsquo;s record.</div>
+      <div class="tagline-why">Names both crafts without saying &ldquo;film&rdquo; or &ldquo;music.&rdquo;</div>
+    </div>
+    <div class="tagline-row">
+      <div class="tagline-text">Drop a link. Watch together.</div>
+      <div class="tagline-why">The product&rsquo;s own line. Still holds.</div>
+    </div>
+    <div class="tagline-row">
+      <div class="tagline-text">Someone&rsquo;s got the mic.</div>
+      <div class="tagline-why">Playful counterweight, for launch social.</div>
+    </div>
+  </section>
+
+  <!-- CONSOLIDATED JOURNEY -->
+  <section class="journey">
+    <div class="reel-head">
+      <span class="reel-label">How We Got Here</span>
+      <h2 style="font-size:1.7rem;">The naming journey, consolidated</h2>
+    </div>
+    <p class="reel-sub">Four passes, each one a reaction to the last. Full lists retired in favor of the shortlist each round produced.</p>
+
+    <div class="journey-round">
+      <div class="journey-round-head">
+        <span class="round-label">Pass One</span>
+        <h4>Says exactly what it is</h4>
+      </div>
+      <p class="genesis">Genesis: the founding brief. James wants a name nobody has to describe, Michael wants modern without trendy, and both like curator and club. This pass named the product&rsquo;s own mechanics first, the way naming exercises usually start.</p>
+      <p class="names">Cue &middot; The Booth &middot; Curator&rsquo;s Cut &middot; Liner &middot; Footnotes &middot; Selects &middot; On Air &middot; The Rep</p>
+    </div>
+
+    <div class="journey-round">
+      <div class="journey-round-head">
+        <span class="round-label">Pass Two</span>
+        <h4>What the audience gains</h4>
+      </div>
+      <p class="genesis">Genesis: &ldquo;I can&rsquo;t say I love these. The literal ones are too boring.&rdquo; This pass pivoted from what the product does to what a person walks away with after using it.</p>
+      <p class="names">Deep Cut &middot; Closer &middot; Attuned &middot; In on It &middot; Kindred &middot; The Insider &middot; Backstage &middot; The Initiated</p>
+    </div>
+
+    <div class="journey-round">
+      <div class="journey-round-head">
+        <span class="round-label">Pass Three</span>
+        <h4>Government-grade, a place in the name</h4>
+      </div>
+      <p class="genesis">Genesis: a request to comp against real competitors and lean into something &ldquo;professional, almost like a government agency,&rdquo; with The Record Plant as the model and a place folded into the name.</p>
+      <p class="names">The Department of Record &middot; The Cutting Room &middot; The Listening Bureau &middot; The Preservation Society &middot; The Curators Guild &middot; The Print Room &middot; House of Record &middot; The Reel Company</p>
+    </div>
+
+    <div class="journey-round">
+      <div class="journey-round-head">
+        <span class="round-label">Pass Four</span>
+        <h4>Dailies, solved for two crafts</h4>
+      </div>
+      <p class="genesis">Genesis: a specific instinct for &ldquo;dailies,&rdquo; the director&rsquo;s daily footage review, that needed its real music-side counterpart instead of a bolted-on compound. This pass landed on playback, the A&amp;R and studio term for the same ritual.</p>
+      <p class="names">Playback &middot; The Playback &middot; Playback Room &middot; Daily Takes &middot; The Daily Take &middot; Dailies &amp; Playback &middot; Rushes &amp; Rough Mixes</p>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <div class="notes">
+    <div>
+      <h3>Next pass</h3>
+      <ol>
+        <li>Run domain and trademark checks on <strong>Playback</strong>, <strong>The Playback</strong>, and <strong>Playback Room</strong> specifically. These are common enough words that this matters more than it did earlier in the process.</li>
+        <li>Decide on purpose whether The Playback Room is the company name, covering film now and music in Phase 2, or only the film product. It&rsquo;s one of the few names built to survive that decision either way.</li>
+        <li>Mock it into the actual wireframes at <a href="https://beingmtm714.github.io/projectionist-wireframes/">beingmtm714.github.io/projectionist-wireframes</a>, specifically the marquee header, the one-sheet, and the unlabeled nav icon for the live session, to see it in place instead of on a page.</li>
+      </ol>
+    </div>
+  </div>
+
+</div>

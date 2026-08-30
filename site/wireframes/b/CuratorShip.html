@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CuratorShip · Projectionist wireframes</title>
+<meta name="description" content="The promo kit, and where the room came from.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<link rel="stylesheet" href="../kit.css">
+<style>
+  body{background:#0b0b0e}
+  .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
+    padding:11px 16px;background:#e7e3da;color:#1a1917;border-bottom:1px solid rgba(0,0,0,.12)}
+  .bar a{color:#57534a}
+  .bar a:hover{color:#a01a86}
+  .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
+    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+  .bar .ids{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;color:#8a8477;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar .back,.bar .zoom{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+  .zoom{border:1px solid rgba(0,0,0,.2);border-radius:999px;background:transparent;color:#57534a;
+    padding:5px 11px;cursor:pointer;font-family:inherit}
+  .zoom:hover{color:#a01a86;border-color:#a01a86}
+  .memo{background:#14110b;color:#b8a77f;padding:12px 16px;font-family:'Source Serif 4',Georgia,serif;
+    font-size:14.5px;line-height:1.5;border-bottom:1px solid #453a26}
+  .memo summary{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:#8a7c5c;cursor:pointer}
+  .memo[open] summary{margin-bottom:10px}
+  .memo p{margin:0 0 9px;max-width:70ch}
+  .memo p:last-child{margin:0}
+  .stage{padding:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .art{transform-origin:top left}
+  /* A board is a row of screens. Shrinking the whole row to fit a laptop turns
+     1440px screens into diagrams you cannot read, so the row is allowed to wrap
+     and the screens stack down the page instead. */
+  .art.wrap > div:first-child{flex-wrap:wrap!important;align-content:flex-start!important}
+  .pager{display:flex;justify-content:space-between;gap:16px;padding:16px 16px 40px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase}
+  .pager span{color:#3a382f}
+  @media (max-width:520px){.bar .ids{display:none}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="../">← Boards</a>
+  <div class="who"><span class="name">CuratorShip</span><span class="ids">1J8</span></div>
+  <button class="zoom" id="zoom" type="button">Actual size</button>
+</header>
+<details class="memo" id="memo" open><summary>1 note on this board</summary><p>What the curator gets once the session is ready, and what she learns afterwards.</p>
+<p>Every channel she posts to gets its own link, so she finds out which of them actually fills a room. Nobody else in her life can tell her that.</p></details>
+<div class="stage" id="stage">
+  <div class="art" id="art" data-w="3020" data-h="1040">
+<div style="background:#0b0b0e;padding:44px;display:flex;gap:44px;align-items:flex-start">
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid" style="color:var(--silver)">1J8</span> &nbsp; Session ready, and the promo kit</div>
+    <div class="desk up">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div style="flex:1;padding:36px 44px;display:flex;flex-direction:column;border-right:1px solid var(--hair)">
+        <div style="font-size:21px;font-weight:600">Session ready</div>
+        <div style="font-size:13px;color:var(--dim);margin-top:4px">Everything is in and it works. Now go fill the room.</div>
+
+        <div style="display:flex;gap:26px;margin-top:16px;padding:12px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)">
+          <div><div class="cap" style="font-size:9px">film</div><div style="font-size:12px;margin-top:3px">In the Mood for Love</div></div>
+          <div><div class="cap" style="font-size:9px">showtime</div><div class="mono" style="font-size:12px;margin-top:3px">THU 8:00PM</div></div>
+          <div><div class="cap" style="font-size:9px">notes</div><div class="mono" style="font-size:12px;margin-top:3px">6 armed</div></div>
+          <div><div class="cap" style="font-size:9px">rehearsed</div><div style="font-size:12px;margin-top:3px">twice</div></div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:20px">
+          <div class="cap">Your channels</div>
+          <div class="cap" style="font-size:9px;color:var(--dimmer)">each link is tracked separately</div>
+        </div>
+
+        <div style="margin-top:11px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:14px;padding:9px 0;border-top:1px solid var(--hair)">
+            <div style="font-size:13px;width:112px;flex-shrink:0">Substack</div>
+            <div class="mono" style="font-size:11px;color:var(--dim);flex:1">projection.ist/n/mood/sub</div>
+            <div class="cap" style="font-size:9px;color:var(--gold)">copy</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:9px 0;border-top:1px solid var(--hair)">
+            <div style="font-size:13px;width:112px;flex-shrink:0">Instagram story</div>
+            <div class="mono" style="font-size:11px;color:var(--dim);flex:1">projection.ist/n/mood/igs</div>
+            <div class="cap" style="font-size:9px;color:var(--gold)">copy</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:9px 0;border-top:1px solid var(--hair)">
+            <div style="font-size:13px;width:112px;flex-shrink:0">Instagram bio</div>
+            <div class="mono" style="font-size:11px;color:var(--dim);flex:1">projection.ist/n/mood/igb</div>
+            <div class="cap" style="font-size:9px;color:var(--gold)">copy</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:9px 0;border-top:1px solid var(--hair)">
+            <div style="font-size:13px;width:112px;flex-shrink:0">TikTok</div>
+            <div class="mono" style="font-size:11px;color:var(--dim);flex:1">projection.ist/n/mood/tt</div>
+            <div class="cap" style="font-size:9px;color:var(--gold)">copy</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:9px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)">
+            <div style="font-size:13px;width:112px;flex-shrink:0;color:var(--dimmer)">Add a channel</div>
+            <div class="mono" style="font-size:11px;color:var(--dimmer);flex:1">letterboxd, X, Discord, a newsletter</div>
+            <div class="cap" style="font-size:9px;color:var(--dimmer)">+</div>
+          </div>
+        </div>
+
+        <div class="cap" style="margin-top:22px;margin-bottom:11px">Reminders</div>
+        <div style="display:flex;gap:9px">
+          <div class="pill" style="border-color:var(--paper);color:var(--paper)">announce now</div>
+          <div class="pill" style="border-color:var(--paper);color:var(--paper)">2 days out</div>
+          <div class="pill" style="border-color:var(--paper);color:var(--paper)">day of</div>
+          <div class="pill">1 hour before</div>
+        </div>
+        <div style="font-size:11px;color:var(--dimmer);margin-top:9px">Arm it once. It posts and pushes on your behalf so you do not have to remember.</div>
+
+        <div style="margin-top:auto;padding-top:18px"><div class="btnp">Arm the sequence</div></div>
+      </div>
+
+      <div style="width:400px;padding:34px 30px;flex-shrink:0;display:flex;flex-direction:column">
+        <div class="cap" style="margin-bottom:12px">How it looks posted</div>
+        <div style="border:1px solid var(--hair);border-radius:9px;overflow:hidden">
+          <div style="height:104px;background:var(--house-up);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px">
+            <div class="marq" style="font-size:14px;color:var(--gold);text-align:center;line-height:1.2">IN THE MOOD<br>FOR LOVE</div>
+            <div class="cap" style="font-size:8px;color:var(--gold);opacity:.7">THU 8:00PM &middot; HOSTED BY NAOMI</div>
+          </div>
+          <div style="padding:11px 13px">
+            <div style="font-size:12px;font-weight:600">A screening with Naomi</div>
+            <div style="font-size:11px;color:var(--dim);margin-top:4px;line-height:1.45">Watch on your own TV. My notes land on your phone.</div>
+          </div>
+        </div>
+
+        <div class="cap" style="margin-top:20px;margin-bottom:10px">Draft post</div>
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <div class="pill" style="padding:3px 9px;font-size:10px;border-color:var(--paper);color:var(--paper)">Substack</div>
+          <div class="pill" style="padding:3px 9px;font-size:10px">IG</div>
+          <div class="pill" style="padding:3px 9px;font-size:10px">TikTok</div>
+        </div>
+        <div style="border:1px solid var(--hair);border-radius:7px;padding:12px 13px;font-size:12px;line-height:1.55;color:var(--dim)">Thursday at 8. We are watching In the Mood for Love together and I am going to talk about the dresses the entire time. Bring your own copy, I will bring the notes.</div>
+        <div class="cap" style="font-size:9px;margin-top:8px;color:var(--dimmer)">yours to rewrite &middot; each channel gets its own</div>
+
+        <div style="margin-top:auto;font-size:11px;color:var(--dimmer);line-height:1.55">Tracked links are how you find out which of your channels is actually worth posting to.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid" style="color:var(--silver)">1J8</span> &nbsp; After the screening, by channel</div>
+    <div class="desk up">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div style="flex:1;padding:36px 44px;display:flex;flex-direction:column;border-right:1px solid var(--hair)">
+        <div style="font-size:21px;font-weight:600">Where the room came from</div>
+        <div style="font-size:13px;color:var(--dim);margin-top:4px">In the Mood for Love &middot; Thu 21 Aug</div>
+
+        <div style="display:flex;gap:12px;margin-top:20px;padding:14px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)">
+          <div style="flex:1"><div class="mono" style="font-size:22px">19,400</div><div class="cap" style="font-size:9px">reached</div></div>
+          <div style="flex:1"><div class="mono" style="font-size:22px">228</div><div class="cap" style="font-size:9px">reserved</div></div>
+          <div style="flex:1"><div class="mono" style="font-size:22px">142</div><div class="cap" style="font-size:9px">seated</div></div>
+          <div style="flex:1"><div class="mono" style="font-size:22px;color:var(--gold)">1.0%</div><div class="cap" style="font-size:9px">of your following</div></div>
+        </div>
+
+        <div style="display:flex;gap:14px;padding:10px 0;margin-top:14px">
+          <div class="cap" style="font-size:9px;flex:1">channel</div>
+          <div class="cap" style="font-size:9px;width:64px;text-align:right">reached</div>
+          <div class="cap" style="font-size:9px;width:64px;text-align:right">reserved</div>
+          <div class="cap" style="font-size:9px;width:56px;text-align:right">seated</div>
+          <div class="cap" style="font-size:9px;width:56px;text-align:right">rate</div>
+        </div>
+
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--hair);align-items:baseline">
+          <div style="flex:1;font-size:14px;color:var(--gold)">Substack</div>
+          <div class="mono" style="font-size:13px;width:64px;text-align:right">2,100</div>
+          <div class="mono" style="font-size:13px;width:64px;text-align:right">95</div>
+          <div class="mono" style="font-size:13px;width:56px;text-align:right">71</div>
+          <div class="mono" style="font-size:13px;width:56px;text-align:right;color:var(--gold)">4.5%</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--hair);align-items:baseline">
+          <div style="flex:1;font-size:14px">Instagram story</div>
+          <div class="mono" style="font-size:13px;width:64px;text-align:right">5,800</div>
+          <div class="mono" style="font-size:13px;width:64px;text-align:right">62</div>
+          <div class="mono" style="font-size:13px;width:56px;text-align:right">38</div>
+          <div class="mono" style="font-size:13px;width:56px;text-align:right">1.1%</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--hair);align-items:baseline">
+          <div style="flex:1;font-size:14px">Instagram bio</div>
+          <div class="mono" style="font-size:13px;width:64px;text-align:right">1,200</div>
+          <div class="mono" style="font-size:13px;width:64px;text-align:right">18</div>
+          <div class="mono" style="font-size:13px;width:56px;text-align:right">9</div>
+          <div class="mono" style="font-size:13px;width:56px;text-align:right">1.5%</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);align-items:baseline">
+          <div style="flex:1;font-size:14px;color:var(--dim)">TikTok</div>
+          <div class="mono" style="font-size:13px;width:64px;text-align:right;color:var(--dim)">9,400</div>
+          <div class="mono" style="font-size:13px;width:64px;text-align:right;color:var(--dim)">48</div>
+          <div class="mono" style="font-size:13px;width:56px;text-align:right;color:var(--dim)">21</div>
+          <div class="mono" style="font-size:13px;width:56px;text-align:right;color:var(--dim)">0.5%</div>
+        </div>
+
+        <div style="margin-top:auto;padding-top:16px;font-size:11px;color:var(--dimmer)">Show rate 62% &middot; reserved to seated</div>
+      </div>
+
+      <div style="width:400px;padding:34px 30px;flex-shrink:0;display:flex;flex-direction:column">
+        <div style="border:1px solid var(--gold);border-radius:8px;padding:16px 17px">
+          <div class="cap" style="font-size:9px;color:var(--gold)">what this tells you</div>
+          <div style="font-size:15px;line-height:1.5;margin-top:9px">Substack converts nine times better than TikTok. It is a tenth of the reach and half your room.</div>
+          <div style="font-size:12px;color:var(--dim);margin-top:11px;line-height:1.5">Post there first next time. We will draft it for you on Tuesday.</div>
+        </div>
+
+        <div class="cap" style="margin-top:24px;margin-bottom:10px">Across your three screenings</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13px">
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--dim)">Best channel</span><span>Substack</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--dim)">Returning</span><span class="mono">38%</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--dim)">Your take</span><span class="mono">$421.74</span></div>
+        </div>
+
+        <div style="margin-top:auto;font-size:11px;color:var(--dimmer);line-height:1.55">Nobody else can tell a curator this. It is the reason she comes back for the fourth one.</div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+<nav class="pager"><a href="./CuratorLive.html">← CuratorLive</a><a href="./Discover.html">Discover →</a></nav>
+<script>
+(function(){
+  var art=document.getElementById('art'),stage=document.getElementById('stage'),
+      btn=document.getElementById('zoom');
+  if(!art||!stage||!btn){return}
+  var W=parseInt(art.getAttribute('data-w'),10),H=parseInt(art.getAttribute('data-h'),10);
+  var root=art.firstElementChild;
+  // Only a row of screens can be reflowed. Main is a single column and is left alone.
+  var canWrap=false;
+  try{canWrap=!!root&&getComputedStyle(root).flexDirection==='row'&&root.children.length>1}catch(e){}
+  var actual=false,fitScale=1;
+  function avail(){return Math.max(320,stage.clientWidth-32)}
+  function apply(){
+    try{
+      btn.textContent=actual?'Fit to screen':'Actual size';
+      art.classList.remove('wrap');
+      art.style.width='';art.style.transform='';stage.style.height='';
+      if(actual){return}
+      var a=avail();
+      if(!canWrap){
+        // Nothing to reflow. Scale to fit, which is what Main wants anyway.
+        if(W<=a){return}
+        var s0=Math.min(1,a/W);
+        fitScale=s0;
+        art.style.transform='scale('+s0+')';
+        stage.style.height=Math.ceil(Math.max(H,art.scrollHeight)*s0)+'px';
+        return;
+      }
+      // Measure the screens at their natural size before constraining anything.
+      art.classList.add('wrap');
+      var widest=0,i;
+      for(i=0;i<root.children.length;i++){
+        widest=Math.max(widest,root.children[i].offsetWidth);
+      }
+      var cs=getComputedStyle(root);
+      var pad=(parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.paddingRight)||0);
+      // Wrap at the window, unless one screen is wider than the window on its own,
+      // in which case wrap at that screen and scale the difference away.
+      var w=Math.max(a,widest+pad);
+      art.style.width=w+'px';
+      var s=Math.min(1,a/w);
+      fitScale=s;
+      if(s<1){art.style.transform='scale('+s+')'}
+      stage.style.height=Math.ceil(art.scrollHeight*s)+'px';
+    }catch(e){}
+  }
+  btn.addEventListener('click',function(){
+    actual=!actual;apply();
+    if(actual){window.scrollTo(0,0)}
+  });
+  window.addEventListener('resize',apply);
+  apply();
+  // Wrapping saves a laptop but not a phone: a 1440px screen in a 375px window is
+  // still a shape rather than something you can read. Below a third, open it 1:1
+  // and let it scroll sideways, which is at least legible a column at a time.
+  if(!actual&&fitScale<0.35){actual=true;apply()}
+  // The board is what you came for; on a phone the notes start folded away.
+  try{
+    var memo=document.getElementById('memo');
+    if(memo&&window.innerWidth<700){memo.removeAttribute('open')}
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

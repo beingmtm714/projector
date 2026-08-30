@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Projectionist — Workroom</title>
+<style>
+  :root{
+    --paper:#e7e3da;
+    --ink:#1a1917;
+    --ink-soft:#57534a;
+    --ink-faint:#8a8477;
+    --line:rgba(0,0,0,.12);
+    --board:#14110b;
+    --board-line:#453a26;
+    --bulb:#f4e4bc;
+    --neon:#ff4fd8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',-apple-system,system-ui,sans-serif;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+  main{max-width:640px;width:100%;margin:0 auto;padding:64px 24px 80px;flex:1}
+
+  .board{background:var(--board);border:1px solid var(--board-line);border-radius:14px;padding:26px 22px;text-align:center;margin-bottom:52px}
+  .bulbs{height:6px;background-image:radial-gradient(circle at 5px 3px,rgba(244,228,188,.85) 0 1.8px,rgba(244,228,188,.15) 2.8px,transparent 3.5px);background-size:15px 6px;background-repeat:repeat-x;animation:chase 1.4s steps(2) infinite}
+  @keyframes chase{to{background-position-x:15px}}
+  .board h1{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:800;font-size:clamp(26px,6vw,38px);letter-spacing:.04em;text-transform:uppercase;color:var(--bulb);text-shadow:0 0 18px rgba(244,228,188,.30);margin:16px 0 6px;line-height:1.05}
+  .board .sub{font-family:ui-monospace,'JetBrains Mono',Menlo,monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#b8a77f;margin-bottom:18px}
+
+  .toc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  .toc li{border-top:1px solid var(--line)}
+  .toc li:last-child{border-bottom:1px solid var(--line)}
+  .toc a{display:flex;align-items:baseline;gap:18px;padding:22px 6px;text-decoration:none;color:inherit;transition:background .15s ease}
+  .toc a:hover{background:rgba(0,0,0,.045)}
+  .num{font-family:ui-monospace,'JetBrains Mono',Menlo,monospace;font-size:12px;color:var(--ink-faint);flex:none;width:28px}
+  .entry{flex:1;min-width:0}
+  .entry .name{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em;text-transform:uppercase}
+  .entry .desc{font-size:13.5px;color:var(--ink-soft);margin-top:3px;max-width:46ch}
+  .stamp{font-family:ui-monospace,'JetBrains Mono',Menlo,monospace;font-size:10.5px;color:var(--ink-faint);flex:none}
+  .toc a:hover .name{color:#a01a86}
+
+  footer{text-align:center;padding:0 24px 36px}
+  footer p{font-family:ui-monospace,'JetBrains Mono',Menlo,monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin:0}
+
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}}
+</style>
+</head>
+<body>
+<main>
+  <div class="board">
+    <div class="bulbs"></div>
+    <h1>Projectionist</h1>
+    <div class="sub">The workroom · MM &amp; JD</div>
+    <div class="bulbs"></div>
+  </div>
+
+  <ul class="toc">
+    <li>
+      <a href="wireframes/">
+        <span class="num">01</span>
+        <span class="entry">
+          <span class="name">Wireframes</span>
+          <span class="desc">Eleven boards. Curator tools first, then the audience: the Marquee, the pre-show sequence, the Room, the recap.</span>
+        </span>
+        <span class="stamp">AUG 30</span>
+      </a>
+    </li>
+    <li>
+      <a href="naming/">
+        <span class="num">02</span>
+        <span class="entry">
+          <span class="name">Naming</span>
+          <span class="desc">Selekt to The Playback Room to Projectionist. Kept as history; the current name is Projectionist.</span>
+        </span>
+        <span class="stamp">JUL 21</span>
+      </a>
+    </li>
+  </ul>
+</main>
+
+<footer><p>New explorations land here as they're added</p></footer>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+  <style>
+    /* PROJECTIONIST — the projection booth.
+       Two lighting states, not three temperatures. Light has a direction and
+       a source. See DESIGN.md; this file is the only place values live. */
+    :root{
+      --house-up:#141210;      /* warm ground, before and after   */
+      --house-down:#0a0b10;    /* cold ground, during the film    */
+      --paper:oklch(0.93 0.005 75);
+      --gold:#f4e4bc;          /* warm light, never hardware      */
+      --silver:#f2f7ff;        /* the live signal, rationed       */
+      --time:oklch(0.72 0.13 240);
+      --curtain:#7c1f2e;       /* light on cloth, T-0 + interval  */
+      --fold:#5c131c;
+      --hair:oklch(0.30 0.006 60);
+      --dim:oklch(0.58 0.008 70);
+      --dimmer:oklch(0.44 0.006 70);
+
+      /* Light arriving is an event; light leaving is a decay. */
+      --beam-rise:220ms;  --beam-fall:640ms;
+      --ease-strike:cubic-bezier(.2,.7,.3,1);
+      --ease-decay:cubic-bezier(.4,0,.7,.4);
+      --settle:900ms;     --curtain-travel:10s;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:#0b0b0e;color:var(--paper);
+      font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:var(--gold);text-decoration:none} a:hover{color:var(--silver)}
+
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+    .serif,.note{font-family:'Source Serif 4',Georgia,serif}
+    .note{font-size:15px;line-height:1.45}
+    .marq{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;letter-spacing:.01em}
+    .cap{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+      font-family:'JetBrains Mono',ui-monospace,monospace}
+    .sid{font-size:10px;letter-spacing:.14em;color:var(--gold);
+      font-family:'JetBrains Mono',ui-monospace,monospace}
+
+    /* the live signal, always with its glow, never on a resting surface */
+    .live,.glow{color:var(--silver);
+      text-shadow:0 0 8px rgba(244,248,255,.85),0 0 22px rgba(150,190,255,.5)}
+    .livedot{width:7px;height:7px;border-radius:50%;background:var(--silver);flex-shrink:0;
+      box-shadow:0 0 7px rgba(255,255,255,.6),0 0 20px rgba(160,195,255,.55)}
+
+    /* HOUSE UP — warm ambient from above, no visible source, matte */
+    .up{background:var(--house-up)}
+    .up::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+      background:radial-gradient(140% 70% at 50% -18%,
+        rgba(244,228,188,.20) 0%, rgba(244,228,188,.055) 44%, transparent 74%)}
+
+    /* HOUSE DOWN — one cold key from above and behind, deep falloff */
+    .dn{background:var(--house-down)}
+    .dn::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+      background:radial-gradient(120% 62% at 50% -14%,
+        rgba(242,247,255,.13) 0%, rgba(150,190,255,.035) 40%, transparent 70%)}
+    .up > *, .dn > *{position:relative;z-index:1}
+
+    /* the beam: struck, then allowed to decay */
+    .beam{position:absolute;inset:0;pointer-events:none;z-index:0;
+      background:radial-gradient(78% 46% at 50% 44%, rgba(242,247,255,.10), transparent 68%)}
+
+    /* the curtain: a rhythm of light on cloth, never a fill */
+    .cloth{position:absolute;top:0;bottom:0;z-index:0;
+      background:repeating-linear-gradient(90deg,
+        rgba(124,31,46,.05) 0px, rgba(124,31,46,.62) 7px,
+        rgba(160,48,64,.30) 13px, rgba(124,31,46,.07) 19px,
+        rgba(92,19,28,.02) 27px),
+        linear-gradient(to top, rgba(244,228,188,.22), transparent 68%)}
+    .lip{position:absolute;top:0;bottom:0;width:20px;z-index:1}
+
+    /* grain: projected light only. Never a resting surface. */
+    .grain{position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.24;mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .scratch{position:absolute;top:0;bottom:0;width:1px;z-index:2;pointer-events:none}
+
+    .phone{width:390px;height:800px;border-radius:26px;border:1px solid var(--hair);
+      overflow:hidden;display:flex;flex-direction:column;flex-shrink:0;position:relative}
+    .desk{width:1440px;height:900px;border-radius:10px;border:1px solid var(--hair);
+      overflow:hidden;display:flex;flex-shrink:0;position:relative;padding-top:38px}
+    .desk::after{content:"projection.ist/host";position:absolute;top:0;left:0;right:0;height:38px;
+      display:flex;align-items:center;justify-content:center;z-index:3;
+      background:#100e0c;border-bottom:1px solid var(--hair);
+      font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;
+      color:var(--dimmer);letter-spacing:.04em}
+    .dots{position:absolute;top:15px;left:16px;display:flex;gap:7px;z-index:4}
+    .dots i{width:9px;height:9px;border-radius:50%;background:oklch(0.32 0.006 60);display:block}
+
+    .hair{border:0;border-top:1px solid var(--hair);margin:0}
+    .pill{border:1px solid var(--hair);border-radius:999px;padding:5px 11px;font-size:11px;color:var(--dim)}
+    .card{border:1px solid var(--hair);border-radius:9px;padding:16px 17px;position:relative}
+    .btn{border:1px solid var(--hair);border-radius:6px;padding:11px 14px;font-size:13px;
+      color:var(--paper);text-align:center}
+    .btnp{border-radius:6px;padding:12px 14px;font-size:13px;font-weight:600;text-align:center;
+      background:var(--paper);color:#14110b}
+  </style>
+</helmet>
+
+<div style="background:#0b0b0e;padding:44px;display:flex;gap:26px;align-items:flex-start">
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D1</span> The lobby &middot; doors at T&minus;30</div>
+    <div class="phone up">
+      <div style="padding:26px 22px;text-align:center;border-bottom:1px solid rgba(244,228,188,.18)">
+        <div class="cap" style="font-size:9px;color:var(--gold);opacity:.65">Tonight &middot; 8:00PM &middot; 1H38M</div>
+        <div class="marq" style="font-size:30px;line-height:1.05;color:var(--gold);margin-top:12px;text-shadow:0 0 18px rgba(244,228,188,.22)">IN THE<br>MOOD<br>FOR LOVE</div>
+        <div class="cap" style="font-size:9px;color:var(--gold);opacity:.65;margin-top:12px">Hosted by Naomi</div>
+        <div class="mono" style="font-size:34px;color:var(--gold);margin-top:20px">&minus;26:41</div>
+        <div class="cap" style="font-size:9px;color:var(--gold);opacity:.5;margin-top:2px">to showtime</div>
+      </div>
+      <div style="padding:16px 20px;flex:1;display:flex;flex-direction:column">
+        <div class="cap" style="font-size:9px;color:var(--gold);opacity:.6">The room &middot; chat</div>
+        <div style="margin-top:14px;display:flex;flex-direction:column;gap:11px;font-size:13px;color:var(--gold)">
+          <div><span style="opacity:.55">naomi</span> No notes till the doors open. Settle in, cue your TV.</div>
+          <div><span style="opacity:.55">tess</span> first time watching this one</div>
+          <div><span style="opacity:.55">devin</span> oh you are in for it</div>
+          <div><span style="opacity:.55">mona</span> i have the criterion disc somewhere</div>
+        </div>
+        <div style="margin-top:auto;border:1px solid rgba(244,228,188,.25);border-radius:6px;padding:11px 13px;font-size:12px;color:rgba(244,228,188,.4)">say something...</div>
+        <div class="cap" style="font-size:9px;color:var(--gold);opacity:.5;margin-top:12px;text-align:center">142 seated</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D2</span> The calls &middot; T&minus;10</div>
+    <div class="phone up" style="align-items:center;justify-content:center;padding:30px">
+      <div style="border:1px solid rgba(244,228,188,.3);border-radius:9px;padding:14px 16px;width:100%">
+        <div class="cap" style="font-size:9px;color:var(--gold);opacity:.6">Projectionist &middot; now</div>
+        <div style="font-size:15px;color:var(--gold);margin-top:6px">10 minutes to showtime</div>
+        <div style="font-size:13px;color:var(--gold);opacity:.65;margin-top:3px">In the Mood for Love &middot; take your seat</div>
+      </div>
+      <div class="mono" style="font-size:64px;color:var(--gold);margin-top:60px">&minus;10:00</div>
+      <div class="cap" style="font-size:9px;color:var(--gold);opacity:.55;margin-top:10px">cue the film on your TV</div>
+      <div class="marq" style="font-size:15px;color:var(--gold);opacity:.75;margin-top:70px;text-align:center;line-height:1.2">IN THE MOOD<br>FOR LOVE</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D3</span> The leader &middot; 15 seconds</div>
+    <div class="phone up" style="align-items:center;justify-content:center;position:relative">
+      <div style="width:210px;height:210px;border-radius:50%;border:1px solid rgba(244,228,188,.35);display:flex;align-items:center;justify-content:center;position:relative">
+        <div style="width:150px;height:150px;border-radius:50%;border:1px solid rgba(244,228,188,.22);position:absolute"></div>
+        <div style="position:absolute;width:100%;height:1px;background:rgba(244,228,188,.22)"></div>
+        <div style="position:absolute;height:100%;width:1px;background:rgba(244,228,188,.22)"></div>
+        <div style="position:absolute;top:0;left:50%;width:1px;height:105px;background:var(--gold);transform-origin:bottom;transform:rotate(58deg)"></div>
+        <div class="mono" style="font-size:74px;color:var(--gold);position:relative;z-index:1">15</div>
+      </div>
+      <div class="grain" style="opacity:.30"></div>
+      <div class="scratch" style="left:23%;background:linear-gradient(to bottom,rgba(255,248,235,.34),transparent 58%)"></div>
+      <div class="scratch" style="left:71%;background:linear-gradient(to bottom,transparent 40%,rgba(255,248,235,.22))"></div>
+      <div style="display:none">
+      </div>
+      <div class="cap" style="font-size:9px;color:var(--gold);opacity:.55;margin-top:40px">press play together</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D4</span> T&minus;0 &middot; the curtains part</div>
+    <div class="phone dn" style="position:relative;align-items:center;justify-content:center">
+      <div class="cloth" style="left:0;right:69%"></div>
+      <div class="cloth" style="right:0;left:69%"></div>
+      <div class="lip" style="right:69%;background:linear-gradient(90deg,transparent,rgba(244,248,255,.16))"></div>
+      <div class="lip" style="left:69%;background:linear-gradient(270deg,transparent,rgba(244,248,255,.16))"></div>
+      <div class="grain" style="opacity:.18"></div>
+      <div style="position:relative;text-align:center">
+        <div style="display:flex;align-items:center;gap:9px;justify-content:center">
+          <div class="livedot"></div>
+          <div class="cap glow" style="font-size:11px">ON AIR</div>
+        </div>
+        <div class="mono" style="font-size:15px;color:var(--time);margin-top:14px">0:00:04</div>
+        <div class="marq" style="font-size:13px;margin-top:8px;opacity:.7">IN THE MOOD FOR LOVE</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D5</span> The room, before the first note</div>
+    <div class="phone dn">
+      <div style="padding:16px 20px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--hair)">
+        <div class="livedot"></div>
+        <div class="mono" style="font-size:12px;color:var(--time)">0:03:22</div>
+        <div class="cap" style="font-size:9px;margin-left:auto">142 in the room</div>
+      </div>
+      <div style="padding:18px 20px;flex:1;display:flex;flex-direction:column">
+        <div class="cap" style="font-size:9px">The room &middot; chat</div>
+        <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px;font-size:13px">
+          <div><span style="color:var(--gold)">tess</span> <span style="color:var(--dim)">that wallpaper</span></div>
+          <div><span style="color:var(--gold)">devin</span> <span style="color:var(--dim)">the rice cooker scene is coming and i am not ready</span></div>
+          <div><span style="color:var(--gold)">mona</span> <span style="color:var(--dim)">everyone is so polite it hurts</span></div>
+          <div><span style="color:var(--gold)">jae</span> <span style="color:var(--dim)">first watch here, no spoilers</span></div>
+          <div><span style="color:var(--gold)">tess</span> <span style="color:var(--dim)">you are safe with us</span></div>
+        </div>
+        <div style="margin-top:auto;border:1px solid var(--hair);border-radius:6px;padding:11px 13px;font-size:12px;color:var(--dimmer)">say something...</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D6</span> A Liner Note arrives</div>
+    <div class="phone dn">
+      <div style="padding:16px 20px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--hair)">
+        <div class="livedot"></div>
+        <div class="mono" style="font-size:12px;color:var(--time)">0:47:12</div>
+        <div class="cap" style="font-size:9px;margin-left:auto">naomi &middot; hosting</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:26px 24px">
+        <div class="cap glow" style="font-size:9px">now</div>
+        <div class="note" style="font-size:21px;line-height:1.45;margin-top:14px">Watch the cheongsams. Chang changes them scene to scene, a clock and a mood ring.</div>
+        <div class="cap" style="font-size:9px;margin-top:20px;color:var(--dimmer)">naomi</div>
+      </div>
+      <div style="border-top:1px solid var(--hair);padding:13px 20px;display:flex;align-items:center;gap:10px">
+        <div class="cap" style="font-size:9px">The room &middot; chat</div>
+        <div style="font-size:12px;color:var(--dimmer);flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">mona: i have never noticed the...</div>
+        <div class="cap" style="font-size:9px;color:var(--gold)">open</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D7</span> Intermission</div>
+    <div class="phone dn" style="align-items:center;justify-content:center;padding:34px 26px;text-align:center">
+      <div class="cap" style="font-size:9px">In the Mood for Love &middot; paused 0:55</div>
+      <div class="marq" style="font-size:22px;margin-top:26px">INTERMISSION</div>
+      <div class="mono" style="font-size:52px;margin-top:18px;color:var(--paper)">14:22</div>
+      <div style="font-size:14px;color:var(--dim);margin-top:22px;line-height:1.55">Stretch your legs. We pick it up together.<br><span style="color:var(--paper)">Pause your TV.</span></div>
+      <div class="btnp" style="margin-top:30px;width:100%">I have paused my TV</div>
+      <div class="cap" style="font-size:9px;margin-top:14px">128 of 142 paused</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D8</span> Telestrator</div>
+    <div class="phone dn">
+      <div style="padding:16px 20px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--hair)">
+        <div class="livedot"></div>
+        <div class="mono" style="font-size:12px;color:var(--time)">0:58:04</div>
+        <div class="cap glow" style="font-size:9px;margin-left:auto">naomi is drawing</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:22px">
+        <div style="position:relative;height:230px;border:1px solid var(--hair);border-radius:5px;background:rgba(255,255,255,.05);overflow:hidden">
+          <div class="cap" style="font-size:9px;position:absolute;top:10px;left:12px;color:var(--dimmer)">film still</div>
+          <div style="position:absolute;left:36%;top:28%;width:88px;height:88px;border:2px solid var(--silver);border-radius:50%;box-shadow:0 0 12px rgba(160,195,255,.55)"></div>
+          <div style="position:absolute;left:20%;top:70%;width:74px;height:2px;background:var(--silver);transform:rotate(-24deg);box-shadow:0 0 10px rgba(160,195,255,.5)"></div>
+        </div>
+        <div class="cap glow" style="font-size:9px;margin-top:16px;text-align:center">the curator is looking here</div>
+        <div class="cap" style="font-size:9px;margin-top:8px;text-align:center;color:var(--dimmer)">releases when Naomi does</div>
+      </div>
+      <div style="border-top:1px solid var(--hair);padding:13px 20px;display:flex;align-items:center;gap:10px">
+        <div class="cap" style="font-size:9px">The room &middot; chat</div>
+        <div style="font-size:12px;color:var(--dimmer);flex:1">minimised</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1D9</span> Reel change &middot; resync and away</div>
+    <div class="phone dn">
+      <div style="padding:16px 20px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--hair)">
+        <div style="width:7px;height:7px;border-radius:50%;background:var(--dimmer)"></div>
+        <div class="mono" style="font-size:12px;color:var(--dim)">you are at 1:00:12</div>
+      </div>
+      <div style="padding:26px 22px;flex:1;display:flex;flex-direction:column">
+        <div style="font-size:20px;font-weight:600">Welcome back</div>
+        <div style="font-size:13px;color:var(--dim);margin-top:5px">You stepped out. Two notes since.</div>
+
+        <div style="margin-top:22px;display:flex;flex-direction:column;gap:14px">
+          <div style="border-left:1px solid var(--hair);padding-left:13px">
+            <div class="mono" style="font-size:11px;color:var(--time)">0:52</div>
+            <div class="note" style="margin-top:4px">Every cooler has a tell. Watch him scan the room.</div>
+          </div>
+          <div style="border-left:1px solid var(--hair);padding-left:13px">
+            <div class="mono" style="font-size:11px;color:var(--time)">0:59</div>
+            <div class="note" style="margin-top:4px">The clock on the wall has not moved in three scenes.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:auto">
+          <div class="cap" style="font-size:9px;margin-bottom:11px">you have drifted 40s behind the room</div>
+          <div class="btnp" style="width:100%">Resync</div>
+          <div class="cap" style="font-size:9px;margin-top:12px;text-align:center;color:var(--dimmer)">not an error. a reel change.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":3920,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

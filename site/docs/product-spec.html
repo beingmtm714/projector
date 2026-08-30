@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Product Spec · Projectionist</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<style>
+  :root{--paper:#e7e3da;--card:#f2efe8;--ink:#1a1917;--ink-soft:#57534a;--ink-faint:#8a8477;
+    --line:rgba(0,0,0,.12);--board:#14110b;--board-line:#453a26;--bulb:#f4e4bc;--pink:#a01a86}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Hanken Grotesk',-apple-system,system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
+    padding:11px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .bar a{color:var(--ink-soft);text-decoration:none}
+  .bar a:hover{color:var(--pink)}
+  .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
+    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+  .bar .meta,.bar .back{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  main{max-width:720px;margin:0 auto;padding:44px 24px 80px}
+  .doc h1{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;
+    font-size:clamp(26px,6vw,38px);letter-spacing:.03em;text-transform:uppercase;
+    margin:0 0 6px;line-height:1.05}
+  .stamp{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:30px}
+  .toc{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:34px}
+  .toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+  .toc li{break-inside:avoid;margin:0 0 5px}
+  .toc a{font-size:13.5px;color:var(--ink-soft);text-decoration:none}
+  .toc a:hover{color:var(--pink)}
+  .doc h2{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;margin:46px 0 0;padding-bottom:9px;
+    border-bottom:1px solid var(--line);scroll-margin-top:60px}
+  .doc h3{font-size:17px;font-weight:700;margin:32px 0 0;scroll-margin-top:60px}
+  .doc h4{font-size:14px;font-weight:700;margin:24px 0 0;color:var(--ink-soft)}
+  .doc p{margin:12px 0;max-width:66ch}
+  .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
+  .doc li{margin:6px 0}
+  .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
+  .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
+    font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}
+  .doc code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.86em;
+    background:rgba(0,0,0,.055);padding:1px 5px;border-radius:3px}
+  .doc pre{background:var(--board);color:#d8cfae;padding:14px 16px;border-radius:8px;overflow-x:auto}
+  .doc pre code{background:none;color:inherit;padding:0;font-size:12.5px;line-height:1.55}
+  .doc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.28)}
+  .doc a:hover{color:var(--pink);border-color:var(--pink)}
+  .lockline{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+    border:1px solid var(--line);border-radius:999px;padding:5px 11px;display:inline-block;
+    margin:0 0 26px}
+  .doc a.xref{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.84em;
+    background:rgba(160,26,134,.07);border-bottom:1px solid rgba(160,26,134,.35);
+    padding:1px 5px;border-radius:3px}
+  .tw{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:400;white-space:nowrap}
+  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
+    border-top:1px solid var(--line);padding-top:18px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase}
+  .pager a{color:var(--ink-soft);text-decoration:none}
+  .pager a:hover{color:var(--pink)}
+  .pager span{color:#bdb8ac}
+  @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="./">← Documents</a>
+  <div class="who"><span class="name">Product Spec</span></div>
+  <span class="meta">30 August 2026</span>
+</header>
+<main class="doc">
+<h1>Product Spec</h1>
+<div class="stamp">What gets built and when, screen by screen. Eleven sections.</div>
+
+<nav class="toc"><ol><li><a href="#1-product-overview">1. Product overview</a></li><li><a href="#2-scope">2. Scope</a></li><li><a href="#3-vocabulary">3. Vocabulary</a></li><li><a href="#4-core-loop">4. Core loop</a></li><li><a href="#5-screen-inventory">5. Screen inventory</a></li><li><a href="#6-curator-tools">6. Curator tools</a></li><li><a href="#7-audience-app">7. Audience app</a></li><li><a href="#8-design-language">8. Design language</a></li><li><a href="#9-technical-requirements">9. Technical requirements</a></li><li><a href="#10-build-sequence">10. Build sequence</a></li><li><a href="#11-open-questions">11. Open questions</a></li></ol></nav>
+<p><strong>Product Specification</strong> · Updated 29 August 2026 · Film only · Internal</p>
+<p>Working name: <strong>Projectionist</strong>. <strong>Projector</strong> is under consideration, and either one also names the curators themselves.</p>
+<p>The build target is a git repository worked with coding agents. See <a class="xref" href="./sprint-plan.html">Projectionist-Sprint-Plan.md</a> for the calendar and <a class="xref" href="./build-plan.html">Projectionist-Build-Plan.md</a> for the hours.</p>
+<hr>
+<h2 id="1-product-overview">1. Product overview</h2>
+<p>Projectionist is a curator-led film companion. A curator picks a film, researches it, writes notes pinned to specific moments, and hosts a session at a set time. The audience watches the film on whatever service they already pay for, on their own TV, and keeps Projectionist open on a second screen where the curator&#x27;s Liner Notes arrive in sync alongside live chat with everyone else in the room.</p>
+<p>The reference: Pop-Up Video, live, with a film programmer instead of a producer and a room full of people instead of a solo viewer.</p>
+<p>The product never embeds or controls the film. It has no player, no streaming rights, and no platform integration. It runs on a shared start time and a session clock, which is why it works against Netflix, MUBI, Criterion, a rented file, or a disc, with no partnership required.</p>
+<p><strong>User types.</strong></p>
+<ul><li><strong>Curator.</strong> Has an account, Google sign-in only. Researches films, writes Liner Notes, sets showtimes, hosts the room. Also called a projectionist.</li><li><strong>Audience member.</strong> Arrives on a link. No account required to reserve a seat or to attend. Optional sign-in unlocks following curators, push notifications, and a Taste Passport.</li></ul>
+<hr>
+<h2 id="2-scope">2. Scope</h2>
+<h3 id="v1-the-curator-beta">V1, the curator beta</h3>
+<p>Everything a curator needs to author a session and confirm it works, with no audience present. Five design partners use it for roughly two weeks before any public screening.</p>
+<p><strong>In scope.</strong> Curator account and sign-in. Session creation. The note editor with <strong>manual mm:ss entry</strong>, body text and an attached still. The note queue with intermissions. The promo kit with per-channel tracked links. Session ready and the share link. The dry run.</p>
+<p><strong>Cut from V1 and not before the raise.</strong> The research agent (6.2, 6.4) and AI timestamping by screenshot or natural language (6.5, ways two and three). Both are specced in full because they are the next thing built, and neither is needed to test whether a curator can author a night. Manual mm:ss is the base path and it is sufficient.</p>
+<p>Also not in V1: the telestrator, ask other experts, and quote check.</p>
+<h3 id="v2-the-audience-app">V2, the audience app</h3>
+<p>Onboarding, the Marquee, the session page and reserve a seat, the Lobby, the calls, the leader, the Room, Liner Note delivery, chat, intermission, reel change, and the recap. Built in sprint four, alongside <strong>ticketing</strong>: <strong>$0.99</strong> taken at reserve, with the founding curators keeping all of it.</p>
+<p>Specced in full below because the two tracks share a data model, and because the curator tools are meaningless without knowing what they produce.</p>
+<h3 id="out-of-scope-entirely">Out of scope entirely</h3>
+<p>Music and DJ sessions, cut on the 6 August call and not deferred. Advertising, although the sponsored slot keeps reserved space (see 6.6). Co-curator roles, cinephile badging and the expert bank. Any corporate or funding structure. Any streaming platform partnership or player integration.</p>
+<hr>
+<h2 id="3-vocabulary">3. Vocabulary</h2>
+<p>Use these words in the UI, the code, and the schema. They came out of the wireframes and the call and both founders already speak them.</p>
+<div class="tw"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>Session</strong></td><td>One film, one curator, one showtime, one room</td></tr><tr><td><strong>Liner Note</strong></td><td>A note pinned to a timestamp that fires during the film</td></tr><tr><td><strong>One-sheet</strong></td><td>The curator&#x27;s pitch for why this film, shown before the session</td></tr><tr><td><strong>The Marquee</strong></td><td>The audience home surface, what is on now and what is coming</td></tr><tr><td><strong>The Lobby</strong></td><td>Doors open at T-30, chat before the show</td></tr><tr><td><strong>The calls</strong></td><td>The house calls at T-10 and T-2</td></tr><tr><td><strong>The leader</strong></td><td>The 15 second film leader countdown before T-0</td></tr><tr><td><strong>The Room</strong></td><td>The live surface during the film</td></tr><tr><td><strong>ON AIR</strong></td><td>The live indicator</td></tr><tr><td><strong>Telestrator</strong></td><td>The curator&#x27;s draw-on-a-still tool. Internally, the Madden chalkboard</td></tr><tr><td><strong>Reel change</strong></td><td>Falling behind and resyncing. Never called an error</td></tr><tr><td><strong>Seated</strong></td><td>Having a reserved place in a session</td></tr><tr><td><strong>Taste Passport</strong></td><td>The audience member&#x27;s record of sessions attended</td></tr><tr><td><strong>The Howl</strong></td><td>Announcing a session out to social at go-live</td></tr><tr><td><strong>Spielberg</strong></td><td>Internal name for the research AI. Not audience facing in V1</td></tr></tbody></table></div>
+<hr>
+<h2 id="4-core-loop">4. Core loop</h2>
+<ol><li>Curator picks a film and writes from what she knows. <em>Later: <strong>Research the film</strong> returns a structured brief, and <strong>ask other experts</strong> sends the film out to people whose taste she trusts. Neither is in the first build.</em></li><li>Curator writes Liner Notes, each pinned to a moment in the film, pulling from the brief, from what came back from their contacts, and from their own knowledge.</li><li>Curator sets intermissions, arms the queue, sets a showtime, and gets a share link.</li><li>Curator posts the link. Audience members reserve seats, and on the way in they answer two prompts: what they would add, and what they want to ask.</li><li>Doors open at T-30. The house calls at T-10 and T-2. At T-1 the curtain appears behind the chat, and at T-25 seconds it begins to part. The leader runs on the revealed surface from T-15 seconds. On zero the leader ends, the sign ignites, everyone presses play on their own screen, and the session clock starts.</li><li>Liner Notes fire on their marks. Chat runs throughout. Intermissions pause the clock. Anyone who drifts hits resync.</li><li>The film ends. The recap holds the notes, the Film DNA, and what the curator is running next.</li></ol>
+<hr>
+<h2 id="5-screen-inventory">5. Screen inventory</h2>
+<p>IDs match the wireframes so this document and the screens stay addressable to each other. There are eleven boards.</p>
+<p><strong>The link to send:</strong> https://beingmtm714.github.io/projectionist-wireframes/wireframes/ — an index of the boards, each on its own page. The canvas, for a laptop, is at https://beingmtm714.github.io/projectionist-wireframes/wireframes/canvas/.</p>
+<p><strong>Editing happens in the artboard sources</strong>, the <code>.dc.html</code> files in <code>Ventures/Projectionist/projectionist-wireframes/</code>, with <code>_kit.txt</code> in the same folder as the single source of every design value. After a change, run <code>projectionist-wireframes-site/build-wireframes.py</code> to regenerate the board pages, and push. The script carries a hardcoded board list, so a new artboard has to be registered in it or the build throws <code>KeyError</code>. Never edit the generated pages directly.</p>
+<p><strong>Curator (1j)</strong> · <em>desktop, 1440 by 900, except ⑥ and ⑦ which also need a phone layout</em> · ① Prep home · ② Research agent · ③ Findings to note · ④ Set the note · ⑤ Note queue · ⑥ Go live and press play · ⑦ On air · ⑧ Session ready and the promo kit · ⑨ The dry run</p>
+<p><strong>Audience, resting</strong> · <em>phone, 390 by 844</em> · 1e Onboarding (① the three cards, ② build your roster, ③ where you watch) · 1f The Marquee · 1g Session detail and reserve a seat (① the page, ② the two prompts on the way in) · 1h Recap and Film DNA · 1i Taste Passport</p>
+<p><strong>Audience, the night (1d)</strong> · <em>phone, 390 by 844</em> · ① The Lobby, T-30 · ② The calls, T-10 and T-2 · ③ The leader, 15 seconds · ④ T-0, the curtains part · ⑤ The Room before the first note · ⑥ A Liner Note arrives · ⑦ Intermission · ⑧ Telestrator · ⑨ Reel change, resync and away</p>
+<p><strong>Audience, Room layouts</strong> · 1a Liner Notes stream · 1b One note at a time · 1c Chat forward</p>
+<hr>
+<h2 id="6-curator-tools">6. Curator tools</h2>
+<p><strong>What is in the first build and what is not.</strong> V1 is 6.1, 6.5 with manual entry only, 6.6, 6.7, 6.8, 6.9 and 6.10. Deferred until after the raise: the research agent (6.2), findings to note (6.4), ask other experts (6.3), quote check and AI timestamping inside 6.5, and the telestrator. They are specced in full because they are the next thing built.</p>
+<p><strong>These are desktop screens.</strong> Designed at 1440 by 900, drawn that way in the wireframes, and not responsive down to a phone; below about 1100px they show a come-back-on-a-laptop message rather than a squeezed layout. The two exceptions are Go live (6.7) and On air (6.8), which a curator may run from a phone while the film plays on her television, and which are drawn at phone size in the wireframes as well. Go live lands in sprint three and On air in sprint four. See sections 9 and 10.</p>
+<h3 id="6-1-prep-home-1j">6.1 Prep home (1J①)</h3>
+<p>The curator&#x27;s session workspace. Header carries the film, the showtime, and the seat count. Three primary actions, in order:</p>
+<ul><li><strong>Research the film.</strong> No subtitle. The words &quot;brief the agent&quot; are cut, per James. The AI component is understood and does not need labelling.</li><li><strong>Ask other experts.</strong> Sits directly beneath Research the film, which is where James pictured it. It is also reachable from the research agent screen (6.2), since that is where a curator notices a gap.</li><li><strong>Write your notes</strong>, showing the count set so far.</li><li><strong>Go live</strong>, disabled until the queue has at least one armed note and a showtime.</li></ul>
+<h3 id="6-2-research-agent-1j-deferred">6.2 Research agent (1J②) · deferred</h3>
+<p>Scope chips, unchanged from the wireframes: locations, above the line, below the line, cast, period and context. A free-text prompt field, then <strong>Run deep research</strong>.</p>
+<p>The agent runs once per film on request, pulls only from sources the curator has approved during a one-time source discovery step, returns a structured brief with a source link on every claim, quotes short enough to sit inside fair use, and publishes nothing on its own. Target turnaround under five minutes.</p>
+<p>The brief returns in five parts: what is documented, what critics said on release, what is said about it now, novel or contested findings, and suggested Liner Note moments with a proposed timestamp and a one-line draft.</p>
+<p><strong>Ask other experts</strong> appears here as well. James&#x27;s framing was that the AI and the human channel answer different questions: &quot;on one hand it&#x27;s asking Spielberg, the name of our AI, or ask your buddy who also probably knows more about In the Mood for Love than Spielberg does.&quot;</p>
+<h3 id="6-3-ask-other-experts-1j-deferred">6.3 Ask other experts (1J②) · deferred</h3>
+<p><strong>When built, it is a compose and send out flow, not an in-network feature.</strong> The curator writes a short ask, the product generates a link, and the curator sends it through whatever channel they already use. James named the channel: &quot;I think Instagram is the kinda right place for something like this. Can I ping these other people that I talk to on it? Because I chat message my friends on Instagram.&quot;</p>
+<ul><li>Compose screen prefills with the film and a default ask, editable: &quot;I&#x27;m programming In the Mood for Love. Anything I should know?&quot;</li><li>Produces a public contribution link, plus a native share sheet.</li><li>The recipient needs no account. They land on a single field, write what they know, and submit. Optional name so the curator knows who to credit.</li><li>Contributions land in a <strong>From your experts</strong> tray next to the agent findings, in the same shape as findings, so either can be dragged into a note.</li></ul>
+<p>Deliberately not in V1, all noted by James or Michael as later: co-curator roles with admin control and a research role, cinephile levelling, genre badging, and a searchable expert bank. Michael drew that line on the call: &quot;the V1 of that is what you just described. The V2 is inviting them in as like a co-curator.&quot;</p>
+<h3 id="6-4-findings-to-note-1j-deferred">6.4 Findings to note (1J③) · deferred</h3>
+<p>The brief in a readable column, grouped by scope. Highlighting any line turns it into a note draft, carrying its citation. The contributions tray sits in the same column, under its own heading. <strong>Add as note</strong> on any item opens the note editor with the text and source prefilled.</p>
+<h3 id="6-5-set-the-note-1j-the-screen-the-product-lives-or-dies-on">6.5 Set the note (1J④), the screen the product lives or dies on</h3>
+<p>The note editor. Body text, an optional attached still, and a fire time. This is where the curator spends their evening, and the call was clear that the fire time is the friction that decides whether the product is usable.</p>
+<p><strong>Four ways to set the fire time. Manual is always present and never removed.</strong></p>
+<ol><li><strong>Manual.</strong> A mm:ss field. The base path. Everything else writes into this field, and the curator can always correct it.</li><li><strong>Screenshot.</strong> The curator uploads a frame from the film. The product identifies where that frame sits in the runtime and writes the timestamp. James on the flow: &quot;so that person would just basically take a picture of their screen?&quot; Yes. Curators are watching on a second or third screen while they prep.</li><li><strong>Natural language.</strong> A field that takes an instruction, not a number: &quot;around 1h15, when Chow walks into the noodle stall, draft a note about the cheongsam.&quot; The product resolves the moment, writes a timestamp, and drafts note text the curator edits.</li><li><strong>From the queue.</strong> Nudge an existing note by plus or minus seconds without reopening it.</li></ol>
+<p><strong>Implementation is a build-time investigation, not a solved problem.</strong> Screenshot to timestamp and language to timestamp are the two features most likely to slip. Candidate approaches, to be tested in this order: match against subtitle or script timing data for the film, which is cheap and accurate where the data exists; LLM vision against a frame plus scene data; and a fallback that returns a best-guess range with a confidence note rather than a false-precision timestamp. <strong>The UI must degrade honestly.</strong> If the product cannot place a frame, it says so and drops the curator into the manual field with whatever it inferred, rather than guessing silently.</p>
+<p><strong>Quote check</strong> is the easy win and ships first. Any quoted line in a note body gets a check action that verifies the wording against the script or subtitle data and offers the correction. James&#x27;s use case verbatim: &quot;I would quote a movie, I&#x27;m like, I don&#x27;t know if I got that quote right, so can you tell me what the actual quote is?&quot;</p>
+<p><strong>Still image.</strong> A note can carry an attached frame. The wireframes already show this as &quot;Still attached, tap to change.&quot; The still is what the telestrator draws on during the session.</p>
+<h3 id="6-6-note-queue-1j">6.6 Note queue (1J⑤)</h3>
+<p>Every note for the session in fire order, each showing its mark, its first line, and whether it carries a still. Reorder by editing the mark, not by dragging rows, since fire time is the only real ordering. Intermissions live in the same list as a distinct row type, so the curator sees the shape of the night in one column. Add a new note, or pull one from research.</p>
+<p>Michael&#x27;s requirement that the curator can improvise: &quot;there should be the opportunity for them to edit and move things around as they want to, obviously, amidst the film.&quot; The queue is editable live during a session, not frozen at go-live.</p>
+<p><strong>Reserved space for the sponsored slot.</strong> The &quot;this film brought to you by&quot; bar and the sponsored Liner Note are not built yet, but the note row and the pre-show surface both reserve the slot so adding it later is not a redesign.</p>
+<h3 id="6-7-go-live-and-press-play-1j">6.7 Go live and press play (1J⑥)</h3>
+<p>The launch screen. Curtains countdown, the note count armed, and one action: <strong>Go live and press play</strong>. Copy stays as the wireframes have it: &quot;Cue the film on your TV. On zero, press play on both. Your notes fire from that moment.&quot;</p>
+<p><strong>The Howl</strong> is a checkbox on this screen: announce to social at zero.</p>
+<h3 id="6-8-on-air-1j">6.8 On air (1J⑦)</h3>
+<p>The curator&#x27;s live panel. Chat as the main column. Session clock and seat count. The next note with its countdown, notes firing automatically, and a manual fire override for drift. A compose field to drop a note now, unplanned. Controls for group pause, intermission, telestrator, and end session.</p>
+<h3 id="6-9-the-promo-kit-1j">6.9 The promo kit (1J⑧)</h3>
+<p>When a session is created the curator gets a real screen with the link on it. Michael named this as the missing piece: &quot;I create my event, then I should have a link that I can then share out and post on social.&quot; It is the first link in the entire chain and nothing in the audience journey happens without it.</p>
+<p>It is also the highest-leverage surface in the product, because reach to reservation is half the funnel and the follower-to-attendee conversion rate is what the whole business turns on. So this screen is a promo kit rather than a copy button.</p>
+<p><strong>What it holds:</strong></p>
+<ul><li><strong>The share card</strong>, previewed as it will render when posted, per platform.</li><li><strong>Per-channel tracked links.</strong> A distinct link for Instagram bio, story, TikTok, Substack, newsletter, X, and anywhere else the curator posts. This is the part that matters most, see below.</li><li><strong>Draft posts per channel</strong>, editable, in the curator&#x27;s own register rather than ours. Story text is not newsletter text.</li><li><strong>A reminder sequence</strong> the curator can arm once: an announcement, a two-days-out nudge, a day-of, and an hour-of. Fired from here so she does not have to remember.</li><li><strong>A results view</strong> after the screening: reach, reservations, and attendance broken out by channel.</li></ul>
+<p><strong>Per-channel tracked links are the point.</strong> Three things follow from them that nothing else in the product delivers:</p>
+<ol><li>The curator learns which of her channels actually converts. Telling someone her Substack converts six times better than her TikTok is an insight she cannot get anywhere else, and it is a reason to keep using the tool rather than posting a bare link.</li><li>We get a real denominator for the conversion metric rather than an estimate. Reach is otherwise unmeasurable to us.</li><li>Across a cohort it produces a per-channel conversion dataset, which is the thing that tells us who to recruit next and how to coach them.</li></ol>
+<p><strong>Deliberately not a third-party integration.</strong> A scheduling-platform partnership was considered and deferred. It would cost engineering commitment, buy no metric, and hand measurement of our linchpin number to a company with no reason to give it back. The kit above is roughly a week of work and we own the funnel data. A partnership becomes interesting later as distribution, being present where film creators already are, once onboarding is a funnel rather than five conversations.</p>
+<h3 id="6-10-the-confirmation-state-and-the-dry-run-1j">6.10 The confirmation state and the dry run (1J⑨)</h3>
+<p>Michael&#x27;s open item: &quot;they need to have some sort of screen that shows, okay, this is all in and completed and it worked.&quot;</p>
+<p><strong>Confirmation</strong> is the smaller half: a session ready summary showing the film, the showtime, the note count, the intermissions, and the share link, with anything unfinished called out.</p>
+<p><strong>The dry run is the proposal, and it is what makes a two-week curator beta possible with no audience.</strong> The curator presses a rehearse action and watches their own session play against a running clock, at real speed or accelerated, with their notes firing on their marks exactly as an audience member would see them. They can scrub to any mark, watch a single note land in context, and fix a mistimed note without leaving the screen.</p>
+<p>This turns the beta from &quot;fill in forms and hope&quot; into &quot;watch your show and adjust it,&quot; which is the only way five curators produce useful feedback before an audience exists. It also builds the note-firing engine that the audience app needs, so no work is thrown away.</p>
+<hr>
+<h2 id="7-audience-app">7. Audience app</h2>
+<h3 id="7-1-onboarding-1e">7.1 Onboarding (1e)</h3>
+<p>Three cards, per the wireframes: a curator hosts, live, on a schedule; the film plays on your TV; their Liner Notes land on your phone.</p>
+<p>Then <strong>build your roster</strong>, following curators, and then <strong>where you watch</strong>, which is the streaming services the person actually has. That answer drives everything in 7.3.</p>
+<p>No account required to continue. Optional Google or Apple sign-in, which buys following, push, and the Taste Passport, and nothing else. Reserving a seat needs an email address only.</p>
+<h3 id="7-2-the-marquee-1f">7.2 The Marquee (1f)</h3>
+<p>What is on now, what is on tonight, what is on this week. Live cards ignite, everything else stays matte. Four tabs: Marquee, Roster, Notes, You.</p>
+<h3 id="7-3-session-detail-and-reserve-a-seat-1g">7.3 Session detail and reserve a seat (1g)</h3>
+<p>The screen a shared link opens. Film, year, runtime, curator, showtime, countdown, the curator&#x27;s one-sheet under &quot;why I picked it,&quot; and the seat count with friends called out.</p>
+<p><strong>Make sure you can play it.</strong> Against the services declared at onboarding: where the film is available, at what price, with a deep link that opens the film in that app so the viewer can start it and AirPlay to the TV. James described the target experience: &quot;it&#x27;s all my phone, and now I&#x27;m AirPlaying Road House to the TV. And on my phone I&#x27;ve got the room.&quot;</p>
+<p><strong>JustWatch is the intended source.</strong> Michael confirmed on the call that the API exists at apis.justwatch.com and James owns the review of scope, licensing, and cost. Until that comes back, the fallback is manual: the curator enters where the film can be watched when they create the session, and the screen renders that. <strong>Build the manual path first regardless</strong>, since it is also the answer for any film JustWatch does not cover.</p>
+<p><strong>Reserve a seat</strong>, then two prompts on the way in, which are James&#x27;s crowdsourcing idea:</p>
+<ul><li>&quot;You like this movie. What do you have to add?&quot;</li><li>&quot;Anything you want to ask?&quot;</li></ul>
+<p>Both optional, both skippable. Additions flow to the curator&#x27;s contributions tray (6.3). Questions collect for the wrap Q&amp;A on the recap screen. Michael&#x27;s ordering: &quot;the first prompt should be like, you like this movie, what do you have to add? And then beyond that, do you have any questions?&quot;</p>
+<h3 id="7-4-the-night-1d">7.4 The night (1d)</h3>
+<p><strong>The Lobby, T-30.</strong> Doors open. Marquee board over open chat with the curator. Copy on the wireframe: &quot;No notes till the Double Deuce opens. Settle in, cue your TV.&quot;</p>
+<p><strong>The calls, T-10 and T-2.</strong> A notification, then a resting countdown page. There is no notification at T-1; the curtain appearing behind the chat is the one-minute call, and it is a better one because it cannot be missed by someone already looking at the screen. The full pre-show table is in <a class="xref" href="./design-language.html">DESIGN.md</a>. This screen and the Lobby read as one to James: &quot;I&#x27;m not sure I understand the difference between those two pages.&quot; The fix is to make the timing legible on the surfaces themselves rather than in a founder&#x27;s head. If it still does not hold up in the curator beta, fold the calls into the Lobby as a state change. Michael was fine with that: &quot;we could get rid of it too.&quot;</p>
+<p><strong>The leader, T-15 seconds.</strong> Rings, crosshair, sweep, one tick per second, counted down together.</p>
+<p><strong>T-0.</strong> The curtains part once, the ON AIR sign ignites, everyone presses play. The session clock starts.</p>
+<p><strong>The Room.</strong> Chat is the default surface and stays on screen, labeled <code>THE ROOM — CHAT</code>. Three layouts, which are one screen with alternates rather than three products: 1c chat forward is the default, 1a is the Liner Notes stream with its scrollable timestamped history, and 1b is one note at a time for someone who wants the room quiet. Swipe between them. Michael: &quot;1A and 1B are alternative screens that you could swipe to, where you can be like, oh, I wanna go back and see what they said. It&#x27;s not just buried in the chat.&quot;</p>
+<p><strong>A Liner Note arrives.</strong> It fades up like a subtitle, in the serif, holds about seven seconds, and chat minimizes to a strip while it holds. It also lands in the chat stream, so nothing is lost. No badges, no unread counters.</p>
+<p><strong>Intermission.</strong> Set in advance by the curator. Full screen, matte, a countdown, the curator&#x27;s message, and an <strong>I&#x27;ve paused my TV</strong> action, which tells the curator how much of the room is actually with them. The honest limitation, still unresolved: the product cannot pause anyone&#x27;s television. Michael flagged it as the hard problem, &quot;how do we manage it without the technical integration,&quot; and James agreed it is technical. Until there is an answer, intermission is a social contract with good instrumentation, and the copy has to be explicit that the viewer pauses their own screen.</p>
+<p><strong>Telestrator (1d⑧).</strong> The curator&#x27;s still with their ink on it, drawn live, holding until they release it. James: &quot;is this the Madden chalkboard?&quot; Chat minimizes while it holds.</p>
+<p><strong>Reel change (1d⑨).</strong> Whoever drifts sees what they missed, how far behind they are, and a <strong>Resync</strong> action. Never framed as an error. Michael: &quot;you missed some time, what have you, but you&#x27;re catching up.&quot;</p>
+<h3 id="7-5-recap-and-film-dna-1h">7.5 Recap and Film DNA (1h)</h3>
+<p>That is a wrap. Who watched, the saved Liner Notes, the wrap Q&amp;A built from the questions collected at reserve time, a rating, Film DNA as three tags for what to watch next, and the curator&#x27;s next session with a reserve action.</p>
+<h3 id="7-6-taste-passport-1i">7.6 Taste Passport (1i)</h3>
+<p>A library card, not a trophy case. Curators followed, sessions attended, notes saved, proof you were in the room.</p>
+<hr>
+<h2 id="8-design-language">8. Design language</h2>
+<p><strong><a class="xref" href="./design-language.html">DESIGN.md</a> in the projectionist-wireframes repo is the design language, and it is canonical.</strong> It was inlined here once and the copy went stale within a fortnight, which is the argument against doing it again.</p>
+<p>https://github.com/beingmtm714/projectionist-wireframes/blob/main/DESIGN.md</p>
+<p>What it governs, so you know when to open it: two lighting states rather than a palette of themes, where the live signal is allowed to appear, the curtain, grain, the type roles, the chat rule, motion timings, and the pre-show sequence.</p>
+<p><code>projectionist-wireframes/_kit.txt</code> holds every value as code. <strong>Never invent one.</strong> If a colour, size or weight is needed and it is not in the kit, that is a question rather than a decision to make in CSS.</p>
+<h2 id="9-technical-requirements">9. Technical requirements</h2>
+<p>Not a scaffold prescription. These are the constraints the frontend has to satisfy, whatever generates it.</p>
+<ul><li><strong>Two surfaces, two form factors, and they are not the same product.</strong></li><li><strong>The audience side is a phone</strong>, held next to a television. Mobile first, designed at 390 by 844. It must also work on a laptop, since some people will watch on one screen, but the phone is the design target and the one that gets the attention.</li><li><strong>The curator authoring tools are desktop</strong>, designed at 1440 by 900 and supported down to about 1280 wide. A curator writes notes with the film playing on a second screen. This is a laptop activity and the tools are built for it.</li><li><strong>Authoring is desktop only, deliberately.</strong> A curator who opens prep, research, the note editor, the queue, the promo kit or the dry run on a phone gets an honest message asking them to come back on a laptop, not a cramped version of a professional tool. Building those screens responsive down to 390px doubles the front-end work for a use case that barely exists, and a squeezed note editor is worse than no note editor.</li><li><strong>Hosting is the exception and must work on a phone.</strong> During a session the curator is watching the film like everyone else, and may well have the film on the television and Projectionist in their hand. <strong>Go live (1J⑥) and On air (1J⑦) need a phone layout</strong>: the note countdown, fire now, group pause, intermission, and end session, in reach of a thumb. Everything else in 1J does not.</li><li><strong>Supabase</strong> for Postgres, Auth, and Realtime, with row level security on session and user data.</li><li><strong>Sync model.</strong> Companion mode only, no player embed and no player API. The server tracks elapsed time from a shared <code>start_time</code> and notes fire when the session clock crosses their mark. Identical behavior no matter where the film is playing.</li><li><strong>Auth.</strong> Every audience member gets an anonymous session on arrival, so <code>user_id</code> stays non-null across seats, chat, and reactions. Optional Google or Apple sign-in upgrades that same session through identity linking, carrying history forward. Curators require a Google-linked account and an anonymous session can never publish.</li><li><strong>Research agent.</strong> A background job, not a real-time service. Approved-source lookups, then an LLM synthesis pass, then a written brief the curator dashboard polls for. Under five minutes per film.</li><li><strong>Timestamp inference.</strong> A separate background service from the research agent. Takes a still or a natural language instruction plus the film identity and returns a timestamp with a confidence value. Must be able to return &quot;not confident&quot; as a first-class result.</li><li><strong>Email</strong> for reminders and expert asks. Resend or equivalent.</li></ul>
+<h3 id="data-model">Data model</h3>
+<p>Every table the product needs. Row-level security on all of them.</p>
+<div class="tw"><table><thead><tr><th>Table</th><th>Key fields</th></tr></thead><tbody><tr><td><code>sessions</code></td><td>id, curator_id, film_title, film_year, runtime_sec, status (draft/ready/live/ended), start_time, share_slug, one_sheet, where_to_watch_manual, created_at</td></tr><tr><td><code>liner_notes</code></td><td>id, session_id, timestamp_sec, timestamp_confidence, type, content, still_url, source_url, source_kind (agent/expert/curator), created_at</td></tr><tr><td><code>intermissions</code></td><td>id, session_id, at_sec, duration_sec, message</td></tr><tr><td><code>session_seats</code></td><td>id, session_id, user_id, reserved_at, joined_at, resumed_at, contribution, question</td></tr><tr><td><code>promo_links</code></td><td>id, session_id, channel, slug, clicks, reserves, created_at</td></tr><tr><td><code>expert_asks</code></td><td>id, session_id, curator_id, prompt, public_slug, created_at</td></tr><tr><td><code>expert_contributions</code></td><td>id, ask_id, contributor_name (nullable), content, created_at</td></tr><tr><td><code>user_services</code></td><td>id, user_id, service (netflix/mubi/criterion/prime/...), created_at</td></tr><tr><td><code>chat_messages</code></td><td>id, session_id, user_id, content, is_curator, created_at</td></tr><tr><td><code>note_reactions</code></td><td>id, liner_note_id, session_id, type, created_at</td></tr><tr><td><code>research_briefs</code></td><td>id, session_id, film_title, status, content_json, generated_at</td></tr><tr><td><code>source_candidates</code></td><td>id, category, name, access_method, status, url, notes</td></tr><tr><td><code>dry_runs</code></td><td>id, session_id, started_at, speed, completed_at</td></tr></tbody></table></div>
+<h3 id="realtime-events">Realtime events</h3>
+<p><code>session_start</code> · <code>note_fire { liner_note_id, content, still_url }</code> · <code>message</code> · <code>reaction</code> · <code>intermission_start { duration_sec, message }</code> · <code>viewer_resumed</code> · <code>telestrator_open { still_url, strokes }</code> · <code>telestrator_release</code> · <code>group_pause</code> · <code>session_end</code></p>
+<hr>
+<h2 id="10-build-sequence">10. Build sequence</h2>
+<p>Reordered so the curator beta can start without an audience app, and scheduled against the six sprints in <a class="xref" href="./sprint-plan.html">Projectionist-Sprint-Plan.md</a>. Dates are the plan of 27 August 2026.</p>
+<p><strong>Two things are cut from everything below.</strong> The research agent (6.2, 6.4) and AI timestamping (6.5, ways two and three) do not appear in any sprint before the raise. Manual mm:ss is the base path and it is sufficient for the beta. Both come back after there is an engineer who can build a background job properly, and a half-built version of either is worse than nothing to that engineer.</p>
+<p><strong>Who builds what.</strong> A contract engineer sets up the repository, schema, migrations and row-level security first, then builds the realtime spine: the session clock, the note-firing engine, and chat. Michael builds schema-adjacent work, forms, CRUD, layout and routing with coding agents inside that. The split is deliberate. The spine is the part generated code produces convincingly and wrongly, and the part a curator&#x27;s evening depends on.</p>
+<h3 id="sprint-1-31-aug-to-11-sep-foundation">Sprint 1 · 31 Aug to 11 Sep · Foundation</h3>
+<p>Michael. Supabase project. The section 9 schema. Row-level security on every table. Google OAuth for curators, no email and password path. Session creation. Prep home (1J①) with Go live disabled.</p>
+<p><strong>Acceptance.</strong> A curator signs in, creates a session, and it persists across a reload.</p>
+<h3 id="sprint-2-14-sep-to-25-sep-the-authoring-loop">Sprint 2 · 14 Sep to 25 Sep · The authoring loop</h3>
+<p>Michael. Note editor (1J④) with body text, still upload, and <strong>manual mm:ss only</strong>. Note queue (1J⑤) with intermission rows and the plus or minus five second nudge. Intermission creation. Promo kit (1J⑧): share card preview, per-channel tracked links with the redirect and click counting, draft posts per channel. Session ready.</p>
+<p>Engineer, from week two. Auth and row-level security audit before touching anything else. Environments and secrets. Agree the shape of the realtime spine.</p>
+<p><strong>Acceptance.</strong> A curator authors six notes with one still attached, adds an intermission at 55 minutes, reaches the ready state, and generates four distinct tracked links that each resolve to the session page and register a click against their own channel.</p>
+<h3 id="sprint-3-28-sep-to-9-oct-the-clock-and-the-dry-run">Sprint 3 · 28 Sep to 9 Oct · The clock and the dry run</h3>
+<p>Engineer. The <strong>session clock, server-authoritative</strong>, resilient to a locked phone or a backgrounded tab. The <strong>note-firing engine</strong>, with a manual override. The realtime channel that the dry run and the Room both sit on.</p>
+<p>Michael. The dry run (1J⑨) on the engineer&#x27;s clock: press play, real speed or eight times, notes fire on their marks. <strong>Scrub-to-any-mark and fix-in-place are deferred.</strong> Then the design language pass from section 8, which is not optional: in a no-fee model the first meeting with a curator is a demo.</p>
+<p>Michael, also, because sprint three has room and sprint four does not. <strong>Go live on a phone (1J⑥)</strong>, which needs only a countdown and a button. And <strong>the desktop-only guard</strong>: every authoring screen, meaning everything in 1J except ⑥ and ⑦, shows an honest come-back-on-a-laptop message below about 1100px rather than a squeezed layout.</p>
+<p><strong>Acceptance.</strong> A curator rehearses a 114 minute session in accelerated mode, sees six notes fire on their marks with the right stills, catches one mistimed note, corrects it, and re-runs from that mark.</p>
+<h3 id="sprint-4-12-oct-to-23-oct-the-audience-side">Sprint 4 · 12 Oct to 23 Oct · The audience side</h3>
+<p>Michael. Session detail and reserve a seat (1G①) with where-to-watch entered manually by the curator. The two prompts on the way in (1G②). The Room (1C) with chat as the default surface and Liner Notes arriving in the serif and landing in chat as well. The Lobby (1D①), minimal. T-0 and the curtains.</p>
+<p>Michael, also. <strong>On air on a phone (1J⑦).</strong> The curator hosts with the film on her television and the app in her hand, so she is an audience member with extra controls: the next note and its countdown at the top, chat in the middle, and pause, intermission, telestrator and end session in a fixed bar at the bottom within reach of a thumb. It shares the chat component with the Room, which is why it is here rather than in sprint three.</p>
+<p>Engineer. Chat over the realtime channel. Intermission: pausing the clock, the countdown, the &quot;I&#x27;ve paused my TV&quot; tap and its counter. <strong>Ticketing</strong>: <strong>$0.99</strong> at reserve, and a payout path to the curator, who keeps all of it during the founding season. <strong>Failure states</strong> for a save, an upload, or a dropped connection. <strong>Data integrity</strong>: whether a curator can lose an evening of notes, and what two open tabs do.</p>
+<p>Running in parallel, not built: the five design partners spend two weeks in the authoring tools with no audience. This is phase one of the proof of concept. Each is committed to three dated screenings and keeps one hundred percent of ticket revenue across all three; see <a class="xref" href="./sprint-plan.html">Projectionist-Sprint-Plan.md</a> for the founding terms.</p>
+<p><strong>Acceptance.</strong> A full end-to-end screening with the founders and a handful of friends, including an intermission, with three clients seeing every note fire within a second of each other, <strong>hosted from a phone rather than a laptop</strong>, because that is how at least one of the five will do it.</p>
+<h3 id="sprint-5-26-oct-to-6-nov-first-screenings">Sprint 5 · 26 Oct to 6 Nov · First screenings</h3>
+<p>No new build. Michael sits in every screening and fixes what breaks between them. Eight to ten screenings across the five partners, all paid at $0.99 with the curator keeping the takings.</p>
+<p><strong>Acceptance.</strong> Seats reserved, show rate, and reach-to-reservation by channel measured on every screening. Ticketing works end to end and curators are paid out.</p>
+<h3 id="sprint-6-9-nov-to-20-nov-depth">Sprint 6 · 9 Nov to 20 Nov · Depth</h3>
+<p>No new build. Third screenings, closing out fifteen committed dates.</p>
+<p><strong>Acceptance.</strong> Return rate measured to both the second and the third screening.</p>
+<h3 id="after-the-raise">After the raise</h3>
+<p>Everything deferred above, in this order: the research agent and its source discovery, AI timestamping by screenshot and by natural language, quote check, ask other experts, the telestrator, group pause, reel change and resync, the Marquee, the recap with wrap Q&amp;A and Film DNA, the Taste Passport, push notifications, and JustWatch if the review comes back green.</p>
+<h3 id="what-gets-cut-first-when-a-sprint-runs-long">What gets cut first when a sprint runs long</h3>
+<p>In this order, and do not improvise a different one: the dry run&#x27;s speed toggle; the Lobby; On air on a phone (1J⑦), which means the founding five host from a laptop and is survivable at five curators but not at fifty; the promo kit&#x27;s draft posts and reminder sequence <strong>keeping the tracked links</strong>; the recap; the Marquee.</p>
+<p><strong>Never cut:</strong> row-level security, the design language pass, the tracked links, the desktop-only guard, or the engineer&#x27;s failure states. The guard is twenty minutes of work, and without it a curator opening the note editor on a train meets a broken screen as her first impression of the product.</p>
+<h2 id="11-open-questions">11. Open questions</h2>
+<p><strong>Intermission without integration.</strong> Unresolved on the call and the single biggest hole in companion mode. The product cannot pause a television. Instrumentation plus explicit copy is the current answer and it is a social contract, not a mechanism.</p>
+<p><strong>Timestamp inference feasibility.</strong> Which films have usable subtitle or script timing data, what vision costs per lookup, and what accuracy is good enough to be worth the button. Answer this after the raise with real films, not in advance.</p>
+<p><strong>JustWatch.</strong> Scope, licensing, and cost, with James. Manual entry ships either way.</p>
+<p><strong>The Lobby and the calls.</strong> Two screens or one. Let the curator beta and the first real session decide.</p>
+<p><strong>The name.</strong> Projectionist or Projector, and whether the curator is called one.</p>
+<hr>
+<p><em>Sources: the artboards in <code>projectionist-wireframes/</code>, <a class="xref" href="./design-language.html">DESIGN.md</a>, and the meeting record in <code>Meetings/</code>. The July 2026 spec it replaced, along with the rest of the pre-rename material, is in the Archive folder in Drive.</em></p>
+<nav class="pager"><span></span><a href="./sprint-plan.html">Sprint Plan →</a></nav>
+</main>
+</body>
+</html>

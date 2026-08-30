@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Investor Deck · Projectionist</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<style>
+  :root{--paper:#e7e3da;--card:#f2efe8;--ink:#1a1917;--ink-soft:#57534a;--ink-faint:#8a8477;
+    --line:rgba(0,0,0,.12);--board:#14110b;--board-line:#453a26;--bulb:#f4e4bc;--pink:#a01a86}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Hanken Grotesk',-apple-system,system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
+    padding:11px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .bar a{color:var(--ink-soft);text-decoration:none}
+  .bar a:hover{color:var(--pink)}
+  .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
+  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
+    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+  .bar .meta,.bar .back{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  main{max-width:720px;margin:0 auto;padding:44px 24px 80px}
+  .doc h1{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;
+    font-size:clamp(26px,6vw,38px);letter-spacing:.03em;text-transform:uppercase;
+    margin:0 0 6px;line-height:1.05}
+  .stamp{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:30px}
+  .toc{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin-bottom:34px}
+  .toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+  .toc li{break-inside:avoid;margin:0 0 5px}
+  .toc a{font-size:13.5px;color:var(--ink-soft);text-decoration:none}
+  .toc a:hover{color:var(--pink)}
+  .doc h2{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;font-size:13px;
+    letter-spacing:.14em;text-transform:uppercase;margin:46px 0 0;padding-bottom:9px;
+    border-bottom:1px solid var(--line);scroll-margin-top:60px}
+  .doc h3{font-size:17px;font-weight:700;margin:32px 0 0;scroll-margin-top:60px}
+  .doc h4{font-size:14px;font-weight:700;margin:24px 0 0;color:var(--ink-soft)}
+  .doc p{margin:12px 0;max-width:66ch}
+  .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
+  .doc li{margin:6px 0}
+  .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
+  .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
+    font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}
+  .doc code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.86em;
+    background:rgba(0,0,0,.055);padding:1px 5px;border-radius:3px}
+  .doc pre{background:var(--board);color:#d8cfae;padding:14px 16px;border-radius:8px;overflow-x:auto}
+  .doc pre code{background:none;color:inherit;padding:0;font-size:12.5px;line-height:1.55}
+  .doc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.28)}
+  .doc a:hover{color:var(--pink);border-color:var(--pink)}
+  .lockline{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+    border:1px solid var(--line);border-radius:999px;padding:5px 11px;display:inline-block;
+    margin:0 0 26px}
+  .doc a.xref{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.84em;
+    background:rgba(160,26,134,.07);border-bottom:1px solid rgba(160,26,134,.35);
+    padding:1px 5px;border-radius:3px}
+  .tw{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:400;white-space:nowrap}
+  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
+    border-top:1px solid var(--line);padding-top:18px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase}
+  .pager a{color:var(--ink-soft);text-decoration:none}
+  .pager a:hover{color:var(--pink)}
+  .pager span{color:#bdb8ac}
+  @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="../">← Documents</a>
+  <div class="who"><span class="name">Investor Deck</span></div>
+  <span class="meta">30 August 2026</span>
+</header>
+<main class="doc">
+<h1>Investor Deck</h1>
+<div class="stamp">Fourteen slides of copy, waiting on numbers from the proof of concept.</div>
+<div class="lockline">Shared by link. Not listed publicly.</div>
+<nav class="toc"><ol><li><a href="#1-title">1. Title</a></li><li><a href="#2-the-problem">2. The problem</a></li><li><a href="#3-the-insight">3. The insight</a></li><li><a href="#4-the-product">4. The product</a></li><li><a href="#5-how-a-session-works">5. How a session works</a></li><li><a href="#6-why-now">6. Why now</a></li><li><a href="#7-why-this-wins">7. Why this wins</a></li><li><a href="#8-business-model">8. Business model</a></li><li><a href="#9-market">9. Market</a></li><li><a href="#10-go-to-market">10. Go to market</a></li><li><a href="#11-the-proof-of-concept">11. The proof of concept</a></li><li><a href="#12-team">12. Team</a></li><li><a href="#13-roadmap">13. Roadmap</a></li><li><a href="#14-the-ask">14. The ask</a></li><li><a href="#notes-for-michael-not-part-of-the-deck">Notes for Michael, not part of the deck</a></li></ol></nav>
+<p><strong>Content only.</strong> Copy and structure for fourteen slides, ready to be designed. Written to be used after the proof of concept produces numbers, with the metrics that the POC generates marked as placeholders in square brackets. It is usable today for warm conversations by leading with the plan and naming the POC as in progress.</p>
+<p>Working name Projectionist. Projector remains under consideration with James.</p>
+<p>Numbers carrying a <code>[verify]</code> tag came from the June business plan and have not been re-sourced since the pivot to film.</p>
+<hr>
+<h2 id="1-title">1. Title</h2>
+<p><strong>PROJECTIONIST</strong></p>
+<p>Watch films with the people who love them.</p>
+<p>Pre-seed · August 2026 · James DeJulio and Michael Martin</p>
+<p><em>Visual: house up. Warm ambient on near black, no visible source. No product screenshot here.</em></p>
+<hr>
+<h2 id="2-the-problem">2. The problem</h2>
+<p><strong>Streaming gave everyone everything and took away the one thing that made it worth watching.</strong></p>
+<p>Nobody is in the room with you.</p>
+<p>Three things broke at once:</p>
+<p><strong>For the viewer.</strong> A thousand hours of catalog and no reason to pick anything. The algorithm optimizes for the next thing you will tolerate, not the thing you will remember. Watching alone at home is the default and it is worse than what it replaced.</p>
+<p><strong>For the film.</strong> Everyone talks about shows. Movies get buried. A studio spends nine figures on a library that nobody can find a way into, and a catalog title has no path back to an audience once its window closes.</p>
+<p><strong>For the person with taste.</strong> A film programmer with 800,000 followers has a job at a theater and a Letterboxd account. There is no product that turns deep knowledge of film into a live event with an audience and an income. They are the only people in the culture whose expertise has no marketplace.</p>
+<p><em>Speaker note: the third one is the wedge. The first two are why the third one matters.</em></p>
+<hr>
+<h2 id="3-the-insight">3. The insight</h2>
+<p><strong>The missing layer was never a better algorithm. It was a person.</strong></p>
+<p>Every attempt to fix discovery has been machine-first: better recommendations, better rows, better thumbnails. The one thing that reliably makes someone watch a film they have never heard of is another human being they trust saying watch this, and then sitting next to them while it plays.</p>
+<p>That person exists. They have an audience already. What they do not have is a room, a schedule, and a way to get paid.</p>
+<p>Projectionist is the room.</p>
+<hr>
+<h2 id="4-the-product">4. The product</h2>
+<p><strong>A curator picks a film, sets a showtime, and hosts a screening. You watch on your own TV. Their notes arrive on your phone, in sync, alongside everyone else in the room.</strong></p>
+<p>Think Pop-Up Video, live, with a film programmer instead of a producer and a hundred people instead of you alone on the couch.</p>
+<p>The architectural decision that makes it work: <strong>we never touch the film.</strong></p>
+<p>No player. No embed. No streaming rights. No platform integration. The viewer presses play on whatever service they already pay for, and Projectionist runs on a shared start time. That means every film ever made is already in the catalog on day one, and it means we can launch without a single deal.</p>
+<p><em>Visual: the two-device diagram. Television with the film, phone with the room. This is the slide that needs the wireframes.</em></p>
+<hr>
+<h2 id="5-how-a-session-works">5. How a session works</h2>
+<p><strong>Before.</strong> The curator researches the film with our tools, writes Liner Notes pinned to specific moments, and posts a link. The audience reserves seats and, on the way in, tells the curator what they know and what they want to ask.</p>
+<p><strong>Doors.</strong> Thirty minutes before showtime the lobby opens and the room starts talking.</p>
+<p><strong>Showtime.</strong> A fifteen second leader counts down, the curtains part, everyone presses play together.</p>
+<p><strong>During.</strong> Liner Notes fire on their marks. A scene is a filming location, a line was improvised, the grip on this picture ran second unit on something you love. Chat runs the whole time. The curator can pause the room for an intermission or draw on a still to show you what to look at.</p>
+<p><strong>After.</strong> A recap holds every note, the questions get answered, and the next screening is already on the board.</p>
+<p><em>Visual: the sequence, five beats across the slide. Pull the actual screens.</em></p>
+<hr>
+<h2 id="6-why-now">6. Why now</h2>
+<p><strong>Human curation already out-earns the algorithm. It just has no product.</strong></p>
+<p><strong>Letterboxd has roughly 17 million members</strong> organizing their entire cultural life around what other people think of films. It is a review site with no live layer, no schedule, and no way for anyone on it to make a living. It is proof of appetite, not a competitor. <code>[verify current number]</code></p>
+<p><strong>The Rewatchables</strong> is a top-ten entertainment podcast whose entire format is a few people talking about a film you have already seen. Millions listen to the conversation without ever watching along. The demand for company is so strong that the audience accepts a version where nobody is actually watching together.</p>
+<p><strong>Karina Longworth</strong> built You Must Remember This into a Netflix-adjacent institution by explaining films nobody had thought about in thirty years. She announced a new season this month. She has never once been able to screen the films she talks about.</p>
+<p><strong>Cinema How</strong>, film students in England, has 821,000 followers for scene breakdowns on Instagram. Color theory in Pixar. Blocking in The Godfather. They are film programmers who have never been given a theater.</p>
+<p>Secondary evidence of the same appetite: NTS Radio&#x27;s monthly audience choosing human curation over algorithmic radio, seventeen consecutive years of vinyl sales growth, and a four billion dollar podcast advertising market built on the premise that a trusted voice moves behavior better than a display ad. <code>[verify all three]</code></p>
+<p><strong>And the supply side just changed.</strong> Repertory programming is having a genuine cultural moment while the theaters that host it keep closing. The people who can do this work are more visible and less employed than at any point in the last twenty years.</p>
+<hr>
+<h2 id="7-why-this-wins">7. Why this wins</h2>
+<p><strong>Map the market on two axes: who is choosing, and when it happens.</strong></p>
+<div class="tw"><table><thead><tr><th></th><th>On demand</th><th>Live</th></tr></thead><tbody><tr><td><strong>Algorithm chooses</strong></td><td>Netflix, Spotify</td><td>TikTok</td></tr><tr><td><strong>Human chooses</strong></td><td>Letterboxd, Substack, Criterion</td><td><strong>Projectionist</strong></td></tr></tbody></table></div>
+<p>Human plus Live is empty. Teleparty, Scener, and Kast are utilities for watching with three friends, with no curator, no schedule, no audience, and no money in them. Nobody owns the quadrant where a person with taste programs a night and gets paid for it.</p>
+<p><strong>The moat is the thing that looks like a weakness.</strong></p>
+<p>Because we never rebroadcast the film, we are not competing with anyone for rights, and we are the cleanest counterparty a studio or a streamer will meet. The instructive comparison: Twitch is enormous and owned by Amazon and still cannot get an NFL deal, because technically Twitch rebroadcasts. We do not. Every viewer loads the film from the source they already pay for.</p>
+<p>That makes us a distribution partner rather than a threat, and it is the reason a conversation with a rights holder starts at what can we do together instead of what are you doing with our content.</p>
+<p><strong>Rights partnerships are an enabler, not a revenue line.</strong> A cleared title lets us run a marquee screening. It is worth having and it is not the business, and we do not need one to launch. Do not confuse it with licensing the tooling, which is motion two on the next slide and is a different conversation with some of the same companies.</p>
+<p><strong>The second moat is the curator.</strong> Their audience trust took years to build and we cannot manufacture it. What we can do is be the only place that trust converts into a live event and an income, which is why the first five matter more than the first five thousand.</p>
+<hr>
+<h2 id="8-business-model">8. Business model</h2>
+<p><strong>Two motions. The creator motion proves the behaviour. The enterprise motion carries the scale.</strong></p>
+<h3 id="motion-one-the-creator">Motion one: the creator</h3>
+<p><strong>Ticketed screenings.</strong> A seat costs $0.99. Roughly half goes to the curator. The arithmetic below rounds it to a dollar. At one and a half percent of a hundred thousand followers converting, that is about seven hundred fifty dollars a screening, or thirty-nine thousand a year to her at weekly cadence, and the same to us. For Cinema How at 821,000, one percent is roughly four thousand a screening.</p>
+<p>That conversion rate is the hinge for the whole company. It is our metric and it is also the curator&#x27;s paycheque, and the two fail together.</p>
+<p><strong>Interactive sponsorship.</strong> A sponsor in a live room is not a banner and not a promo code read into a microphone. It is the curator taking the room to the sponsor at intermission, with everyone arriving at once and able to act. The comparison is a podcast promo code, where the conversion rate is a rounding error. We expect this to be the higher margin line well before ticket volume matters.</p>
+<h3 id="motion-two-licensing-the-tooling">Motion two: licensing the tooling</h3>
+<p>Organisations that already have talent and audiences, and no live layer, run their own screenings on our tools and pay for the software and a share.</p>
+<ul><li><strong>Publishers.</strong> The Ringer and its peers. The Rewatchables is already this format, done worse, with no way for the audience to actually watch along. It is our first target and we have a direct path to their editorial director.</li><li><strong>Streamers and distributors.</strong> Tubi, MUBI, A24, Neon. MUBI&#x27;s entire brand is curation with no live layer. A24 already runs a membership and repertory screenings by hand.</li><li><strong>Festivals.</strong> Thousands globally, all programming already, all trying to reach past the people who can physically attend.</li><li><strong>Repertory and arthouse cinemas.</strong> Hundreds, programming weekly, with an audience and no way past the room.</li></ul>
+<p>Deal sizes here are an order of magnitude above a single curator, the margins are better, and it is contracts rather than a churning roster. This is the motion James opens.</p>
+<p><em>Speaker note: lead with motion one because it is the one we can prove this quarter. Motion two is named organisations and a warm path into the first one, which is access rather than traction. Say it that way. The moment the Ringer meeting actually happens it moves to the proof of concept slide, and until then it does not live there.</em></p>
+<h2 id="9-market">9. Market</h2>
+<p><strong>Built from the unit up. Every input here is something the proof of concept measures.</strong></p>
+<p><strong>The unit.</strong> A curator with a hundred thousand followers, converting at one and a half percent, at $0.99 a seat, running weekly: 1,500 attendees a screening, seventy-eight thousand a year in gross tickets, <strong>about thirty-nine thousand of net revenue to us per active mid-size curator.</strong></p>
+<p><strong>The supply universe.</strong> The compiled, segmented list of people already doing film criticism and film content: video essayists, film TikTok and Instagram, Letterboxd writers, film podcast hosts, Substack critics, repertory programmers. <code>[insert the real list, segmented by audience size]</code></p>
+<p><strong>The licensing pool.</strong> A named count of publishers, streamers, distributors, festivals, rep houses and film programmes, at low six figures a year each. <code>[insert the count]</code> This pool is comparable to the entire creator line, at better margin.</p>
+<p><strong>And the ceiling is not film.</strong> Nothing in the architecture is film-specific. A shared start time, notes on marks, a room, and never touching the content works identically for a television episode, and television is where the attention is. Film is the wedge. Timed media is the market.</p>
+<p><em>Speaker note: no creator-economy slide, no total-addressable-audience number that assumes every follower buys a ticket. A partner who can rebuild this from our own inputs trusts everything else we say. Say the timed-media line once and then go back to talking about the five curators.</em></p>
+<h2 id="10-go-to-market">10. Go to market</h2>
+<p><strong>Five curators. Session data. Streamer deals. In that order.</strong></p>
+<p>The supply side unlocks everything else. Without curators there is no product and no pitch. With five credentialed curators and real session data, the first streamer conversation is a data presentation rather than a cold ask.</p>
+<p><strong>Who we recruit.</strong> People with a documented film audience and no way to monetize their taste as an event. Instagram and TikTok film essayists, repertory programmers at named independent theaters, film podcast hosts, and Letterboxd writers with real followings.</p>
+<p><strong>What we offer.</strong> No fee, and for the founding cohort no revenue share either: they keep one hundred percent of ticket sales across their first three screenings, then seventy percent permanently against a standard fifty. Plus founding credit, brokered introductions to streaming editorial, and their own per-channel conversion data, which nobody else can give them.</p>
+<p><strong>What we ask.</strong> Three dated screenings. Not a trial. Return rate does not exist below two, and it is the number this whole business turns on.</p>
+<p><strong>How we recruit, in three motions.</strong> Founder-led outreach gets the first twenty-five, one at a time, from a team they have reason to take a call with. After that, outbound against a compiled and segmented universe of people already doing film criticism and film content: video essayists, film TikTok and Instagram, Letterboxd writers, film podcast hosts, Substack critics, repertory programmers. Then curator referral, on revenue share, once the product sells itself peer to peer.</p>
+<p><strong>First names on the list.</strong> Cinema How, 821,000 followers, an existing working relationship with James. Karina Longworth, whose new season just landed. The Rewatchables format as the model for what a monthly screening looks like at scale.</p>
+<hr>
+<h2 id="11-the-proof-of-concept">11. The proof of concept</h2>
+<p><strong>What we are running right now, and what it produces.</strong></p>
+<p><strong>Phase one, the tools.</strong> Five curator design partners get the authoring tools and roughly two weeks to break them. They research films, write Liner Notes, and rehearse full sessions against a running clock with no audience present. Output is a product that survives contact with the people who will actually use it.</p>
+<p><strong>Phase two, the screenings.</strong> Each of the five runs roughly one screening a week. Small on purpose. Every session is a case study.</p>
+<p><strong>What we measure, and what it tells an investor:</strong></p>
+<div class="tw"><table><thead><tr><th>Metric</th><th>Result</th></tr></thead><tbody><tr><td>Seats reserved per screening</td><td><code>[X]</code></td></tr><tr><td>Reserved to attended conversion</td><td><code>[X]%</code></td></tr><tr><td>Curator followers to attendees</td><td><code>[X]%</code></td></tr><tr><td>Median watch-through, estimated</td><td><code>[X]%</code></td></tr><tr><td>Liner Notes fired and engaged with</td><td><code>[X]</code></td></tr><tr><td>Chat messages per session</td><td><code>[X]</code></td></tr><tr><td>Repeat attendance across sessions</td><td><code>[X]%</code></td></tr><tr><td>Attendees who followed the curator on Projectionist</td><td><code>[X]%</code></td></tr></tbody></table></div>
+<p>The number that decides the company is the third one. If a curator can convert even a low single digit percentage of their existing following into people who show up at a specific time on a specific night, the model works and every other number is a matter of scale.</p>
+<p><em>Speaker note: if the POC is still running when this deck goes out, say so plainly and give the date the numbers land. Do not present a plan as a result.</em></p>
+<hr>
+<h2 id="12-team">12. Team</h2>
+<p><strong>James DeJulio.</strong> Co-founder.</p>
+<p><code>[James writes this line. Tongal in his own words, and whatever he wants said about Paramount.]</code></p>
+<p>What the line has to carry, whoever writes it: he knows the studios, the agents and the talent, and his household reaches the promotional apparatus around every major release. He is why the rights and talent conversations happen at all.</p>
+<p><strong>Michael Martin.</strong> Co-founder. Built and ran the accelerator at Ava Labs, taking programs from nothing to operating. Founder of Bastille Advisory, where he does venture and go-to-market work for early stage founders. He owns product, the curator tools, and the operating side of the business.</p>
+<p><strong>What the pair is.</strong> One founder who can get a studio, an agent, or a name curator on the phone this week, and one who can build the product and run the program. The reason this is not two people with a nice idea is that the hard part of this business is a relationship problem sitting on top of a straightforward technical one, and the relationships already exist.</p>
+<hr>
+<h2 id="13-roadmap">13. Roadmap</h2>
+<p><strong>Now.</strong> Curator tools built. Five design partners recruited and testing.</p>
+<p><strong>Next 90 days.</strong> Screenings running weekly. Audience app live. First session data. First conversations with a streamer or studio about a cleared title for a marquee screening.</p>
+<p><strong>Six to twelve months.</strong> Curator roster past twenty. Ticketing live. First sponsored screening. First negotiated title with a partner.</p>
+<p><strong>Twelve to eighteen months.</strong> Curators running recurring channels with their own audiences. Sponsorship as a repeatable product. Attribution data good enough to price a partnership on performance rather than a flat fee.</p>
+<p><em>Speaker note: keep the far column short. Nobody at this stage is buying month eighteen.</em></p>
+<hr>
+<h2 id="14-the-ask">14. The ask</h2>
+<p><strong>Raising <code>[$X]</code> to take the proof of concept to a repeatable business.</strong></p>
+<p>Recommended range to discuss before this goes out: seven hundred fifty thousand to one and a half million, which buys twelve to eighteen months.</p>
+<div class="tw"><table><thead><tr><th>Use</th><th>Detail</th></tr></thead><tbody><tr><td>Curator growth</td><td>Outbound tooling, list building, and the referral revenue share</td></tr><tr><td>Engineering</td><td>One developer for the last mile on the build, then a second as the audience side scales</td></tr><tr><td>Design</td><td>The product has to be beautiful. It is a product about taste</td></tr><tr><td>Rights and partnerships</td><td>Cleared titles for marquee screenings, and the legal work around them</td></tr><tr><td>Operating runway</td><td>Twelve to eighteen months for the two founders</td></tr></tbody></table></div>
+<p><strong>What the money proves.</strong> That a curator with an audience can reliably fill a room, that the room comes back, and that a rights holder will pay to be programmed rather than merely tolerated. Those three facts in sequence are the Series A.</p>
+<hr>
+<h2 id="notes-for-michael-not-part-of-the-deck">Notes for Michael, not part of the deck</h2>
+<p><strong>Deliberately left out.</strong> Teleport, in any form. Any claim about Tongal funding the build, since that conversation has not happened. RECS Company, Scene Infrastructure, and Acetate Club, all of which are June-era and music-oriented and would get diligenced. Tell me if any of the three is live and I will work it back in.</p>
+<p><strong>Changed from the June business plan.</strong> Music is gone. The 62/38 sponsorship split and the five to fifteen thousand per session series pricing are gone, replaced by the ticket model James put on the table on 6 August. Streamer sponsorship moved from the core model to a later revenue layer, behind tooling licences.</p>
+<p><strong>Homework this deck needs.</strong> The compiled curator universe: the actual list, segmented and sized. It converts the recruiting claim into an addressable supply market and it is the slide that answers what happens when the founder network runs out.</p>
+<p><strong>Not yet true, do not let it drift.</strong> The Ringer is a warm path through Michael&#x27;s relationship with their editorial director. No meeting has happened. It is on the business model slide as access and it does not appear as traction anywhere. When the meeting happens it graduates to the proof of concept slide.</p>
+<p><strong>Three things to settle before this is sent.</strong> The raise number. The Tongal framing on slide 12, which James should write himself. And whether the POC has produced numbers yet, because slide 11 reads differently depending on the answer.</p>
+<nav class="pager"><a href="../sprint-plan.html">← Sprint Plan</a><a href="../design-language.html">Design Language →</a></nav>
+</main>
+</body>
+</html>

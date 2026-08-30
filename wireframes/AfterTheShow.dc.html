@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+  <style>
+    /* PROJECTIONIST — the projection booth.
+       Two lighting states, not three temperatures. Light has a direction and
+       a source. See DESIGN.md; this file is the only place values live. */
+    :root{
+      --house-up:#141210;      /* warm ground, before and after   */
+      --house-down:#0a0b10;    /* cold ground, during the film    */
+      --paper:oklch(0.93 0.005 75);
+      --gold:#f4e4bc;          /* warm light, never hardware      */
+      --silver:#f2f7ff;        /* the live signal, rationed       */
+      --time:oklch(0.72 0.13 240);
+      --curtain:#7c1f2e;       /* light on cloth, T-0 + interval  */
+      --fold:#5c131c;
+      --hair:oklch(0.30 0.006 60);
+      --dim:oklch(0.58 0.008 70);
+      --dimmer:oklch(0.44 0.006 70);
+
+      /* Light arriving is an event; light leaving is a decay. */
+      --beam-rise:220ms;  --beam-fall:640ms;
+      --ease-strike:cubic-bezier(.2,.7,.3,1);
+      --ease-decay:cubic-bezier(.4,0,.7,.4);
+      --settle:900ms;     --curtain-travel:10s;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:#0b0b0e;color:var(--paper);
+      font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:var(--gold);text-decoration:none} a:hover{color:var(--silver)}
+
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+    .serif,.note{font-family:'Source Serif 4',Georgia,serif}
+    .note{font-size:15px;line-height:1.45}
+    .marq{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;letter-spacing:.01em}
+    .cap{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+      font-family:'JetBrains Mono',ui-monospace,monospace}
+    .sid{font-size:10px;letter-spacing:.14em;color:var(--gold);
+      font-family:'JetBrains Mono',ui-monospace,monospace}
+
+    /* the live signal, always with its glow, never on a resting surface */
+    .live,.glow{color:var(--silver);
+      text-shadow:0 0 8px rgba(244,248,255,.85),0 0 22px rgba(150,190,255,.5)}
+    .livedot{width:7px;height:7px;border-radius:50%;background:var(--silver);flex-shrink:0;
+      box-shadow:0 0 7px rgba(255,255,255,.6),0 0 20px rgba(160,195,255,.55)}
+
+    /* HOUSE UP — warm ambient from above, no visible source, matte */
+    .up{background:var(--house-up)}
+    .up::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+      background:radial-gradient(140% 70% at 50% -18%,
+        rgba(244,228,188,.20) 0%, rgba(244,228,188,.055) 44%, transparent 74%)}
+
+    /* HOUSE DOWN — one cold key from above and behind, deep falloff */
+    .dn{background:var(--house-down)}
+    .dn::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+      background:radial-gradient(120% 62% at 50% -14%,
+        rgba(242,247,255,.13) 0%, rgba(150,190,255,.035) 40%, transparent 70%)}
+    .up > *, .dn > *{position:relative;z-index:1}
+
+    /* the beam: struck, then allowed to decay */
+    .beam{position:absolute;inset:0;pointer-events:none;z-index:0;
+      background:radial-gradient(78% 46% at 50% 44%, rgba(242,247,255,.10), transparent 68%)}
+
+    /* the curtain: a rhythm of light on cloth, never a fill */
+    .cloth{position:absolute;top:0;bottom:0;z-index:0;
+      background:repeating-linear-gradient(90deg,
+        rgba(124,31,46,.05) 0px, rgba(124,31,46,.62) 7px,
+        rgba(160,48,64,.30) 13px, rgba(124,31,46,.07) 19px,
+        rgba(92,19,28,.02) 27px),
+        linear-gradient(to top, rgba(244,228,188,.22), transparent 68%)}
+    .lip{position:absolute;top:0;bottom:0;width:20px;z-index:1}
+
+    /* grain: projected light only. Never a resting surface. */
+    .grain{position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.24;mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .scratch{position:absolute;top:0;bottom:0;width:1px;z-index:2;pointer-events:none}
+
+    .phone{width:390px;height:800px;border-radius:26px;border:1px solid var(--hair);
+      overflow:hidden;display:flex;flex-direction:column;flex-shrink:0;position:relative}
+    .desk{width:1440px;height:900px;border-radius:10px;border:1px solid var(--hair);
+      overflow:hidden;display:flex;flex-shrink:0;position:relative;padding-top:38px}
+    .desk::after{content:"projection.ist/host";position:absolute;top:0;left:0;right:0;height:38px;
+      display:flex;align-items:center;justify-content:center;z-index:3;
+      background:#100e0c;border-bottom:1px solid var(--hair);
+      font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;
+      color:var(--dimmer);letter-spacing:.04em}
+    .dots{position:absolute;top:15px;left:16px;display:flex;gap:7px;z-index:4}
+    .dots i{width:9px;height:9px;border-radius:50%;background:oklch(0.32 0.006 60);display:block}
+
+    .hair{border:0;border-top:1px solid var(--hair);margin:0}
+    .pill{border:1px solid var(--hair);border-radius:999px;padding:5px 11px;font-size:11px;color:var(--dim)}
+    .card{border:1px solid var(--hair);border-radius:9px;padding:16px 17px;position:relative}
+    .btn{border:1px solid var(--hair);border-radius:6px;padding:11px 14px;font-size:13px;
+      color:var(--paper);text-align:center}
+    .btnp{border-radius:6px;padding:12px 14px;font-size:13px;font-weight:600;text-align:center;
+      background:var(--paper);color:#14110b}
+  </style>
+</helmet>
+
+<div style="background:#0b0b0e;padding:44px;display:flex;gap:26px;align-items:flex-start">
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1H</span> Recap and Film DNA</div>
+    <div class="phone up">
+      <div style="padding:26px 22px;flex:1;display:flex;flex-direction:column;overflow:hidden">
+        <div class="marq" style="font-size:24px">THAT IS A WRAP</div>
+        <div class="cap" style="font-size:9px;margin-top:9px">142 WATCHED TOGETHER &middot; IN THE MOOD FOR LOVE</div>
+
+        <div style="display:flex;gap:26px;margin-top:22px">
+          <div><div class="mono" style="font-size:22px">6</div><div class="cap" style="font-size:9px">notes saved</div></div>
+          <div><div class="mono" style="font-size:22px">98m</div><div class="cap" style="font-size:9px">in the room</div></div>
+          <div><div class="mono" style="font-size:22px">412</div><div class="cap" style="font-size:9px">messages</div></div>
+        </div>
+
+        <div class="cap" style="font-size:9px;margin-top:24px;color:var(--gold)">NAOMI ANSWERS</div>
+        <div style="margin-top:9px">
+          <div style="font-size:13px;color:var(--dim)">Why does he never say it out loud?</div>
+          <div class="note" style="margin-top:5px;font-size:14px;line-height:1.45">Because the film is about the sentence neither of them finishes. Wong cut every take where they got close.</div>
+        </div>
+
+        <div class="cap" style="font-size:9px;margin-top:22px;color:var(--gold)">FILM DNA &middot; IF YOU LIKED THIS</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px">
+          <div class="pill" style="font-size:10px">WONG KAR-WAI</div>
+          <div class="pill" style="font-size:10px">DOYLE FRAMES</div>
+          <div class="pill" style="font-size:10px">UNSPOKEN THINGS</div>
+        </div>
+
+        <div class="cap" style="font-size:9px;margin-top:22px">RATE IT</div>
+        <div style="font-size:19px;margin-top:6px;color:var(--gold);letter-spacing:4px">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+
+        <div style="margin-top:auto;border-top:1px solid var(--hair);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-size:13px">Naomi&rsquo;s next</div><div class="cap" style="font-size:9px">CHUNGKING EXPRESS &middot; FRI 8PM</div></div>
+          <div class="btn" style="padding:9px 15px">Reserve &middot; $0.99</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap" style="margin-bottom:12px"><span class="sid">1I</span> Taste Passport</div>
+    <div class="phone up">
+      <div style="padding:26px 22px;flex:1;display:flex;flex-direction:column">
+        <div class="cap" style="font-size:9px">THE PASSPORT</div>
+        <div style="font-size:21px;font-weight:600;margin-top:10px">Sam R.</div>
+        <div class="cap" style="font-size:9px;margin-top:5px">@SAMR &middot; 24 CURATORS &middot; 38 SESSIONS</div>
+
+        <div style="margin-top:24px;border:1px solid var(--hair);border-radius:7px;padding:16px">
+          <div class="cap" style="font-size:9px;color:var(--gold)">PROOF YOU WERE IN THE ROOM</div>
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:11px;font-size:13px">
+            <div style="display:flex;justify-content:space-between"><span>In the Mood for Love</span><span class="mono" style="color:var(--dimmer);font-size:11px">21 AUG</span></div>
+            <div style="display:flex;justify-content:space-between"><span>Road House</span><span class="mono" style="color:var(--dimmer);font-size:11px">14 AUG</span></div>
+            <div style="display:flex;justify-content:space-between"><span>Point Break</span><span class="mono" style="color:var(--dimmer);font-size:11px">09 AUG</span></div>
+            <div style="display:flex;justify-content:space-between;color:var(--dim)"><span>Opening night &middot; Vidiots</span><span class="mono" style="color:var(--dimmer);font-size:11px">02 AUG</span></div>
+          </div>
+        </div>
+
+        <div class="cap" style="font-size:9px;margin-top:24px">SAVED LINER NOTES</div>
+        <div class="note" style="margin-top:9px;font-size:14px;color:var(--dim);line-height:1.45">&ldquo;The hallway is shot the same way every time. She wants you to feel the repetition.&rdquo;</div>
+        <div class="cap" style="font-size:9px;margin-top:6px;color:var(--dimmer)">NAOMI &middot; 31 AUG</div>
+
+        <div style="margin-top:auto;border-top:1px solid var(--hair);padding-top:14px">
+          <div class="cap" style="font-size:9px">10 SESSIONS RUNNING</div>
+          <div style="font-size:12px;color:var(--dimmer);margin-top:5px;line-height:1.5">A library card, not a trophy case.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width:250px;padding-top:38px">
+    <div class="cap" style="margin-bottom:12px">After the show</div>
+    <div style="font-size:13px;line-height:1.6;color:var(--dim)">The wrap answers the questions people left when they reserved. That loop is the reason to collect them on the way in.</div>
+    <div style="font-size:13px;line-height:1.6;color:var(--dim);margin-top:16px">Film DNA is three tags. The next thing to watch comes from a person, same as the last one.</div>
+  </div>
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1200,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
