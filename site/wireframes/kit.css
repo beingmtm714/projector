@@ -1,4 +1,4 @@
-/* PROJECTIONIST — the projection booth.
+/* PROJECTOR — the projection booth.
        Two lighting states, not three temperatures. Light has a direction and
        a source. See DESIGN.md; this file is the only place values live. */
     :root{
