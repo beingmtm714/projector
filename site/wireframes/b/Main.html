@@ -47,13 +47,13 @@
   .nav span{color:#c2bdb1}
   /* Sits directly under the board and is centred, because both bottom corners
      are taken: the host's badge on the right, the jump-to-top on the left. */
-  .pager{display:flex;flex-direction:column;align-items:center;gap:22px;
-    padding:20px 24px 128px;text-align:center}
+  .pager{display:flex;flex-direction:column;align-items:center;gap:12px;
+    padding:14px 24px 56px;text-align:center}
   .pager .step{display:block;text-decoration:none;max-width:100%}
   /* The page below the stage is the boards' own near-black, not the paper the
      bar sits on, so this type is light. Ink here would be invisible. */
   .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
-    letter-spacing:.2em;text-transform:uppercase;color:#7d7768;margin-bottom:7px}
+    letter-spacing:.2em;text-transform:uppercase;color:#7d7768;margin-bottom:4px}
   .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
     font-weight:800;font-size:clamp(26px,4.4vw,44px);letter-spacing:.03em;text-transform:uppercase;
     color:#ddd5c6;line-height:1.05;transition:color .15s}
@@ -202,10 +202,22 @@
     }catch(e){}
   }
   btn.addEventListener('click',function(){
-    actual=!actual;apply();
+    actual=!actual;userSet=true;apply();
     if(actual){window.scrollTo(0,0)}
   });
-  window.addEventListener('resize',apply);
+  var userSet=false;
+  function autoActual(){
+    // A board shrunk past a third is a shape, not a screen you can read, so a
+    // narrow window opens it 1:1 and scrolls sideways. Re-decided on resize:
+    // deciding once meant a window that started narrow stayed in actual size
+    // after it was widened, with no way back but the button.
+    if(userSet){return}
+    var was=actual;
+    actual=false; apply();
+    if(fitScale<0.35){actual=true; apply()}
+    else if(was!==actual){apply()}
+  }
+  window.addEventListener('resize',autoActual);
   apply();
   // Wrapping saves a laptop but not a phone: a 1440px screen in a 375px window is
   // still a shape rather than something you can read. Below a third, open it 1:1
