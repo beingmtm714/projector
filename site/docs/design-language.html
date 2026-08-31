@@ -81,13 +81,17 @@
   .totop.on{opacity:1;transform:none;pointer-events:auto}
   .totop:hover{color:var(--pink);border-color:var(--pink)}
   @media (max-width:560px){.nav a,.nav span{max-width:7ch}}
-  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
-    border-top:1px solid var(--line);padding-top:18px;
-    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
-    text-transform:uppercase}
-  .pager a{color:var(--ink-soft);text-decoration:none}
-  .pager a:hover{color:var(--pink)}
-  .pager span{color:#bdb8ac}
+  /* Centred and directly under the document, because both bottom corners are
+     taken: the host's badge on the right, the jump-to-top on the left. */
+  .pager{display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;
+    margin-top:48px;border-top:1px solid var(--line);padding:30px 0 96px}
+  .pager .step{display:block;text-decoration:none;max-width:100%}
+  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
+  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
+    font-weight:800;font-size:clamp(26px,4.4vw,42px);letter-spacing:.03em;text-transform:uppercase;
+    color:var(--ink);line-height:1.05}
+  .pager .step:hover .to,.pager .step:hover .lbl{color:var(--pink)}
   @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -168,7 +172,7 @@ box-shadow: 0 0 7px rgba(255,255,255,.6), 0 0 20px rgba(160,195,255,.55);</code>
 <p>The eleven artboards in <code>projector/wireframes/</code> are the pixel references, and <code>_kit.txt</code> is the only source of values. Build against the artboard rather than against taste: serve, screenshot, compare image to image, change one property, re-screenshot. The <code>visual-loop</code> skill carries that discipline.</p>
 <p>Do not run aesthetic-direction skills against this repo. The look is settled and lives in the tokens.</p>
 <p><strong>A screen that is not already an artboard gets drawn as one first</strong>, in the canvas, and only then built against the picture. An agent should only ever be implementing a design.</p>
-<nav class="pager"><a href="./private/investor-deck.html">← Investor Deck</a><a href="./build-plan.html">Build Plan →</a></nav>
+<nav class="pager"><a class="step" href="./build-plan.html"><span class="lbl">Next</span><span class="to">Build Plan →</span></a><a class="step" href="./private/investor-deck.html"><span class="lbl">Previous</span><span class="to">← Investor Deck</span></a></nav>
 </main>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>

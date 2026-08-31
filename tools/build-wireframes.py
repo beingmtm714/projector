@@ -153,10 +153,18 @@ CHROME = """
     white-space:nowrap;max-width:20ch;overflow:hidden;text-overflow:ellipsis}
   .nav a:hover{background:rgba(0,0,0,.06);color:#a01a86}
   .nav span{color:#c2bdb1}
-  .pager{display:flex;justify-content:space-between;gap:16px;padding:16px 16px 40px;
-    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
-    text-transform:uppercase}
-  .pager span{color:#3a382f}
+  /* Sits directly under the board and is centred, because both bottom corners
+     are taken: the host's badge on the right, the jump-to-top on the left. */
+  .pager{display:flex;flex-direction:column;align-items:center;gap:22px;
+    padding:20px 24px 128px;text-align:center}
+  .pager .step{display:block;text-decoration:none;max-width:100%}
+  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:#8a8477;margin-bottom:7px}
+  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
+    font-weight:800;font-size:clamp(26px,4.4vw,44px);letter-spacing:.03em;text-transform:uppercase;
+    color:#1a1917;line-height:1.05}
+  .pager .step:hover .to{color:#a01a86}
+  .pager .step:hover .lbl{color:#a01a86}
   /* Bottom LEFT on purpose: the bottom right is taken. */
   .totop{position:fixed;left:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:7px;
     padding:9px 13px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#e7e3da;
@@ -268,17 +276,18 @@ def board_page(name, art, notes, prev_art, next_art):
     else:
         bar_next = '<span>›</span>'
 
+    # Forward first: at the end of a board the next one is what you want.
     pager = []
-    if prev_art:
-        p = prev_art["file"][:-len(".dc.html")]
-        pager.append(f'<a href="./{p}.html">← {html.escape(p)}</a>')
-    else:
-        pager.append("<span></span>")
     if next_art:
         n = next_art["file"][:-len(".dc.html")]
-        pager.append(f'<a href="./{n}.html">{html.escape(n)} →</a>')
-    else:
-        pager.append("<span></span>")
+        pager.append(f'<a class="step" href="./{n}.html">'
+                     f'<span class="lbl">Next board</span>'
+                     f'<span class="to">{html.escape(n)} →</span></a>')
+    if prev_art:
+        p = prev_art["file"][:-len(".dc.html")]
+        pager.append(f'<a class="step" href="./{p}.html">'
+                     f'<span class="lbl">Previous</span>'
+                     f'<span class="to">← {html.escape(p)}</span></a>')
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -304,7 +313,7 @@ def board_page(name, art, notes, prev_art, next_art):
 {artboard_body(name)}
   </div>
 </div>
-<nav class="pager">{pager[0]}{pager[1]}</nav>
+<nav class="pager">{"".join(pager)}</nav>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>{BOARD_JS}</script>
 </body>

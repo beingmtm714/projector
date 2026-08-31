@@ -257,13 +257,17 @@ CSS = """
   .totop.on{opacity:1;transform:none;pointer-events:auto}
   .totop:hover{color:var(--pink);border-color:var(--pink)}
   @media (max-width:560px){.nav a,.nav span{max-width:7ch}}
-  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
-    border-top:1px solid var(--line);padding-top:18px;
-    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
-    text-transform:uppercase}
-  .pager a{color:var(--ink-soft);text-decoration:none}
-  .pager a:hover{color:var(--pink)}
-  .pager span{color:#bdb8ac}
+  /* Centred and directly under the document, because both bottom corners are
+     taken: the host's badge on the right, the jump-to-top on the left. */
+  .pager{display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;
+    margin-top:48px;border-top:1px solid var(--line);padding:30px 0 96px}
+  .pager .step{display:block;text-decoration:none;max-width:100%}
+  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
+  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
+    font-weight:800;font-size:clamp(26px,4.4vw,42px);letter-spacing:.03em;text-transform:uppercase;
+    color:var(--ink);line-height:1.05}
+  .pager .step:hover .to,.pager .step:hover .lbl{color:var(--pink)}
   @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 """
@@ -320,8 +324,16 @@ def build():
         prev = by_slug[order[idx - 1]] if idx else None
         nxt = by_slug[order[idx + 1]] if idx + 1 < len(order) else None
         here = slug in GATED
-        pager.append(f'<a href="{href(prev[0], here)}">← {H.escape(prev[1])}</a>' if prev else "<span></span>")
-        pager.append(f'<a href="{href(nxt[0], here)}">{H.escape(nxt[1])} →</a>' if nxt else "<span></span>")
+        # Forward first: at the end of a document the next one is what you want.
+        pager = []
+        if nxt:
+            pager.append(f'<a class="step" href="{href(nxt[0], here)}">'
+                         f'<span class="lbl">Next</span>'
+                         f'<span class="to">{H.escape(nxt[1])} →</span></a>')
+        if prev:
+            pager.append(f'<a class="step" href="{href(prev[0], here)}">'
+                         f'<span class="lbl">Previous</span>'
+                         f'<span class="to">← {H.escape(prev[1])}</span></a>')
         bar_prev = (f'<a href="{href(prev[0], here)}">‹ {H.escape(prev[1])}</a>' if prev else '<span>‹</span>')
         bar_next = (f'<a href="{href(nxt[0], here)}">{H.escape(nxt[1])} ›</a>' if nxt else '<span>›</span>')
 
@@ -339,7 +351,7 @@ def build():
 {lock}
 {toc_html}
 {body}
-<nav class="pager">{pager[0]}{pager[1]}</nav>
+<nav class="pager">{"".join(pager)}</nav>
 </main>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>

@@ -81,13 +81,17 @@
   .totop.on{opacity:1;transform:none;pointer-events:auto}
   .totop:hover{color:var(--pink);border-color:var(--pink)}
   @media (max-width:560px){.nav a,.nav span{max-width:7ch}}
-  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
-    border-top:1px solid var(--line);padding-top:18px;
-    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
-    text-transform:uppercase}
-  .pager a{color:var(--ink-soft);text-decoration:none}
-  .pager a:hover{color:var(--pink)}
-  .pager span{color:#bdb8ac}
+  /* Centred and directly under the document, because both bottom corners are
+     taken: the host's badge on the right, the jump-to-top on the left. */
+  .pager{display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;
+    margin-top:48px;border-top:1px solid var(--line);padding:30px 0 96px}
+  .pager .step{display:block;text-decoration:none;max-width:100%}
+  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
+  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
+    font-weight:800;font-size:clamp(26px,4.4vw,42px);letter-spacing:.03em;text-transform:uppercase;
+    color:var(--ink);line-height:1.05}
+  .pager .step:hover .to,.pager .step:hover .lbl{color:var(--pink)}
   @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -114,7 +118,7 @@
 <p>Leaves out intermission, failure states, the twelve days across ten weeks, and the explicit &quot;do not build Stripe Connect.&quot; Those are in <a class="xref" href="./engineer-brief.html">Projector-Engineer-Brief.md</a> for anyone who asks a second question.</p>
 <h2 id="an-alternative-angle">An alternative angle</h2>
 <p>Both blurbs above lead with the viewing experience. The deck&#x27;s problem slide argues the wedge is the curator&#x27;s economics rather than the viewer&#x27;s boredom: a film programmer with 800,000 followers has a job at a theatre and a Letterboxd account, and no way to turn that into a live event with an income. Lead there instead when the reader is an investor or a curator, and lead with the viewing experience when they are neither.</p>
-<nav class="pager"><a href="./private/pre-seed-bar.html">← Pre-Seed Bar</a><span></span></nav>
+<nav class="pager"><a class="step" href="./private/pre-seed-bar.html"><span class="lbl">Previous</span><span class="to">← Pre-Seed Bar</span></a></nav>
 </main>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>

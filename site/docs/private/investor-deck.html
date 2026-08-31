@@ -81,13 +81,17 @@
   .totop.on{opacity:1;transform:none;pointer-events:auto}
   .totop:hover{color:var(--pink);border-color:var(--pink)}
   @media (max-width:560px){.nav a,.nav span{max-width:7ch}}
-  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
-    border-top:1px solid var(--line);padding-top:18px;
-    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
-    text-transform:uppercase}
-  .pager a{color:var(--ink-soft);text-decoration:none}
-  .pager a:hover{color:var(--pink)}
-  .pager span{color:#bdb8ac}
+  /* Centred and directly under the document, because both bottom corners are
+     taken: the host's badge on the right, the jump-to-top on the left. */
+  .pager{display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;
+    margin-top:48px;border-top:1px solid var(--line);padding:30px 0 96px}
+  .pager .step{display:block;text-decoration:none;max-width:100%}
+  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
+  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
+    font-weight:800;font-size:clamp(26px,4.4vw,42px);letter-spacing:.03em;text-transform:uppercase;
+    color:var(--ink);line-height:1.05}
+  .pager .step:hover .to,.pager .step:hover .lbl{color:var(--pink)}
   @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -226,7 +230,7 @@
 <p><strong>Homework this deck needs.</strong> The compiled curator universe: the actual list, segmented and sized. It converts the recruiting claim into an addressable supply market and it is the slide that answers what happens when the founder network runs out.</p>
 <p><strong>Not yet true, do not let it drift.</strong> The Ringer is a warm path through Michael&#x27;s relationship with their editorial director. No meeting has happened. It is on the business model slide as access and it does not appear as traction anywhere. When the meeting happens it graduates to the proof of concept slide.</p>
 <p><strong>Three things to settle before this is sent.</strong> The raise number. The Tongal framing on slide 12, which James should write himself. And whether the POC has produced numbers yet, because slide 11 reads differently depending on the answer.</p>
-<nav class="pager"><a href="../sprint-plan.html">← Sprint Plan</a><a href="../design-language.html">Design Language →</a></nav>
+<nav class="pager"><a class="step" href="../design-language.html"><span class="lbl">Next</span><span class="to">Design Language →</span></a><a class="step" href="../sprint-plan.html"><span class="lbl">Previous</span><span class="to">← Sprint Plan</span></a></nav>
 </main>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>

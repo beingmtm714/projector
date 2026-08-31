@@ -81,13 +81,17 @@
   .totop.on{opacity:1;transform:none;pointer-events:auto}
   .totop:hover{color:var(--pink);border-color:var(--pink)}
   @media (max-width:560px){.nav a,.nav span{max-width:7ch}}
-  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
-    border-top:1px solid var(--line);padding-top:18px;
-    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
-    text-transform:uppercase}
-  .pager a{color:var(--ink-soft);text-decoration:none}
-  .pager a:hover{color:var(--pink)}
-  .pager span{color:#bdb8ac}
+  /* Centred and directly under the document, because both bottom corners are
+     taken: the host's badge on the right, the jump-to-top on the left. */
+  .pager{display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;
+    margin-top:48px;border-top:1px solid var(--line);padding:30px 0 96px}
+  .pager .step{display:block;text-decoration:none;max-width:100%}
+  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
+  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
+    font-weight:800;font-size:clamp(26px,4.4vw,42px);letter-spacing:.03em;text-transform:uppercase;
+    color:var(--ink);line-height:1.05}
+  .pager .step:hover .to,.pager .step:hover .lbl{color:var(--pink)}
   @media (max-width:620px){.toc ol{columns:1}.bar .meta{display:none}}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -135,7 +139,7 @@
 <p>Outside references rather than installs: <a href="https://github.com/rohitg00/awesome-claude-design">awesome-claude-design</a> is a curated collection whose Cinematic Dark and Cult/Indie families, the latter listing Criterion and A24 explicitly, are the nearest published analogues to what already exists here, useful as a check rather than a replacement. <a href="https://github.com/wilwaldon/Claude-Code-Frontend-Design-Toolkit">Claude-Code-Frontend-Design-Toolkit</a> is the best single index of what is available. Ignore the star counts quoted in write-ups about either; several looked inflated and none were verified.</p>
 <h2 id="where-an-agent-should-not-be-doing-the-work-at-all">Where an agent should not be doing the work at all</h2>
 <p>Net-new visual invention. A screen that is not among the thirteen artboards should be drawn as an artboard first, in the Claude canvas the wireframes came from, and only then built against the picture. That discipline already exists in the spec, which records the canvas URL and the <code>tools/build-wireframes.py</code> step that stops the pages and the canvas drifting apart. Kept, it means an agent is only ever implementing a design, which is the thing it is reliably good at.</p>
-<nav class="pager"><a href="./build-plan.html">← Build Plan</a><a href="./engineer-brief.html">Engineer Brief →</a></nav>
+<nav class="pager"><a class="step" href="./engineer-brief.html"><span class="lbl">Next</span><span class="to">Engineer Brief →</span></a><a class="step" href="./build-plan.html"><span class="lbl">Previous</span><span class="to">← Build Plan</span></a></nav>
 </main>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>

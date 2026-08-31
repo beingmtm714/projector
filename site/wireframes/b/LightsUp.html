@@ -45,10 +45,18 @@
     white-space:nowrap;max-width:20ch;overflow:hidden;text-overflow:ellipsis}
   .nav a:hover{background:rgba(0,0,0,.06);color:#a01a86}
   .nav span{color:#c2bdb1}
-  .pager{display:flex;justify-content:space-between;gap:16px;padding:16px 16px 40px;
-    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
-    text-transform:uppercase}
-  .pager span{color:#3a382f}
+  /* Sits directly under the board and is centred, because both bottom corners
+     are taken: the host's badge on the right, the jump-to-top on the left. */
+  .pager{display:flex;flex-direction:column;align-items:center;gap:22px;
+    padding:20px 24px 128px;text-align:center}
+  .pager .step{display:block;text-decoration:none;max-width:100%}
+  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:#8a8477;margin-bottom:7px}
+  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
+    font-weight:800;font-size:clamp(26px,4.4vw,44px);letter-spacing:.03em;text-transform:uppercase;
+    color:#1a1917;line-height:1.05}
+  .pager .step:hover .to{color:#a01a86}
+  .pager .step:hover .lbl{color:#a01a86}
   /* Bottom LEFT on purpose: the bottom right is taken. */
   .totop{position:fixed;left:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:7px;
     padding:9px 13px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#e7e3da;
@@ -175,7 +183,7 @@
 </div>
   </div>
 </div>
-<nav class="pager"><a href="./CuratorPhone.html">← CuratorPhone</a><a href="./CuratorProfile.html">CuratorProfile →</a></nav>
+<nav class="pager"><a class="step" href="./CuratorProfile.html"><span class="lbl">Next board</span><span class="to">CuratorProfile →</span></a><a class="step" href="./CuratorPhone.html"><span class="lbl">Previous</span><span class="to">← CuratorPhone</span></a></nav>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>
 (function(){
