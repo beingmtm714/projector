@@ -241,6 +241,22 @@ CSS = """
   th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
   th{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;
     text-transform:uppercase;color:var(--ink-faint);font-weight:400;white-space:nowrap}
+  .nav{display:flex;align-items:center;gap:2px;flex:none}
+  .nav a,.nav span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:5px;
+    text-decoration:none;white-space:nowrap;max-width:22ch;overflow:hidden;text-overflow:ellipsis}
+  .nav a{color:var(--ink-soft)}
+  .nav a:hover{background:rgba(0,0,0,.06);color:var(--pink)}
+  .nav span{color:#c2bdb1}
+  /* Bottom LEFT on purpose: the bottom right belongs to the host's badge. */
+  .totop{position:fixed;left:16px;bottom:16px;z-index:20;padding:9px 13px;border-radius:999px;
+    border:1px solid rgba(0,0,0,.18);background:var(--paper);color:var(--ink-soft);
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;cursor:pointer;
+    opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .18s,transform .18s}
+  .totop.on{opacity:1;transform:none;pointer-events:auto}
+  .totop:hover{color:var(--pink);border-color:var(--pink)}
+  @media (max-width:560px){.nav a,.nav span{max-width:7ch}}
   .pager{display:flex;justify-content:space-between;gap:16px;margin-top:56px;
     border-top:1px solid var(--line);padding-top:18px;
     font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
@@ -306,12 +322,15 @@ def build():
         here = slug in GATED
         pager.append(f'<a href="{href(prev[0], here)}">← {H.escape(prev[1])}</a>' if prev else "<span></span>")
         pager.append(f'<a href="{href(nxt[0], here)}">{H.escape(nxt[1])} →</a>' if nxt else "<span></span>")
+        bar_prev = (f'<a href="{href(prev[0], here)}">‹ {H.escape(prev[1])}</a>' if prev else '<span>‹</span>')
+        bar_next = (f'<a href="{href(nxt[0], here)}">{H.escape(nxt[1])} ›</a>' if nxt else '<span>›</span>')
 
         lock = ('<div class="lockline">Shared by link. Not listed publicly.</div>'
                 if slug in GATED else "")
         page = f"""<header class="bar">
   <a class="back" href="{'../' if slug in GATED else './'}">← Documents</a>
   <div class="who"><span class="name">{H.escape(title)}</span></div>
+  <nav class="nav">{bar_prev}{bar_next}</nav>
   <span class="meta">{H.escape(stamp)}</span>
 </header>
 <main class="doc">
@@ -321,7 +340,20 @@ def build():
 {toc_html}
 {body}
 <nav class="pager">{pager[0]}{pager[1]}</nav>
-</main>"""
+</main>
+<button class="totop" id="totop" type="button">↑ Top</button>
+<script>
+(function(){{
+  // Not named `top`: that is window.top in a browser, so the assignment does not
+  // take and the whole block fails silently.
+  var upBtn=document.getElementById('totop');
+  if(!upBtn){{return}}
+  var toggle=function(){{upBtn.classList.toggle('on',window.scrollY>360)}};
+  window.addEventListener('scroll',toggle,{{passive:true}});
+  upBtn.addEventListener('click',function(){{window.scrollTo({{top:0,behavior:'smooth'}})}});
+  toggle();
+}})();
+</script>"""
         out = dest(slug)
         out.write_text(shell(f"{title} · Projector", page))
         print(f"wrote {out.relative_to(ROOT)}")

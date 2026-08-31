@@ -145,10 +145,27 @@ CHROME = """
      1440px screens into diagrams you cannot read, so the row is allowed to wrap
      and the screens stack down the page instead. */
   .art.wrap > div:first-child{flex-wrap:wrap!important;align-content:flex-start!important}
+  /* Board to board lives in the bar, which is sticky and cannot be covered.
+     The foot of the page belongs to the host's own badge, bottom right. */
+  .nav{display:flex;align-items:center;gap:2px;flex:none}
+  .nav a,.nav span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:5px;
+    white-space:nowrap;max-width:20ch;overflow:hidden;text-overflow:ellipsis}
+  .nav a:hover{background:rgba(0,0,0,.06);color:#a01a86}
+  .nav span{color:#c2bdb1}
   .pager{display:flex;justify-content:space-between;gap:16px;padding:16px 16px 40px;
     font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
     text-transform:uppercase}
   .pager span{color:#3a382f}
+  /* Bottom LEFT on purpose: the bottom right is taken. */
+  .totop{position:fixed;left:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:7px;
+    padding:9px 13px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#e7e3da;
+    color:#57534a;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+    opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .18s,transform .18s}
+  .totop.on{opacity:1;transform:none;pointer-events:auto}
+  .totop:hover{color:#a01a86;border-color:#a01a86}
+  @media (max-width:560px){.nav a,.nav span{max-width:8ch}}
   @media (max-width:520px){.bar .ids{display:none}}
 """
 
@@ -208,6 +225,20 @@ BOARD_JS = """
   // still a shape rather than something you can read. Below a third, open it 1:1
   // and let it scroll sideways, which is at least legible a column at a time.
   if(!actual&&fitScale<0.35){actual=true;apply()}
+  // A long board scrolls well past the bar. Offer the way back up, on the left,
+  // because the bottom right corner belongs to the host's badge.
+  try{
+    // Not named `top`: that is window.top in a browser and the assignment does
+    // not take, so the whole block fails silently inside this catch.
+    var upBtn=document.getElementById('totop');
+    if(upBtn){
+      var toggle=function(){upBtn.classList.toggle('on',window.scrollY>360)};
+      window.addEventListener('scroll',toggle,{passive:true});
+      upBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+      toggle();
+    }
+  }catch(e){}
+
   // The board is what you came for; on a phone the notes start folded away.
   try{
     var memo=document.getElementById('memo');
@@ -225,6 +256,18 @@ def board_page(name, art, notes, prev_art, next_art):
         label = "note" if len(notes) == 1 else "notes"
         memo = (f'<details class="memo" id="memo" open><summary>{len(notes)} {label} on this board</summary>'
                 f"{body}</details>")
+    bar_prev = bar_next = ""
+    if prev_art:
+        _p = prev_art["file"][:-len(".dc.html")]
+        bar_prev = f'<a href="./{_p}.html" title="{html.escape(_p)}">‹ {html.escape(_p)}</a>'
+    else:
+        bar_prev = '<span>‹</span>'
+    if next_art:
+        _n = next_art["file"][:-len(".dc.html")]
+        bar_next = f'<a href="./{_n}.html" title="{html.escape(_n)}">{html.escape(_n)} ›</a>'
+    else:
+        bar_next = '<span>›</span>'
+
     pager = []
     if prev_art:
         p = prev_art["file"][:-len(".dc.html")]
@@ -252,6 +295,7 @@ def board_page(name, art, notes, prev_art, next_art):
 <header class="bar">
   <a class="back" href="../">← Boards</a>
   <div class="who"><span class="name">{html.escape(name)}</span><span class="ids">{html.escape(ids)}</span></div>
+  <nav class="nav">{bar_prev}{bar_next}</nav>
   <button class="zoom" id="zoom" type="button">Actual size</button>
 </header>
 {memo}
@@ -261,6 +305,7 @@ def board_page(name, art, notes, prev_art, next_art):
   </div>
 </div>
 <nav class="pager">{pager[0]}{pager[1]}</nav>
+<button class="totop" id="totop" type="button">↑ Top</button>
 <script>{BOARD_JS}</script>
 </body>
 </html>
