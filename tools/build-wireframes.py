@@ -158,13 +158,15 @@ CHROME = """
   .pager{display:flex;flex-direction:column;align-items:center;gap:22px;
     padding:20px 24px 128px;text-align:center}
   .pager .step{display:block;text-decoration:none;max-width:100%}
+  /* The page below the stage is the boards' own near-black, not the paper the
+     bar sits on, so this type is light. Ink here would be invisible. */
   .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
-    letter-spacing:.2em;text-transform:uppercase;color:#8a8477;margin-bottom:7px}
+    letter-spacing:.2em;text-transform:uppercase;color:#7d7768;margin-bottom:7px}
   .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
     font-weight:800;font-size:clamp(26px,4.4vw,44px);letter-spacing:.03em;text-transform:uppercase;
-    color:#1a1917;line-height:1.05}
-  .pager .step:hover .to{color:#a01a86}
-  .pager .step:hover .lbl{color:#a01a86}
+    color:#ddd5c6;line-height:1.05;transition:color .15s}
+  .pager .step:hover .to{color:#f4e4bc}
+  .pager .step:hover .lbl{color:#b8a77f}
   /* Bottom LEFT on purpose: the bottom right is taken. */
   .totop{position:fixed;left:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:7px;
     padding:9px 13px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#e7e3da;
