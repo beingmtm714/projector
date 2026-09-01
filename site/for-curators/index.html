@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Projector · for curators</title>
+<meta name="description" content="You already have an audience for your taste. This turns it into a room, on a night, that pays you.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<style>
+  :root{
+    --house-up:#141210; --paper:oklch(0.93 0.005 75); --gold:#f4e4bc;
+    --hair:oklch(0.30 0.006 60); --dim:oklch(0.58 0.008 70); --dimmer:oklch(0.44 0.006 70);
+    --zone-prep:oklch(0.74 0.10 82); --zone-house:oklch(0.86 0.07 85);
+    --zone-night:oklch(0.72 0.13 240); --zone-after:oklch(0.78 0.06 155);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--house-up);color:var(--paper);
+    font-family:'Hanken Grotesk',system-ui,sans-serif;line-height:1.62;-webkit-font-smoothing:antialiased;
+    position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(140% 68% at 50% -16%,rgba(244,228,188,.20) 0%,rgba(244,228,188,.055) 44%,transparent 74%)}
+  main,footer{position:relative;z-index:1}
+  main{max-width:640px;margin:0 auto;padding:72px 24px 40px}
+  .marq{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;letter-spacing:.02em}
+  h1{margin:0;font-size:clamp(38px,9vw,60px);line-height:1;color:var(--gold);
+    text-transform:uppercase;text-shadow:0 0 26px rgba(244,228,188,.22)}
+  .lede{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(19px,3.2vw,23px);line-height:1.42;
+    margin:22px 0 0;color:var(--paper);max-width:30ch}
+  .zone{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace;margin:52px 0 12px}
+  .zone::before{content:"";width:24px;height:2px;border-radius:2px;background:currentColor;flex-shrink:0}
+  .z-house{color:var(--zone-house)} .z-night{color:var(--zone-night)}
+  .z-prep{color:var(--zone-prep)}   .z-after{color:var(--zone-after)}
+  h2{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:800;
+    font-size:clamp(21px,4vw,27px);letter-spacing:.02em;margin:0 0 14px;color:var(--gold);text-transform:uppercase}
+  p{margin:0 0 15px;color:var(--paper)}
+  .get{margin-top:6px}
+  .get > div{padding:15px 0;border-top:1px solid var(--hair)}
+  .get > div:last-child{border-bottom:1px solid var(--hair)}
+  .get b{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
+    font-size:15px;letter-spacing:.02em;color:var(--gold);margin-bottom:5px}
+  .get p{margin:0;color:var(--dim);font-size:15.5px}
+  .ask{border:1px solid rgba(244,228,188,.28);border-radius:10px;padding:22px 22px 6px;margin-top:8px}
+  .close{font-family:'Source Serif 4',Georgia,serif;font-size:22px;line-height:1.4;color:var(--gold);
+    margin:44px 0 0}
+  footer{max-width:640px;margin:0 auto;padding:34px 24px 72px}
+  footer p{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--dimmer);margin:0}
+  @media (max-width:520px){main{padding-top:52px}.zone{margin-top:40px}}
+</style>
+</head>
+<body>
+<main>
+  <h1 class="marq">Projector</h1>
+  <p class="lede">You already have an audience for your taste. This turns it into a room, on a night, that pays you.</p>
+
+  <div class="zone z-house">What it is</div>
+  <p>You pick a film and set a showtime. Your audience presses play on their own copy, on whatever service they already have, and your notes arrive on their phone in time with the film, alongside a chat with everyone else watching.</p>
+  <p>We never touch the film, so there is no player to build and no rights to clear. Every film ever made is available to you from the first night, and nobody has to grant permission for you to programme one.</p>
+
+  <div class="zone z-night">How a night runs</div>
+  <p>Doors open half an hour early. The room starts talking, your other dates sit there with a reserve button, and your own clips play while people wait: a TikTok you made about this film, a review you wrote. A cinema runs trailers before a film. This runs yours.</p>
+  <p>A countdown, and then everyone presses play together.</p>
+  <p>Your notes fire on their marks, each one taking the screen for a few seconds before it drops into the chat, so anyone who was looking at their television reads it a moment later. You set an intermission and you can come on camera during it. You can write a note you did not plan and send it while the film runs.</p>
+  <p>The credits roll and the room stays open five more minutes. You answer the questions people left when they booked, live, to the people who asked them. Your next date sits there with a reserve button. Then a banner takes the whole room to wherever you are going live next, if you want one.</p>
+
+  <div class="zone z-prep">What you get</div>
+  <div class="get">
+    <div><b>Seventy percent of the door</b><p>A seat costs a dollar. A hundred thousand followers converting at one and a half percent is a room of fifteen hundred, which comes to a little over a thousand dollars for an evening you were going to spend talking about a film anyway.</p></div>
+    <div><b>Your own conversion numbers</b><p>Every channel you post to gets a separate link, so you find out which of them fills a room. Your platforms will not tell you that.</p></div>
+    <div><b>Your back catalogue, working twice</b><p>The essay you already made plays to people who turned up on purpose, half an hour before the thing they came for. It plays in the platform's own player, so the view counts where you count views.</p></div>
+    <div><b>An audience you keep</b><p>Part of the room will have come from us rather than from you, and at the end you take them with you.</p></div>
+    <div><b>A room</b><p>You have the taste and the following. This is the place to put them.</p></div>
+  </div>
+
+  <div class="zone z-after">The founding offer</div>
+  <div class="ask">
+    <p>The first five curators keep everything across their first three screenings. We take nothing at all. After that you keep seventy percent, which is also the standard rate.</p>
+    <p>We ask for three dated screenings, five if you are willing. On top of the money you get founding credit at launch, introductions to streaming editorial that we broker for you, and your conversion data from the first night onward.</p>
+  </div>
+
+  <p class="close">What we need from you is a film, a date, and one evening.</p>
+</main>
+<footer><p>Projector &middot; James DeJulio and Michael Martin</p></footer>
+</body>
+</html>
