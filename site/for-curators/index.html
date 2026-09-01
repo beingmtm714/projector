@@ -27,8 +27,13 @@
     text-transform:uppercase;text-shadow:0 0 26px rgba(244,228,188,.22)}
   .sub{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,3.6vw,26px);line-height:1.36;
     margin:20px 0 0;color:var(--gold);max-width:26ch}
-  .lede{font-size:clamp(16px,2.6vw,18px);line-height:1.55;
-    margin:16px 0 0;color:var(--dim);max-width:34ch}
+  ol.run{list-style:none;counter-reset:step;margin:4px 0 0;padding:0}
+  ol.run li{counter-increment:step;padding:13px 0 13px 34px;border-top:1px solid var(--hair);
+    position:relative;color:var(--dim);font-size:15.5px}
+  ol.run li:last-child{border-bottom:1px solid var(--hair)}
+  ol.run li::before{content:counter(step);position:absolute;left:0;top:14px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;color:var(--zone-night)}
+  ol.run b{color:var(--paper);font-weight:600}
   .zone{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.18em;
     text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace;margin:52px 0 12px}
   .zone::before{content:"";width:24px;height:2px;border-radius:2px;background:currentColor;flex-shrink:0}
@@ -56,32 +61,33 @@
 <main>
   <h1 class="marq">Projector</h1>
   <p class="sub">Pop-Up Video for the films you love, in front of the audience that already follows you.</p>
-  <p class="lede">You have the taste and the following. This turns them into a room, on a night, that pays you.</p>
 
   <div class="zone z-house">What it is</div>
-  <p>You pick a film and set a showtime. Your audience presses play on their own copy, on whatever service they already have, and your notes arrive on their phone in time with the film, alongside a chat with everyone else watching.</p>
-  <p>We never touch the film, so there is no player to build and no rights to clear. Every film ever made is available to you from the first night, and nobody has to grant permission for you to programme one.</p>
+  <p>You pick a film and set a showtime. Your audience presses play on their own copy, on whatever service they already have, and your notes arrive on their phone in time with the film, next to a chat with everyone else watching.</p>
+  <p>We never touch the film, so there are no rights to clear. Every film ever made is available to you on the first night.</p>
 
   <div class="zone z-night">How a night runs</div>
-  <p>Doors open half an hour early. The room starts talking, your other dates sit there with a reserve button, and your own clips play while people wait: a TikTok you made about this film, a review you wrote. A cinema runs trailers before a film. This runs yours.</p>
-  <p>A countdown, and then everyone presses play together.</p>
-  <p>Your notes fire on their marks, each one taking the screen for a few seconds before it drops into the chat, so anyone who was looking at their television reads it a moment later. You set an intermission and you can come on camera during it. You can write a note you did not plan and send it while the film runs.</p>
-  <p>The credits roll and the room stays open five more minutes. You answer the questions people left when they booked, live, to the people who asked them. Your next date sits there with a reserve button. Then a banner takes the whole room to wherever you are going live next, if you want one.</p>
+  <ol class="run">
+    <li><b>Doors, half an hour early.</b> The room talks. Your own clips play while people wait, and your other dates take bookings.</li>
+    <li><b>Showtime.</b> A countdown, then everyone presses play together.</li>
+    <li><b>The film.</b> Your notes take the screen, then drop into the chat for anyone who was looking at their television. At the intermission you can come on camera.</li>
+    <li><b>Five minutes after.</b> You answer the questions people left when they booked, live. Then a banner takes the room wherever you are going next.</li>
+  </ol>
 
   <div class="zone z-prep">What you get</div>
   <div class="get">
-    <div><b>Seventy percent of the door</b><p>A seat costs a dollar. A hundred thousand followers converting at one and a half percent is a room of fifteen hundred, which comes to a little over a thousand dollars for an evening you were going to spend talking about a film anyway.</p></div>
-    <div><b>Your own conversion numbers</b><p>Every channel you post to gets a separate link, so you find out which of them fills a room. Your platforms will not tell you that.</p></div>
-    <div><b>Your back catalogue, working twice</b><p>The essay you already made plays to people who turned up on purpose, half an hour before the thing they came for. It plays in the platform's own player, so the view counts where you count views.</p></div>
-    <div><b>An audience you keep</b><p>Part of the room will have come from us rather than from you, and at the end you take them with you.</p></div>
-    <div><b>A roster, once there is one</b><p>Every curator who joins brings an audience, and those people can see what everyone else is programming. That is worth nothing on the first night and it is not part of what we are offering you: the founding five fill their own rooms from their own channels. What being early buys is position. By the time the roster carries rooms on its own, you have a run of screenings on it and a newer name does not.</p></div>
-    <div><b>A room</b><p>You are a programmer without a theatre. This is the theatre.</p></div>
+    <div><b>Seventy percent of the door</b><p>A seat is a dollar. A following of a hundred thousand converting at one and a half percent is fifteen hundred people, so a little over a thousand dollars for an evening you were going to spend talking about a film anyway.</p></div>
+    <div><b>Your conversion numbers</b><p>Every channel you post to gets its own link, so you learn which one fills a room. Your platforms will not tell you that.</p></div>
+    <div><b>Your back catalogue, working twice</b><p>The essay you already made plays to people who turned up on purpose, in the platform's own player, so the view counts where you count views.</p></div>
+    <div><b>An audience you keep</b><p>Part of the room comes from us rather than from you. At the end you take them with you.</p></div>
+    <div><b>A roster, later</b><p>Curators who join bring audiences who can see what everyone else is programming. That is worth nothing on your first night and it is not part of this offer. What being early buys is position.</p></div>
+    <div><b>A room</b><p>You are a programmer without a theatre. This is one.</p></div>
   </div>
 
   <div class="zone z-after">The founding offer</div>
   <div class="ask">
-    <p>The first five curators keep everything across their first three screenings. We take nothing at all. After that you keep seventy percent, which is also the standard rate.</p>
-    <p>We ask for three dated screenings, five if you are willing. On top of the money you get founding credit at launch, introductions to streaming editorial that we broker for you, and your conversion data from the first night onward.</p>
+    <p>The first five curators keep everything for three screenings. After that you keep seventy percent, which is also the standard rate.</p>
+    <p>We ask for three dated screenings, five if you are willing. You also get founding credit, introductions to streaming editorial that we broker, and your conversion data from the first night.</p>
   </div>
 
   <p class="close">What we need from you is a film, a date, and one evening.</p>
