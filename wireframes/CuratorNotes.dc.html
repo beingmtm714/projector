@@ -22,6 +22,17 @@
       --curtain:#7c1f2e;       /* light on cloth, T-0 + interval  */
       --fold:#5c131c;
       --hair:oklch(0.30 0.006 60);
+
+      /* Zone gels. James could not tell which view he was on, and the two
+         lighting states cannot answer that on their own: everything before the
+         film is house-up gold. These are gels in front of the same lamp, not
+         brand colours. They tint a rule and a label at the top of a surface and
+         they touch nothing else, so silver stays the only live signal and
+         oxblood stays at T-0 and intermission. */
+      --zone-prep:oklch(0.74 0.10 82);    /* brass, the booth: authoring   */
+      --zone-house:oklch(0.86 0.07 85);   /* front of house: before        */
+      --zone-night:oklch(0.72 0.13 240);  /* the show, cold as the key     */
+      --zone-after:oklch(0.78 0.06 155);  /* sage, house lights up: after  */
       --dim:oklch(0.58 0.008 70);
       --dimmer:oklch(0.44 0.006 70);
 
@@ -94,6 +105,14 @@
     .dots{position:absolute;top:15px;left:16px;display:flex;gap:7px;z-index:4}
     .dots i{width:9px;height:9px;border-radius:50%;background:oklch(0.32 0.006 60);display:block}
 
+    /* Where you are. A rule and a label, in that zone's gel, and nothing else. */
+    .zone{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.16em;
+      text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace}
+    .zone::before{content:"";width:22px;height:2px;border-radius:2px;background:currentColor;
+      flex-shrink:0;opacity:.9}
+    .z-prep{color:var(--zone-prep)} .z-house{color:var(--zone-house)}
+    .z-night{color:var(--zone-night)} .z-after{color:var(--zone-after)}
+
     .hair{border:0;border-top:1px solid var(--hair);margin:0}
     .pill{border:1px solid var(--hair);border-radius:999px;padding:5px 11px;font-size:11px;color:var(--dim)}
     .card{border:1px solid var(--hair);border-radius:9px;padding:16px 17px;position:relative}
@@ -104,7 +123,8 @@
   </style>
 </helmet>
 
-<div style="background:#0b0b0e;padding:44px;display:flex;gap:44px;align-items:flex-start">
+<div style="background:#0b0b0e;padding:44px;display:flex;position:relative;padding-top:56px;gap:44px;align-items:flex-start">
+  <div class="zone z-prep" style="position:absolute;top:16px;left:44px">Authoring</div>
 
   <div>
     <div class="cap" style="margin-bottom:12px"><span class="sid">1J3</span> &nbsp; Findings to note</div>
@@ -223,7 +243,7 @@
 </div>
 
 </x-dc>
-<script data-dc-script data-props='{"$preview":{"width":3020,"height":1040}}'>
+<script data-dc-script data-props='{"$preview":{"width":3020,"height":1064}}'>
 class Component extends DCLogic {
   renderVals() { return {}; }
 }
