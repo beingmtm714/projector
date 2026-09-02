@@ -44,6 +44,14 @@
   .doc p{margin:12px 0;max-width:66ch}
   .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
   .doc li{margin:6px 0}
+  /* Task lists. A checklist someone is meant to work through, rather than a
+     bulleted list that happens to start with a bracket. */
+  .doc ul.tasks{list-style:none;padding-left:0}
+  .doc ul.tasks li.task{display:flex;gap:11px;align-items:flex-start;margin:9px 0}
+  .doc ul.tasks .box{flex:none;width:15px;height:15px;margin-top:4px;border:1px solid var(--ink-faint);
+    border-radius:3px;font-size:11px;line-height:14px;text-align:center;color:var(--pink)}
+  .doc ul.tasks li.done .box{border-color:var(--pink)}
+  .doc ul.tasks li.done>span:last-child{opacity:.55;text-decoration:line-through}
   .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
   .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
     font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}
@@ -102,14 +110,14 @@
   <a class="back" href="./">← Documents</a>
   <div class="who"><span class="name">Engineer Brief</span></div>
   <nav class="nav"><a href="./build-environment.html">‹ Build Environment</a><a href="./private/pre-seed-bar.html">Pre-Seed Bar ›</a></nav>
-  <span class="meta">31 August 2026</span>
+  <span class="meta">2 September 2026</span>
 </header>
 <main class="doc">
 <h1>Engineer Brief</h1>
 <div class="stamp">The contract role: the session clock, the firing engine, and the review.</div>
 
-<nav class="toc"><ol><li><a href="#what-it-is">What it is</a></li><li><a href="#the-interesting-technical-problem">The interesting technical problem</a></li><li><a href="#what-you-would-own">What you would own</a></li><li><a href="#the-stack">The stack</a></li><li><a href="#shape-of-the-engagement">Shape of the engagement</a></li><li><a href="#what-you-get-that-most-contract-briefs-do-not">What you get that most contract briefs do not</a></li><li><a href="#explicitly-not-in-scope">Explicitly not in scope</a></li><li><a href="#what-to-send-back">What to send back</a></li></ol></nav>
-<p>Shareable. Last updated 28 August 2026.</p>
+<nav class="toc"><ol><li><a href="#what-it-is">What it is</a></li><li><a href="#the-interesting-technical-problem">The interesting technical problem</a></li><li><a href="#what-you-would-own">What you would own</a></li><li><a href="#the-stack">The stack</a></li><li><a href="#shape-of-the-engagement">Shape of the engagement</a></li><li><a href="#the-first-three-days-itemised">The first three days, itemised</a></li><li><a href="#what-you-get-that-most-contract-briefs-do-not">What you get that most contract briefs do not</a></li><li><a href="#explicitly-not-in-scope">Explicitly not in scope</a></li><li><a href="#what-to-send-back">What to send back</a></li></ol></nav>
+<p>Shareable. Last updated 2 September 2026.</p>
 <h2 id="what-it-is">What it is</h2>
 <p>Projector is a curator-led film companion. A film programmer picks a film, sets a showtime, and hosts a screening. The audience watches on their own television, on whatever service they already pay for, and keeps Projector open on a phone, where the curator&#x27;s notes arrive in sync alongside live chat with everyone else in the room.</p>
 <p>Pop-Up Video, live, with a film programmer instead of a producer.</p>
@@ -120,23 +128,40 @@
 <p>So the work is: keep a clock honest across a hundred phones for two hours, with no telemetry from the thing everyone is actually watching, when some of those phones lock, background, and come back.</p>
 <h2 id="what-you-would-own">What you would own</h2>
 <p>This is the spine. A non-engineer founder is building the screens, with coding agents, in the repository you set up. You are building the parts that have to be right, and you are the person who reads what the agents produced.</p>
-<p><strong>1. The repository and the guardrails.</strong> First thing, before any screen exists. Supabase project, schema, migrations, row-level security policies, CI, deploy, environments and secrets, and a <code>CLAUDE.md</code> carrying the spec and the design rules so that everything built afterwards is built inside constraints you set. Google OAuth for curators, anonymous sessions for the audience with identity linking on optional sign-in. You are not auditing someone else&#x27;s mistakes at the midpoint; you are making them harder to commit.</p>
-<p><strong>2. The session clock.</strong> Server-authoritative elapsed time from a shared start. Survives a locked phone, a backgrounded tab, and a reconnect. Clients resync rather than drift.</p>
+<p><strong>1. The repository and the guardrails.</strong> First thing, before any screen exists. Supabase project, schema, migrations, row-level security policies, a test runner and a deploy guard, deploy, environments and secrets, and a <code>CLAUDE.md</code> carrying the spec and the design rules so that everything built afterwards is built inside constraints you set. Google OAuth for curators, anonymous sessions for the audience with identity linking on optional sign-in. You are not auditing someone else&#x27;s mistakes at the midpoint; you are making them harder to commit.</p>
+<p><strong>The identity link is the hard part of this block and it is worth flagging early.</strong> An audience member reserves a seat anonymously, watches the film, chats, saves notes, and is asked once at the end whether they want an account. Everything they did has to survive that upgrade. A linking path that drops the seat history or the saved notes is a destructive migration that nobody discovers until somebody&#x27;s evening is gone, and the row-level security has to hold on both sides of it. Budget for it as a day rather than an afternoon.</p>
+<p><strong>2. The session clock, and the harness that proves it.</strong> Server-authoritative elapsed time from a shared start. Survives a locked phone, a backgrounded tab, and a reconnect. Clients resync rather than drift.</p>
+<p>The harness is part of the deliverable rather than a nicety. Two laptops in front of you is a demonstration, not a test, and the failure we actually care about happens on the fortieth phone at minute seventy. We want a way to run many simulated clients against one session, suspend and resume a share of them mid-film, and assert that they all fire the same note within a second of each other. If you think that is the wrong shape or that it costs more than it is worth, say so in the first conversation.</p>
 <p><strong>3. The note-firing engine.</strong> Notes fire when the clock crosses their mark, identically for everyone, with a manual override for the curator and a mid-session edit path. It also drives a rehearsal mode where a curator watches her own session at eight times speed with no audience.</p>
 <p><strong>4. Chat and presence</strong> over the same realtime channel.</p>
 <p><strong>5. Intermission.</strong> Pausing the clock for the room, a countdown, and an &quot;I&#x27;ve paused my TV&quot; tap that tells the curator how much of the room is actually with her. We cannot pause anyone&#x27;s television, which is a known and accepted limitation; the job is to make the social contract work with good instrumentation.</p>
 <p><strong>6. Ticketing.</strong> <strong>$0.99</strong> taken at reserve on the web, the seat held only once payment clears, a refund path. Web checkout is deliberate: it keeps the transaction out of in-app purchase and out of a thirty percent cut. Record what each curator is owed. <strong>Do not build Stripe Connect</strong> — we pay five people by transfer.</p>
 <p><strong>7. Failure states and data integrity.</strong> What a curator sees when a save fails, an upload fails, or the connection drops mid-session. Whether she can lose an evening of notes. What two open tabs do. Generated code does not write any of this unprompted and it is the difference between a demo and a product.</p>
-<p><strong>8. Adversarial review of everything else.</strong> Most of the application is written fast, by agents, by a founder who is not an engineer. It will be plausible and it will be wrong somewhere. Finding where is a deliverable, not a courtesy, and it is budgeted as one below.</p>
+<p><strong>8. A session postmortem, written by the software.</strong> One record per session when the room empties: seats reserved against seats present, clock drift, notes that fired late or not at all, dropped connections and reconnects, anything that errored. It goes to the curator and to us. Michael will not be sitting in most of these screenings, and this is the only way anyone finds out that a night went wrong.</p>
+<p><strong>9. Adversarial review of everything else.</strong> Most of the application is written fast, by agents, by a founder who is not an engineer. It will be plausible and it will be wrong somewhere. Finding where is a deliverable, not a courtesy, and it is budgeted as one below.</p>
 <h2 id="the-stack">The stack</h2>
 <p>Supabase for Postgres, Auth and Realtime. Row-level security throughout. React front end, written in the repository with coding agents against an existing design token sheet, so expect ordinary code of uneven quality rather than a hosted builder&#x27;s output. Stripe for payments. Deployed on Vercel or equivalent.</p>
 <p>If you have a strong opinion that some of this is the wrong choice, we want to hear it in the first conversation rather than the third week.</p>
 <h2 id="shape-of-the-engagement">Shape of the engagement</h2>
 <p><strong>About twelve working days across ten weeks</strong>, mid September to late November, in three unequal pieces rather than one continuous block:</p>
-<ul><li><strong>Three days at the start, before anything else is built.</strong> The repository, schema, migrations, RLS policies, CI, deploy, environments and secrets.</li><li><strong>Four days on the spine.</strong> The clock, the firing engine, the realtime channel, intermission, ticketing.</li><li><strong>Five days of review, spread across the whole build.</strong> Read the diffs. Assume something is confidently wrong and find it.</li></ul>
+<ul><li><strong>Three days at the start, before anything else is built.</strong> The repository, schema, migrations, RLS policies, the test runner and deploy guard, deploy, environments and secrets.</li><li><strong>Four days on the spine.</strong> The clock and its harness, the firing engine, the realtime channel, intermission, ticketing.</li><li><strong>Five days of review, spread across the whole build.</strong> Read the diffs. Assume something is confidently wrong and find it.</li></ul>
+<p><strong>Two of those items were added after this brief was first written, and we would rather you price them than discover them.</strong> The identity link in block one, and the clock harness in block two. If twelve days is now the wrong number, the useful version of that answer is which block moves and by how much, in the first conversation rather than the third week.</p>
 <p>The third block is the one to argue with us about if you think it is the wrong shape. It is deliberately not banked at the end, because a review that arrives at the end inherits decisions nobody can afford to unwind.</p>
 <p>Part-time is fine and probably better. Remote, with Michael in New Orleans on Central time.</p>
 <p>Rate: <code>[to discuss]</code>. We would rather agree a fixed price per phase than an hourly count.</p>
+<h2 id="the-first-three-days-itemised">The first three days, itemised</h2>
+<p>In dependency order. Everything Michael builds afterwards is built inside this, which is why it comes before any screen exists rather than after.</p>
+<p><strong>Foundation</strong></p>
+<ul class="tasks"><li class="task"><span class="box" aria-hidden="true"></span><span>The repository</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>The Supabase project</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>Environments and secrets, local and deployed</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>A deploy target standing (Vercel or equivalent)</span></li></ul>
+<p><strong>Data</strong></p>
+<ul class="tasks"><li class="task"><span class="box" aria-hidden="true"></span><span>The section 9 schema, from the product spec</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>Migrations, so the schema is reproducible rather than clicked</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>Row-level security on every table</span></li></ul>
+<p><strong>Identity</strong></p>
+<ul class="tasks"><li class="task"><span class="box" aria-hidden="true"></span><span>Google OAuth for curators, no email and password path</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>Anonymous audience sessions</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>The non-destructive identity link: seats, chat, saved notes and the passport all survive an anonymous session becoming an account, with row-level security holding on both sides</span></li></ul>
+<p><strong>Guardrails for everything built after</strong></p>
+<ul class="tasks"><li class="task"><span class="box" aria-hidden="true"></span><span>A test runner</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>A deploy guard, so a build that throws does not ship green</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>A <code>CLAUDE.md</code> carrying the spec and the design rules</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>Playwright MCP, so the loop from change to screenshot to comparison against the artboard is closed</span></li></ul>
+<p><strong>Done when</strong></p>
+<ul class="tasks"><li class="task"><span class="box" aria-hidden="true"></span><span>A curator signs in, creates a session, and it persists across a reload</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>A second curator&#x27;s credentials cannot read the first one&#x27;s session, notes or seats</span></li><li class="task"><span class="box" aria-hidden="true"></span><span>An anonymous viewer who signs in afterwards still holds everything they had before they did</span></li></ul>
+<p><strong>Two of these get skipped and should not be.</strong> The deploy guard, because a build that throws a stack trace and still exits zero is exactly how a sibling project shipped a stale feed silently, with nothing flagging it. And Playwright MCP, because design work done without a way to compare a screen to its artboard is design work done blind, and blind is where generic output comes from.</p>
 <h2 id="what-you-get-that-most-contract-briefs-do-not">What you get that most contract briefs do not</h2>
 <p>An eleven-section product specification with acceptance criteria per sprint, thirteen wireframe artboards covering every screen, a written design language with an oklch token sheet that is already code, and a sprint plan with dates. Read them before the first call:</p>
 <ul><li>Wireframes: https://projector-mm.netlify.app/wireframes/</li><li>The spec and sprint plan: sent on request</li></ul>

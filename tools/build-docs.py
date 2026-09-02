@@ -154,6 +154,20 @@ def render(src):
                         items[-1] += ' ' + lines[i].strip(); i += 1; continue
                     break
                 items.append(mm.group(2)); i += 1
+            # A task list is a different thing from a bulleted one and has to
+            # look like it. The engineer brief carries a first-three-days
+            # checklist, and rendered as ordinary bullets every row opened with
+            # a literal "[ ]".
+            task = re.compile(r'^\[([ xX])\]\s+(.*)$')
+            if all(task.match(x) for x in items):
+                rows = []
+                for x in items:
+                    t = task.match(x)
+                    done = t.group(1).lower() == 'x'
+                    rows.append(f'<li class="task{" done" if done else ""}">'
+                                f'<span class="box" aria-hidden="true">{"✓" if done else ""}</span>'
+                                f'<span>{inline(t.group(2))}</span></li>')
+                out.append('<ul class="tasks">' + ''.join(rows) + '</ul>'); continue
             out.append('<ul>' + ''.join(f'<li>{inline(x)}</li>' for x in items) + '</ul>'); continue
 
         m = re.match(r'^\s*\d+\.\s+(.*)$', line)
@@ -220,6 +234,14 @@ CSS = """
   .doc p{margin:12px 0;max-width:66ch}
   .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
   .doc li{margin:6px 0}
+  /* Task lists. A checklist someone is meant to work through, rather than a
+     bulleted list that happens to start with a bracket. */
+  .doc ul.tasks{list-style:none;padding-left:0}
+  .doc ul.tasks li.task{display:flex;gap:11px;align-items:flex-start;margin:9px 0}
+  .doc ul.tasks .box{flex:none;width:15px;height:15px;margin-top:4px;border:1px solid var(--ink-faint);
+    border-radius:3px;font-size:11px;line-height:14px;text-align:center;color:var(--pink)}
+  .doc ul.tasks li.done .box{border-color:var(--pink)}
+  .doc ul.tasks li.done>span:last-child{opacity:.55;text-decoration:line-through}
   .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
   .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
     font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}

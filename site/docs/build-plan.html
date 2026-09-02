@@ -44,6 +44,14 @@
   .doc p{margin:12px 0;max-width:66ch}
   .doc ul,.doc ol{margin:12px 0;padding-left:20px;max-width:66ch}
   .doc li{margin:6px 0}
+  /* Task lists. A checklist someone is meant to work through, rather than a
+     bulleted list that happens to start with a bracket. */
+  .doc ul.tasks{list-style:none;padding-left:0}
+  .doc ul.tasks li.task{display:flex;gap:11px;align-items:flex-start;margin:9px 0}
+  .doc ul.tasks .box{flex:none;width:15px;height:15px;margin-top:4px;border:1px solid var(--ink-faint);
+    border-radius:3px;font-size:11px;line-height:14px;text-align:center;color:var(--pink)}
+  .doc ul.tasks li.done .box{border-color:var(--pink)}
+  .doc ul.tasks li.done>span:last-child{opacity:.55;text-decoration:line-through}
   .doc hr{border:0;border-top:1px solid var(--line);margin:38px 0}
   .doc blockquote{margin:16px 0;padding:2px 0 2px 16px;border-left:2px solid var(--line);
     font-family:'Source Serif 4',Georgia,serif;font-size:16px;color:var(--ink-soft);max-width:62ch}
@@ -102,7 +110,7 @@
   <a class="back" href="./">← Documents</a>
   <div class="who"><span class="name">Build Plan</span></div>
   <nav class="nav"><a href="./design-language.html">‹ Design Language</a><a href="./build-environment.html">Build Environment ›</a></nav>
-  <span class="meta">31 August 2026</span>
+  <span class="meta">2 September 2026</span>
 </header>
 <main class="doc">
 <h1>Build Plan</h1>
@@ -133,10 +141,11 @@
 <p>The shape matters more than the total. Half of what is left sits in three lines: the dry run, the Room, and reactive fixes. Those are the ones where the work is judgement and multi-client verification rather than construction, and they are the ones to protect when a sprint runs long. Row-level security is still the line most likely to double.</p>
 <p>Spread across six sprints at roughly 32 hours of capacity each, the old plan ran 18, 22, 18, 29, 10 and 5, with sprint four scraping its ceiling. At the new numbers it runs roughly 7, 6, 7, 9, 4 and 2. <strong>Sprint four stops being the constraint.</strong> Nothing in the plan is capacity-bound any more, which changes what the plan is for: it is now a calendar for recruiting curators, testing with them, and raising, with the build fitted around it rather than the reverse.</p>
 <h2 id="where-the-engineer-x27-s-time-goes">Where the engineer&#x27;s time goes</h2>
-<div class="tw"><table><thead><tr><th>Piece</th><th>Aug 21</th><th>Now</th></tr></thead><tbody><tr><td>Auth and row-level security audit, environments, secrets</td><td>3</td><td>2</td></tr><tr><td>Session clock, server-authoritative, and the note-firing engine</td><td>5</td><td>3</td></tr><tr><td>Chat over the realtime channel</td><td>2</td><td>1</td></tr><tr><td>Intermission: pausing the clock, the counter</td><td>1</td><td>0.5</td></tr><tr><td>Ticketing: $0.99 at reserve, refunds, and recording what the curator is owed</td><td>2</td><td>1</td></tr><tr><td>Failure states and data integrity</td><td>2</td><td>1.5</td></tr></tbody></table></div>
-<p>That is nine days. <strong>Do not book nine days.</strong></p>
-<p>What the engineer is being paid for is judgement about a clock that has to be right in front of a hundred people, and the nine-day figure is what it costs him to type the answer, not to know it. Cutting to nine buys less review, and review is the whole product of the engagement. So keep the budget at <strong>twelve days and move the work</strong>:</p>
-<ul><li><strong>Three days up front, before Michael builds anything.</strong> Repository, schema, migrations, row-level security policies, CI, deploy, environments and secrets, and a <code>CLAUDE.md</code> carrying the spec and the design rules. This is the same three days the old plan spent auditing, spent earlier and spent building guardrails instead of finding out what went wrong inside them.</li><li><strong>Four days on the spine.</strong> Clock, firing engine, realtime channel, intermission, ticketing.</li><li><strong>Five days of adversarial review, spread across the whole build</strong> rather than banked at the end. Read what the agents produced. Assume it is confidently wrong somewhere and find where.</li></ul>
+<div class="tw"><table><thead><tr><th>Piece</th><th>Aug 21</th><th>Now</th></tr></thead><tbody><tr><td>Auth and row-level security written, environments, secrets</td><td>3</td><td>2</td></tr><tr><td>Session clock, server-authoritative, and the note-firing engine</td><td>5</td><td>3</td></tr><tr><td>Chat over the realtime channel</td><td>2</td><td>1</td></tr><tr><td>Intermission: pausing the clock, the counter</td><td>1</td><td>0.5</td></tr><tr><td>Ticketing: $0.99 at reserve, refunds, and recording what the curator is owed</td><td>2</td><td>1</td></tr><tr><td>Failure states and data integrity</td><td>2</td><td>1.5</td></tr><tr><td>The clock harness, added 2 September</td><td>n/a</td><td>1</td></tr><tr><td>The session postmortem, added 2 September</td><td>n/a</td><td>0.5</td></tr></tbody></table></div>
+<p>That is ten and a half days. <strong>Do not book ten and a half days.</strong></p>
+<p><strong>Two lines in that table are new and the estimate has not been re-cut around them.</strong> The harness is the way anyone knows the clock is honest across many clients rather than across the two laptops in front of the engineer, and the identity link in the first block got harder when the account prompt went into the spec on 1 September. Both were previously assumed rather than budgeted. The twelve-day figure below still holds, but the padding it carried is now partly spent, and the honest version of this is to let the engineer price the two additions in the first conversation rather than to defend the number here.</p>
+<p>What the engineer is being paid for is judgement about a clock that has to be right in front of a hundred people, and the figure in that table is what it costs him to type the answer, not to know it. Cutting to it buys less review, and review is the whole product of the engagement. So keep the budget at <strong>twelve days and move the work</strong>:</p>
+<ul><li><strong>Three days up front, before Michael builds anything.</strong> Repository, schema, migrations, row-level security policies, CI, deploy, environments and secrets, and a <code>CLAUDE.md</code> carrying the spec and the design rules. This is the same three days the old plan spent auditing, spent earlier and spent building guardrails instead of finding out what went wrong inside them.</li><li><strong>Four days on the spine.</strong> Clock and the harness that proves it, firing engine, realtime channel, intermission, ticketing, and the session postmortem.</li><li><strong>Five days of adversarial review, spread across the whole build</strong> rather than banked at the end. Read what the agents produced. Assume it is confidently wrong somewhere and find where.</li></ul>
 <p><strong>Build the charge, not the payout.</strong> No Stripe Connect. Record what is owed and pay the five curators by transfer. Automated payouts are worth building at fifty curators, not five.</p>
 <h2 id="why-a-repository-rather-than-lovable">Why a repository rather than Lovable</h2>
 <p>The full argument, including Conductor as a possible shell and its limits, is in <a class="xref" href="./build-environment.html">Projector-Build-Environment.md</a>. The short version:</p>
