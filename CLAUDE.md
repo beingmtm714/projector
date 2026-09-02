@@ -43,14 +43,24 @@ regenerates. An artboard edit has to be carried into it by hand or it drifts.
 
 ## Publishing
 
-Netlify serves `site/` and nothing else. There is no build command; pages are
-generated locally and reviewed before they are pushed, so a broken build is
-never a live one.
+GitHub Pages serves `site/` and nothing else, via `.github/workflows/pages.yml`
+on every push to `main`. There is no build step in CI; pages are generated
+locally by `tools/build-docs.py` and `tools/build-wireframes.py` and reviewed
+before they are pushed, so a broken build is never a live one.
 
-`site/docs/private/` sits behind `netlify/edge-functions/gate.ts`. Anyone
-without a token gets a 401 and the body is never sent. Tokens live in the
-`PROJECTOR_TOKENS` environment variable on Netlify, never in this repository.
-A new gated document needs a token entry or it 401s for everyone, including us.
+Live at https://beingmtm714.github.io/projector/
+
+**Everything in `site/` is public, and so is this repository.** It went public on
+2 September 2026 because GitHub Pages is not available for a private repository
+on the free plan. There is no access gate any more and there cannot be one:
+Pages runs no server code. The Netlify edge function that used to 401 the
+investor deck and the pre-seed memo is deleted, and both documents are now
+published like every other one. Every page carries
+`<meta name="robots" content="noindex">`, which keeps them out of search results
+and is not access control.
+
+**So nothing secret goes in this repository, including in a commit that is later
+reverted.** History is public too.
 
 ## Working on the boards
 

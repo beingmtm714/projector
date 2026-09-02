@@ -31,9 +31,18 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400
          "&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600"
          "&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap")
 
-# These two are not for a link anyone can guess. They go behind the gate, and
-# the index shows their titles without linking a body anyone can read.
-GATED = {"investor-deck", "pre-seed-bar"}
+# Empty since 2 September 2026, when the site moved to GitHub Pages.
+#
+# The gate was a Netlify edge function: no token, hard 401, and the body never
+# left the server. GitHub Pages runs no server code, so there is no version of
+# that here, and a Pages site is public even when its repository is not. Michael
+# decided on 2 September to publish the deck and the pre-seed memo rather than
+# keep a second host running for two files.
+#
+# Every page still carries `<meta name="robots" content="noindex">`, which keeps
+# them out of search results and is not access control. Anyone with the URL can
+# read them. Adding a slug back to this set does nothing on Pages.
+GATED: set[str] = set()
 
 # slug, title, source, one line for the index
 DOCS = [

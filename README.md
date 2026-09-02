@@ -11,7 +11,7 @@ film. The product never touches the film.
 | `site/` | What Netlify serves: the workroom, the boards, the documents |
 | `tools/` | The two build scripts that render one into the other |
 | `DESIGN.md` | The design language |
-| `netlify/` | The access gate for `site/docs/private/` |
+| `.github/workflows/pages.yml` | Publishes `site/` to GitHub Pages on every push to `main` |
 
 Read `CLAUDE.md` before changing anything. It carries what belongs in this
 repository, and the conventions that keep the wireframes and the documents from
