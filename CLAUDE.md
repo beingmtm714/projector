@@ -33,13 +33,18 @@ The documents are Markdown in the vault at `Ventures/Projector/`, and
 produced a Google Drive folder holding twelve stale duplicates, and unwinding it
 took a day.
 
-`wireframes/_kit.txt` is the only place a design value lives. **Never invent
-one.** If a colour, size or weight is needed and it is not there, that is a
-question, not a decision to make in CSS. `DESIGN.md` carries the rules the
-tokens cannot express.
+`wireframes/_kit.txt` is the list of design values. The artboard bodies carry
+the same values inline, because the canvas editor edits inline styles, so a
+value in a body that is not in the kit is a mistake. **Never invent one.** If a
+colour, size or weight is needed and it is not there, that is a question, not a
+decision to make in CSS. `DESIGN.md` carries the rules the tokens cannot
+express, and its "Don't" list is the record of what Michael rejected.
 
-`site/wireframes/canvas/index.html` is a frozen export that no script
-regenerates. An artboard edit has to be carried into it by hand or it drifts.
+`site/wireframes/canvas/index.html` is the design canvas page, generated from
+`wireframes/*.dc.html` and `canvas.json` by the Claude Design canvas helper in
+Claude Code. No script in this repository regenerates it: after an artboard
+edit, ask Claude Code to re-seed the canvas from the wireframes folder, or it
+drifts.
 
 ## Publishing
 
@@ -74,6 +79,7 @@ Board heights live in `canvas.json` as well as in the artboard markup, and they
 have to agree or content clips with nothing to show for it.
 
 **Do not run aesthetic-direction skills against this repository.** The look was
-settled in August and lives in the tokens. A screen that is not already an
-artboard gets drawn as one first; an agent should only ever be implementing a
-design.
+settled on 2 September 2026, the movie palace, and lives in `DESIGN.md` and the
+tokens. It replaced the August projection-booth system in full. A screen that
+is not already an artboard gets drawn as one first; an agent should only ever
+be implementing a design.

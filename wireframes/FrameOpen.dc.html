@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    /* PROJECTOR — the movie palace.
+       Six colours and two neutrals, three faces. See DESIGN.md for the rules.
+       The tokens below are the palette; the artboard bodies carry the same
+       values inline so the canvas editor's property panel can edit them, and
+       a value in a body that is not in this list is a mistake to fix here. */
+    :root{
+      --plum:#1A0F2E; --plum-raised:#2B1A4A; --plum-line:#5A3C7A; --plum-mid:#3D1E5E;
+      --ivory:#FBF1DC; --parchment:#EFE3CC; --white:#FFFFFF;
+      --crimson:#A3122B; --crimson-deep:#5E0A1A;
+      --gold:#F2C75C; --gold-hover:#FFE58A;
+      --teal:#1C8C9E; --emerald:#2FA37A;
+      --muted-plum:#C9A96E; --muted-paper:#7A6A5A; --placeholder:#A08A5E;
+      --serif:'Instrument Serif',Georgia,serif;
+      --sans:'DM Sans','Helvetica Neue',Arial,sans-serif;
+      --mono:'Space Mono',Menlo,monospace;
+    }
+    body{margin:0;font-family:var(--sans);color:var(--plum);-webkit-font-smoothing:antialiased}
+    a{color:var(--crimson)} a:hover{color:var(--crimson-deep)}
+    *{box-sizing:border-box}
+  </style>
+</helmet>
+
+<div style="width: 390px; height: 844px; background: #1A0F2E; display: flex; flex-direction: column; overflow: hidden; padding: 52px 0 24px 0; position: relative; color: #FBF1DC;">
+
+  <!-- Marquee header -->
+  <div style="margin: 0 16px; background: #A3122B; border-radius: 18px; padding: 8px; display: flex; flex-direction: column; gap: 6px; box-shadow: none;">
+    <div style="display: flex; justify-content: space-between; padding: 0 6px;">
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+    </div>
+    <div style="background: #1A0F2E; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 24px; line-height: 26px; color: #F2C75C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The Long Hour <span style="font-style: italic; color: #C9A96E; font-size: 16px;">1974</span></div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Nadia Reyes · 38 in the room</div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; background: #1C8C9E; color: #FBF1DC; border-radius: 10px; padding: 6px 10px; flex-shrink: 0;">
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 17px; line-height: 20px;">41:12</div>
+        <div style="font-size: 9px; line-height: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Now</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stream -->
+  <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; padding: 18px 16px 16px 16px; overflow: hidden;">
+
+        <!-- Past Liner Note: ticket stub, dimmed -->
+    <div style="display: flex; flex-direction: column; background: #FBF1DC; border-radius: 12px; padding: 12px 14px; gap: 8px; position: relative;">
+      <div style="position: absolute; left: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="position: absolute; right: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 15px; color: #A3122B;">Liner Note · Nadia</div>
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; color: #FBF1DC; background: #A3122B; border-radius: 6px; padding: 2px 7px;">38:20</div>
+      </div>
+      <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; line-height: 24px; color: #1A0F2E;">First time we see the kitchen in daylight. Watch the colour of the door from here.</div>
+    </div>
+
+    <div style="display: flex; gap: 8px; align-items: flex-end;">
+      <div style="width: 28px; height: 28px; border-radius: 14px; background: #F2C75C; color: #1A0F2E; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">P</div>
+      <div style="background: #2B1A4A; border-radius: 16px 16px 16px 4px; padding: 9px 13px; font-size: 15px; line-height: 20px; color: #FBF1DC; max-width: 290px;">the door!! i never noticed</div>
+    </div>
+
+    <div style="display: flex; gap: 8px; align-items: flex-end;">
+      <div style="width: 28px; height: 28px; border-radius: 14px; background: #F2C75C; color: #1A0F2E; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">M</div>
+      <div style="background: #2B1A4A; border-radius: 16px 16px 16px 4px; padding: 9px 13px; font-size: 15px; line-height: 20px; color: #FBF1DC; max-width: 290px;">he is talking to the kettle. i am done</div>
+    </div>
+
+    <!-- Live Liner Note: ticket stub, bright -->
+    <div style="display: flex; flex-direction: column; background: #FBF1DC; border-radius: 12px; padding: 12px 14px; gap: 8px; position: relative;">
+      <div style="position: absolute; left: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="position: absolute; right: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 15px; color: #A3122B;">Liner Note · Nadia</div>
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; color: #FBF1DC; background: #A3122B; border-radius: 6px; padding: 2px 7px;">41:00</div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <div style="width: 96px; aspect-ratio: 2.39 / 1; flex-shrink: 0; border-radius: 4px; background: linear-gradient(120deg, #A3122B 0%, #3D1E5E 55%, #1C8C9E 100%); border: 1px solid #1A0F2E; margin-top: 4px; display: flex; align-items: center; justify-content: center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FBF1DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"></rect><path d="M3 9h18M3 15h18M7 5v14M17 5v14"></path></svg>
+        </div>
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; line-height: 24px; color: #1A0F2E;">The look across the table. Nothing is said for forty seconds. Stay on her hands, not her face.</div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 8px; align-items: flex-end;">
+      <div style="width: 28px; height: 28px; border-radius: 14px; background: #F2C75C; color: #1A0F2E; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">T</div>
+      <div style="background: #2B1A4A; border-radius: 16px 16px 16px 4px; padding: 9px 13px; font-size: 15px; line-height: 20px; color: #FBF1DC; max-width: 290px;">her hands. ok.</div>
+    </div>
+
+  </div>
+
+  <!-- Composer -->
+  <div style="display: flex; gap: 10px; align-items: center; padding: 0 16px;">
+    <div style="flex-grow: 1; height: 48px; border-radius: 24px; background: #2B1A4A; border: 2px solid #5A3C7A; display: flex; align-items: center; padding: 0 18px; font-size: 15px; color: #A08A5E;">Say something</div>
+    <div style="width: 48px; height: 48px; border-radius: 24px; background: #A3122B; display: flex; align-items: center; justify-content: center; box-shadow: none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBF1DC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+    </div>
+  </div>
+
+  <!-- Arrangement switcher -->
+  <div style="display: flex; gap: 6px; padding: 14px 16px 0 16px;">
+    <div style="flex-grow: 1; height: 44px; border-radius: 22px; background: #F2C75C; color: #1A0F2E; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; font-weight: 700;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A0F2E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"></path></svg>
+      Chat
+    </div>
+    <div style="flex-grow: 1; height: 44px; border-radius: 22px; border: 2px solid #5A3C7A; color: #C9A96E; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; font-weight: 500;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM9 9h6M9 13h6"></path></svg>
+      Notes
+    </div>
+    <div style="flex-grow: 1; height: 44px; border-radius: 22px; border: 2px solid #5A3C7A; color: #C9A96E; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; font-weight: 500;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0-6 6v4l-2 3h16l-2-3V9a6 6 0 0 0-6-6zM10 20a2 2 0 0 0 4 0"></path><path d="M4 4l16 16"></path></svg>
+      Quiet
+    </div>
+  </div>
+
+  <!-- Frame open: scrim over the room -->
+  <div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: rgba(12, 6, 24, 0.92); display: flex; flex-direction: column; justify-content: center; padding: 0 16px 90px 16px;">
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 16px; color: #F2C75C;">Liner Note · Nadia</div>
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; color: #FBF1DC; background: #A3122B; border-radius: 6px; padding: 2px 7px;">41:00</div>
+      </div>
+      <div style="width: 100%; aspect-ratio: 2.39 / 1; border-radius: 6px; background: linear-gradient(120deg, #A3122B 0%, #3D1E5E 55%, #1C8C9E 100%); border: 1px solid #F2C75C; display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FBF1DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"></rect><path d="M3 9h18M3 15h18M7 5v14M17 5v14"></path></svg>
+      </div>
+      <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; line-height: 27px; color: #FBF1DC;">The look across the table. Nothing is said for forty seconds. Stay on her hands, not her face.</div>
+    </div>
+    <div style="position: absolute; left: 16px; right: 16px; bottom: 24px; display: flex; gap: 8px;">
+      <div style="flex-grow: 1; height: 48px; border-radius: 24px; border: 2px solid #5A3C7A; color: #C9A96E; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 500;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM9 9h6M9 13h6"></path></svg>
+        Keep this note
+      </div>
+      <div style="flex-grow: 1; height: 48px; border-radius: 24px; background: #F2C75C; color: #1A0F2E; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 700;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A0F2E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        Back to the room
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

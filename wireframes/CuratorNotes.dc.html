@@ -7,243 +7,189 @@
 <body>
 <x-dc>
 <helmet>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
   <style>
-    /* PROJECTOR — the projection booth.
-       Two lighting states, not three temperatures. Light has a direction and
-       a source. See DESIGN.md; this file is the only place values live. */
+    /* PROJECTOR — the movie palace.
+       Six colours and two neutrals, three faces. See DESIGN.md for the rules.
+       The tokens below are the palette; the artboard bodies carry the same
+       values inline so the canvas editor's property panel can edit them, and
+       a value in a body that is not in this list is a mistake to fix here. */
     :root{
-      --house-up:#141210;      /* warm ground, before and after   */
-      --house-down:#0a0b10;    /* cold ground, during the film    */
-      --paper:oklch(0.93 0.005 75);
-      --gold:#f4e4bc;          /* warm light, never hardware      */
-      --silver:#f2f7ff;        /* the live signal, rationed       */
-      --time:oklch(0.72 0.13 240);
-      --curtain:#7c1f2e;       /* light on cloth, T-0 + interval  */
-      --fold:#5c131c;
-      --hair:oklch(0.30 0.006 60);
-
-      /* Zone gels. James could not tell which view he was on, and the two
-         lighting states cannot answer that on their own: everything before the
-         film is house-up gold. These are gels in front of the same lamp, not
-         brand colours. They tint a rule and a label at the top of a surface and
-         they touch nothing else, so silver stays the only live signal and
-         oxblood stays at T-0 and intermission. */
-      --zone-prep:oklch(0.74 0.10 82);    /* brass, the booth: authoring   */
-      --zone-house:oklch(0.86 0.07 85);   /* front of house: before        */
-      --zone-night:oklch(0.72 0.13 240);  /* the show, cold as the key     */
-      --zone-after:oklch(0.78 0.06 155);  /* sage, house lights up: after  */
-      --dim:oklch(0.58 0.008 70);
-      --dimmer:oklch(0.44 0.006 70);
-
-      /* Light arriving is an event; light leaving is a decay. */
-      --beam-rise:220ms;  --beam-fall:640ms;
-      --ease-strike:cubic-bezier(.2,.7,.3,1);
-      --ease-decay:cubic-bezier(.4,0,.7,.4);
-      --settle:900ms;     --curtain-travel:10s;
+      --plum:#1A0F2E; --plum-raised:#2B1A4A; --plum-line:#5A3C7A; --plum-mid:#3D1E5E;
+      --ivory:#FBF1DC; --parchment:#EFE3CC; --white:#FFFFFF;
+      --crimson:#A3122B; --crimson-deep:#5E0A1A;
+      --gold:#F2C75C; --gold-hover:#FFE58A;
+      --teal:#1C8C9E; --emerald:#2FA37A;
+      --muted-plum:#C9A96E; --muted-paper:#7A6A5A; --placeholder:#A08A5E;
+      --serif:'Instrument Serif',Georgia,serif;
+      --sans:'DM Sans','Helvetica Neue',Arial,sans-serif;
+      --mono:'Space Mono',Menlo,monospace;
     }
+    body{margin:0;font-family:var(--sans);color:var(--plum);-webkit-font-smoothing:antialiased}
+    a{color:var(--crimson)} a:hover{color:var(--crimson-deep)}
     *{box-sizing:border-box}
-    body{margin:0;background:#0b0b0e;color:var(--paper);
-      font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-    a{color:var(--gold);text-decoration:none} a:hover{color:var(--silver)}
-
-    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
-    .serif,.note{font-family:'Source Serif 4',Georgia,serif}
-    .note{font-size:15px;line-height:1.45}
-    .marq{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;letter-spacing:.01em}
-    .cap{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
-      font-family:'JetBrains Mono',ui-monospace,monospace}
-    .sid{font-size:10px;letter-spacing:.14em;color:var(--gold);
-      font-family:'JetBrains Mono',ui-monospace,monospace}
-
-    /* the live signal, always with its glow, never on a resting surface */
-    .live,.glow{color:var(--silver);
-      text-shadow:0 0 8px rgba(244,248,255,.85),0 0 22px rgba(150,190,255,.5)}
-    .livedot{width:7px;height:7px;border-radius:50%;background:var(--silver);flex-shrink:0;
-      box-shadow:0 0 7px rgba(255,255,255,.6),0 0 20px rgba(160,195,255,.55)}
-
-    /* HOUSE UP — warm ambient from above, no visible source, matte */
-    .up{background:var(--house-up)}
-    .up::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
-      background:radial-gradient(140% 70% at 50% -18%,
-        rgba(244,228,188,.20) 0%, rgba(244,228,188,.055) 44%, transparent 74%)}
-
-    /* HOUSE DOWN — one cold key from above and behind, deep falloff */
-    .dn{background:var(--house-down)}
-    .dn::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
-      background:radial-gradient(120% 62% at 50% -14%,
-        rgba(242,247,255,.13) 0%, rgba(150,190,255,.035) 40%, transparent 70%)}
-    .up > *, .dn > *{position:relative;z-index:1}
-
-    /* the beam: struck, then allowed to decay */
-    .beam{position:absolute;inset:0;pointer-events:none;z-index:0;
-      background:radial-gradient(78% 46% at 50% 44%, rgba(242,247,255,.10), transparent 68%)}
-
-    /* the curtain: a rhythm of light on cloth, never a fill */
-    .cloth{position:absolute;top:0;bottom:0;z-index:0;
-      background:repeating-linear-gradient(90deg,
-        rgba(124,31,46,.05) 0px, rgba(124,31,46,.62) 7px,
-        rgba(160,48,64,.30) 13px, rgba(124,31,46,.07) 19px,
-        rgba(92,19,28,.02) 27px),
-        linear-gradient(to top, rgba(244,228,188,.22), transparent 68%)}
-    .lip{position:absolute;top:0;bottom:0;width:20px;z-index:1}
-
-    /* grain: projected light only. Never a resting surface. */
-    .grain{position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.24;mix-blend-mode:overlay;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
-    .scratch{position:absolute;top:0;bottom:0;width:1px;z-index:2;pointer-events:none}
-
-    .phone{width:390px;height:800px;border-radius:26px;border:1px solid var(--hair);
-      overflow:hidden;display:flex;flex-direction:column;flex-shrink:0;position:relative}
-    .desk{width:1440px;height:900px;border-radius:10px;border:1px solid var(--hair);
-      overflow:hidden;display:flex;flex-shrink:0;position:relative;padding-top:38px}
-    .desk::after{content:"projector.film/host";position:absolute;top:0;left:0;right:0;height:38px;
-      display:flex;align-items:center;justify-content:center;z-index:3;
-      background:#100e0c;border-bottom:1px solid var(--hair);
-      font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;
-      color:var(--dimmer);letter-spacing:.04em}
-    .dots{position:absolute;top:15px;left:16px;display:flex;gap:7px;z-index:4}
-    .dots i{width:9px;height:9px;border-radius:50%;background:oklch(0.32 0.006 60);display:block}
-
-    /* Where you are. A rule and a label, in that zone's gel, and nothing else. */
-    .zone{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.16em;
-      text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace}
-    .zone::before{content:"";width:22px;height:2px;border-radius:2px;background:currentColor;
-      flex-shrink:0;opacity:.9}
-    .z-prep{color:var(--zone-prep)} .z-house{color:var(--zone-house)}
-    .z-night{color:var(--zone-night)} .z-after{color:var(--zone-after)}
-
-    .hair{border:0;border-top:1px solid var(--hair);margin:0}
-    .pill{border:1px solid var(--hair);border-radius:999px;padding:5px 11px;font-size:11px;color:var(--dim)}
-    .card{border:1px solid var(--hair);border-radius:9px;padding:16px 17px;position:relative}
-    .btn{border:1px solid var(--hair);border-radius:6px;padding:11px 14px;font-size:13px;
-      color:var(--paper);text-align:center}
-    .btnp{border-radius:6px;padding:12px 14px;font-size:13px;font-weight:600;text-align:center;
-      background:var(--paper);color:#14110b}
   </style>
 </helmet>
 
-<div style="background:#0b0b0e;padding:44px;display:flex;position:relative;padding-top:56px;gap:44px;align-items:flex-start">
-  <div class="zone z-prep" style="position:absolute;top:16px;left:44px">Authoring</div>
+<div style="width: 1440px; height: 900px; background: #FBF1DC; display: flex; flex-direction: column; overflow: hidden; color: #1A0F2E;">
 
-  <div>
-    <div class="cap" style="margin-bottom:12px"><span class="sid">1J3</span> &nbsp; Findings to note</div>
-    <div class="desk up">
-      <div class="dots"><i></i><i></i><i></i></div>
-      <div style="flex:1;padding:36px 44px;display:flex;flex-direction:column;border-right:1px solid var(--hair);overflow:hidden">
-        <div style="display:flex;justify-content:space-between;align-items:baseline">
-          <div style="font-size:22px;font-weight:600">Findings</div>
-          <div class="cap">highlight a line to make it a note</div>
-        </div>
-
-        <div class="cap" style="margin-top:24px;color:var(--gold)">Below the line</div>
-        <div style="font-size:14px;line-height:1.6;margin-top:8px">Christopher Doyle shot most of it, but William Chang cut it, designed it, and dressed it. The film has three authors and only one is on the poster.<span style="color:var(--dimmer);font-size:11px"> &nbsp;wkw.hk/archive</span></div>
-        <div style="font-size:14px;line-height:1.6;margin-top:12px;background:rgba(244,228,188,.09);border-left:2px solid var(--gold);padding:8px 12px">The grip on this picture ran second unit on Chungking Express six years earlier and on 2046 six years later.<span style="color:var(--dimmer);font-size:11px"> &nbsp;afi.com</span>
-          <div class="cap" style="font-size:9px;margin-top:8px;color:var(--gold)">add as note &rsaquo;</div>
-        </div>
-
-        <div class="cap" style="margin-top:22px;color:var(--gold)">Locations</div>
-        <div style="font-size:14px;line-height:1.6;margin-top:8px">The stairwell was shot in Bangkok, not Hong Kong. Wong could not find a 1962 tenement that had not been rebuilt.<span style="color:var(--dimmer);font-size:11px"> &nbsp;criterion.com</span></div>
-
-        <div class="cap" style="margin-top:22px;color:var(--gold)">Sound</div>
-        <div style="font-size:14px;line-height:1.6;margin-top:8px">Quizas, Quizas, Quizas recurs like a question neither of them answers.<span style="color:var(--dimmer);font-size:11px"> &nbsp;wkw.hk</span></div>
-
-        <div style="margin-top:auto;padding-top:16px;font-size:11px;color:var(--dimmer)">14 findings across 5 scopes &middot; 2 flagged as contested</div>
+  <!-- Top bar -->
+  <div style="height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: #A3122B; color: #FBF1DC; border-bottom: 4px solid #F2C75C;">
+    <div style="display: flex; align-items: center; gap: 28px;">
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #F2C75C;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F2C75C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>
+        Queue
       </div>
-
-      <div style="width:380px;padding:34px 30px;flex-shrink:0;display:flex;flex-direction:column">
-        <div class="cap" style="margin-bottom:14px">Drafted from findings</div>
-        <div style="border:1px solid var(--hair);border-radius:7px;padding:12px 13px">
-          <div class="mono" style="font-size:11px;color:var(--time)">0:47:00</div>
-          <div class="note" style="margin-top:6px;font-size:14px">Watch the cheongsams. Chang changes them scene to scene, a clock and a mood ring.</div>
-        </div>
-        <div style="border:1px solid var(--hair);border-radius:7px;padding:12px 13px;margin-top:10px">
-          <div class="mono" style="font-size:11px;color:var(--time)">0:12:00</div>
-          <div class="note" style="margin-top:6px;font-size:14px">The opening shot holds on nothing. Learn to wait.</div>
-        </div>
-        <div class="btn" style="margin-top:12px;padding:9px;color:var(--dim)">+ New note</div>
+      <div style="display: flex; align-items: baseline; gap: 16px;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 30px; line-height: 32px; color: #F2C75C;">The Long Hour <span style="font-style: italic; font-size: 20px; color: #C9A96E;">1974 · 84 min</span></div>
+        <div style="font-size: 14px; color: #C9A96E;">Thu 12 Sep · 8:00 pm · 38 in the room</div>
       </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; background: #F2C75C; color: #1A0F2E; border-radius: 999px; padding: 8px 16px; border: 2px solid #1A0F2E; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A0F2E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg>
+      11 notes armed
     </div>
   </div>
 
-  <div>
-    <div class="cap" style="margin-bottom:12px"><span class="sid">1J4</span> &nbsp; Set the note <span style="color:var(--silver)">&middot; screenshot, natural language, quote check</span></div>
-    <div class="desk up">
-      <div class="dots"><i></i><i></i><i></i></div>
-      <div style="flex:1;padding:36px 44px;display:flex;flex-direction:column;border-right:1px solid var(--hair)">
-        <div style="font-size:22px;font-weight:600">New note</div>
-        <div style="font-size:13px;color:var(--dim);margin-top:4px">Pin it to a moment. Add a visual.</div>
+  <!-- Body -->
+  <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; padding: 40px 40px 36px 40px; overflow: hidden;">
 
-        <div style="border:1px solid var(--hair);border-radius:7px;padding:14px 15px;margin-top:22px">
-          <div class="note">Watch the cheongsams. Chang changes them scene to scene, a clock and a mood ring. &ldquo;It&rsquo;s me. If there&rsquo;s an extra ticket, would you go with me?&rdquo;</div>
-          <div style="display:flex;align-items:center;gap:9px;margin-top:12px;padding-top:11px;border-top:1px solid var(--hair)">
-            <div class="cap" style="font-size:9px;color:var(--gold)">check quote</div>
-            <div style="font-size:11px;color:var(--dim)">Script reads &ldquo;If I had an extra ticket, would you go with me?&rdquo;</div>
-            <div class="cap" style="font-size:9px;margin-left:auto;color:var(--gold)">fix &rsaquo;</div>
-          </div>
+    <!-- Editor, spans two columns -->
+    <div style="grid-column: span 2; display: flex; flex-direction: column; gap: 28px; background: #FFFFFF; border: 2px solid #1A0F2E; border-radius: 24px; padding: 36px 40px 32px 40px; box-shadow: 8px 8px 0 #2FA37A; position: relative;">
+
+      <div style="position: absolute; top: -18px; left: 36px; background: #A3122B; color: #FBF1DC; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 17px; padding: 6px 16px; border-radius: 8px; border: 2px solid #1A0F2E;">New Liner Note</div>
+
+      <!-- Moment -->
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A6A5A;">Moment</div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 72px; line-height: 80px; color: #1A0F2E; background: #F2C75C; border: 2px solid #1A0F2E; border-radius: 16px; padding: 4px 22px; ">41:00</div>
+          <div style="font-size: 15px; line-height: 22px; color: #7A6A5A; max-width: 200px;">Minutes and seconds into the film. The note fires here.</div>
         </div>
-
-        <div class="cap" style="margin-top:22px;margin-bottom:10px">Fires at</div>
-        <div style="display:flex;gap:12px;align-items:stretch">
-          <div style="border:1px solid var(--paper);border-radius:7px;padding:12px 16px;text-align:center">
-            <div class="mono" style="font-size:26px">0:47:00</div>
-            <div class="cap" style="font-size:9px;margin-top:2px">mm:ss</div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <div style="display: flex; gap: 8px; align-items: center; background: #EFE3CC; border-radius: 999px; padding: 6px 12px; font-size: 13px; color: #1A0F2E;"><span style="color: #7A6A5A;">Previous</span><span style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700;">38:20</span></div>
+          <div style="display: flex; gap: 8px; align-items: center; background: #EFE3CC; border-radius: 999px; padding: 6px 12px; font-size: 13px; color: #1A0F2E;"><span style="color: #7A6A5A;">Next</span><span style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700;">44:05</span></div>
+          <div style="display: flex; gap: 6px; align-items: center; background: #EFE3CC; border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 700; color: #A3122B;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A3122B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg>
+            2:40 of breathing room
           </div>
-          <div style="display:flex;flex-direction:column;gap:7px;justify-content:center">
-            <div style="display:flex;gap:7px">
-              <div class="pill" style="padding:4px 10px">&minus;5s</div>
-              <div class="pill" style="padding:4px 10px">+5s</div>
-            </div>
-            <div style="font-size:11px;color:var(--dimmer)">Manual entry is always here.</div>
-          </div>
-        </div>
-
-        <div style="display:flex;gap:12px;margin-top:18px">
-          <div style="flex:1;border:1px solid var(--hair);border-radius:7px;padding:13px 14px">
-            <div style="font-size:13px;font-weight:600">Find it from a screenshot</div>
-            <div style="font-size:11px;color:var(--dim);margin-top:5px;line-height:1.45">Drop a frame. We place it in the runtime.</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
-              <div style="width:44px;height:28px;border:1px solid var(--hair);border-radius:3px;background:rgba(255,255,255,.05)"></div>
-              <div>
-                <div class="mono" style="font-size:12px;color:var(--time)">0:47:02</div>
-                <div class="cap" style="font-size:9px">high confidence</div>
-              </div>
-            </div>
-          </div>
-          <div style="flex:1;border:1px solid var(--hair);border-radius:7px;padding:13px 14px">
-            <div style="font-size:13px;font-weight:600">Or just describe it</div>
-            <div style="font-size:12px;color:var(--dim);margin-top:7px;font-style:italic;line-height:1.45">&ldquo;around 1h15, when she passes him on the stairs&rdquo;</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
-              <div class="mono" style="font-size:12px;color:var(--dim)">1:14:20 - 1:16:10</div>
-              <div class="cap" style="font-size:9px;color:var(--dim)">not sure, pick one</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:auto;display:flex;gap:12px;padding-top:18px">
-          <div class="btnp" style="flex:1">Add to queue</div>
-          <div class="btn" style="width:120px;color:var(--dim)">Cancel</div>
         </div>
       </div>
 
-      <div style="width:380px;padding:34px 30px;flex-shrink:0;display:flex;flex-direction:column">
-        <div class="cap" style="margin-bottom:14px">Still</div>
-        <div style="height:150px;border:1px solid var(--hair);border-radius:6px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center">
-          <div class="cap" style="font-size:9px">frame at 0:47:02</div>
+      <!-- Frame + Note side by side -->
+      <div style="display: flex; gap: 28px; flex-grow: 1;">
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 300px; flex-shrink: 0;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A6A5A;">Frame <span style="color: #A08A5E; font-weight: 500; letter-spacing: 0; text-transform: none;">optional</span></div>
+          <div style="width: 300px; aspect-ratio: 2.39 / 1; border: 2px dashed #1C8C9E; border-radius: 12px; background: #FBF1DC; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: 700; color: #A3122B;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A3122B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"></rect><path d="M3 9h18M3 15h18M7 5v14M17 5v14"></path></svg>
+            Grab the frame at 41:00
+          </div>
         </div>
-        <div class="cap" style="font-size:9px;margin-top:9px">attached &middot; tap to change</div>
-        <div style="margin-top:20px;font-size:11px;color:var(--dimmer);line-height:1.55">The still is what you draw on with the telestrator when the note fires.</div>
-        <div style="margin-top:auto">
-          <div class="cap" style="margin-bottom:9px">Neighbours</div>
-          <div class="mono" style="font-size:11px;color:var(--dim);line-height:1.9">0:12:00 &nbsp; opening shot<br>0:47:00 &nbsp; this note<br>0:55:00 &nbsp; intermission</div>
+        <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A6A5A;">Note</div>
+          <div style="flex-grow: 1; min-height: 150px; padding: 18px 20px; background: #FBF1DC; border: 2px solid #1A0F2E; border-radius: 12px; font-family: 'Instrument Serif', Georgia, serif; font-size: 24px; line-height: 32px; color: #1A0F2E;">The look across the table. Nothing is said for forty seconds. Stay on her hands, not her face.</div>
+          <div style="font-size: 13px; color: #7A6A5A;">The room sees the first line in the chat, then the rest.</div>
         </div>
+      </div>
+
+      <!-- Actions -->
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div style="height: 52px; padding: 0 28px; border-radius: 26px; background: #A3122B; color: #FBF1DC; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 10px; border: 2px solid #1A0F2E; box-shadow: 4px 4px 0 #1A0F2E;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBF1DC" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg>
+          Arm note
+        </div>
+        <div style="height: 52px; padding: 0 22px; border-radius: 26px; border: 2px solid #1A0F2E; color: #1A0F2E; font-size: 15px; font-weight: 700; display: flex; align-items: center; background: #FFFFFF;">Save as draft</div>
+        <div style="font-size: 13px; color: #7A6A5A; margin-left: 6px;">Armed notes fire on their moment. Drafts sit out the night.</div>
+      </div>
+
+    </div>
+
+    <!-- Tonight so far: film strip -->
+    <div style="display: flex; flex-direction: column; background: #1A0F2E; border-radius: 24px; padding: 28px 22px 24px 22px; overflow: hidden; position: relative;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; color: #F2C75C;">Tonight so far</div>
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-size: 12px; color: #C9A96E;">1:24:40 total</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">04:10</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Why the title card is silent</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">12:45</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The first of three phone calls</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">19:30</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Listen for the train under the dialogue</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">27:05</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The coat was her mother's</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">33:50</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">One continuous take, four minutes</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">38:20</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">First time we see the kitchen in daylight</div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; background: #F2C75C;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #A3122B; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #1A0F2E; width: 62px; flex-shrink: 0;">41:00</div>
+          <div style="font-size: 14px; font-weight: 700; line-height: 20px; color: #1A0F2E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1;">The look across the table</div>
+          <div style="font-size: 10px; line-height: 16px; font-weight: 800; color: #FBF1DC; background: #A3122B; border-radius: 6px; padding: 1px 7px; letter-spacing: 0.1em; text-transform: uppercase; flex-shrink: 0;">writing</div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">44:05</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The second phone call</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">52:30</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Same shot as 04:10, reversed</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px; border: 2px dashed #2FA37A;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #A3122B; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #A3122B; width: 62px; flex-shrink: 0;">58:00</div>
+          <div style="font-size: 12px; line-height: 20px; font-weight: 700; color: #1C8C9E; letter-spacing: 0.1em; text-transform: uppercase;">Intermission · 8 min</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">1:03:15</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The third call. Watch the wall clock</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">1:12:00</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The door again, and its colour now</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 10px;">
+          <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C; flex-shrink: 0;"></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; line-height: 20px; color: #F2C75C; width: 62px; flex-shrink: 0;">1:24:40</div>
+          <div style="font-size: 14px; line-height: 20px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Last frame. Do not look away early</div>
+        </div>
+
       </div>
     </div>
+
   </div>
 </div>
 
 </x-dc>
-<script data-dc-script data-props='{"$preview":{"width":3020,"height":1064}}'>
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
 class Component extends DCLogic {
   renderVals() { return {}; }
 }

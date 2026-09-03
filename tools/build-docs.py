@@ -53,7 +53,7 @@ DOCS = [
     ("investor-deck", "Investor Deck", VAULT / "Projector-Investor-Deck.md",
      "Fourteen slides of copy, waiting on numbers from the proof of concept."),
     ("design-language", "Design Language", ROOT / "DESIGN.md",
-     "The settled system. Two lighting states, the curtain, type, motion."),
+     "The movie-palace system: six colours, three faces, the components, and the don'ts."),
     ("build-plan", "Build Plan", VAULT / "Projector-Build-Plan.md",
      "About 35 hours of Michael and twelve engineer days, and where they go."),
     ("build-environment", "Build Environment", VAULT / "Projector-Build-Environment.md",

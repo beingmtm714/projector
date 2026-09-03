@@ -5,29 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Main · Projector wireframes</title>
-<meta name="description" content="The premise, the two lighting states, and how to read the boards.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<meta name="description" content="The premise, the two pages, and the palette.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="../kit.css">
 <style>
-  body{background:#0b0b0e}
+  body{background:#1A0F2E}
   .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
-    padding:11px 16px;background:#e7e3da;color:#1a1917;border-bottom:1px solid rgba(0,0,0,.12)}
+    padding:11px 16px;background:#FBF1DC;color:#1a1917;border-bottom:1px solid rgba(0,0,0,.12)}
   .bar a{color:#57534a}
-  .bar a:hover{color:#a01a86}
+  .bar a:hover{color:#A3122B}
   .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
-  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
-    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
-  .bar .ids{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+  .bar .name{font-family:'Instrument Serif',Georgia,serif;font-weight:700;
+    font-size:14px;white-space:nowrap}
+  .bar .ids{font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
     letter-spacing:.12em;color:#8a8477;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .bar .back,.bar .zoom{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+  .bar .back,.bar .zoom{font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
     letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
   .zoom{border:1px solid rgba(0,0,0,.2);border-radius:999px;background:transparent;color:#57534a;
     padding:5px 11px;cursor:pointer;font-family:inherit}
-  .zoom:hover{color:#a01a86;border-color:#a01a86}
-  .memo{background:#14110b;color:#b8a77f;padding:12px 16px;font-family:'Source Serif 4',Georgia,serif;
-    font-size:14.5px;line-height:1.5;border-bottom:1px solid #453a26}
-  .memo summary{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
-    letter-spacing:.14em;text-transform:uppercase;color:#8a7c5c;cursor:pointer}
+  .zoom:hover{color:#A3122B;border-color:#A3122B}
+  .memo{background:#1A0F2E;color:#C9A96E;padding:12px 16px;font-family:'Instrument Serif',Georgia,serif;
+    font-size:14.5px;line-height:1.5;border-bottom:1px solid #5A3C7A}
+  .memo summary{font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:#C9A96E;cursor:pointer}
   .memo[open] summary{margin-bottom:10px}
   .memo p{margin:0 0 9px;max-width:70ch}
   .memo p:last-child{margin:0}
@@ -40,10 +40,10 @@
   /* Board to board lives in the bar, which is sticky and cannot be covered.
      The foot of the page belongs to the host's own badge, bottom right. */
   .nav{display:flex;align-items:center;gap:2px;flex:none}
-  .nav a,.nav span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+  .nav a,.nav span{font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
     letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:5px;
     white-space:nowrap;max-width:20ch;overflow:hidden;text-overflow:ellipsis}
-  .nav a:hover{background:rgba(0,0,0,.06);color:#a01a86}
+  .nav a:hover{background:rgba(0,0,0,.06);color:#A3122B}
   .nav span{color:#c2bdb1}
   /* Sits directly under the board and is centred, because both bottom corners
      are taken: the host's badge on the right, the jump-to-top on the left. */
@@ -52,21 +52,21 @@
   .pager .step{display:block;text-decoration:none;max-width:100%}
   /* The page below the stage is the boards' own near-black, not the paper the
      bar sits on, so this type is light. Ink here would be invisible. */
-  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+  .pager .lbl{display:block;font-family:'Space Mono',Menlo,monospace;font-size:10px;
     letter-spacing:.2em;text-transform:uppercase;color:#7d7768;margin-bottom:4px}
-  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
-    font-weight:800;font-size:clamp(26px,4.4vw,44px);letter-spacing:.03em;text-transform:uppercase;
-    color:#ddd5c6;line-height:1.05;transition:color .15s}
-  .pager .step:hover .to{color:#f4e4bc}
-  .pager .step:hover .lbl{color:#b8a77f}
+  .pager .to{display:block;font-family:'Instrument Serif',Georgia,serif;
+    font-weight:800;font-size:clamp(26px,4.4vw,44px);
+    color:#FBF1DC;line-height:1.05;transition:color .15s}
+  .pager .step:hover .to{color:#F2C75C}
+  .pager .step:hover .lbl{color:#C9A96E}
   /* Bottom LEFT on purpose: the bottom right is taken. */
   .totop{position:fixed;left:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:7px;
-    padding:9px 13px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#e7e3da;
-    color:#57534a;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    padding:9px 13px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#FBF1DC;
+    color:#57534a;font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
     letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
     opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .18s,transform .18s}
   .totop.on{opacity:1;transform:none;pointer-events:auto}
-  .totop:hover{color:#a01a86;border-color:#a01a86}
+  .totop:hover{color:#A3122B;border-color:#A3122B}
   @media (max-width:560px){.nav a,.nav span{max-width:8ch}}
   @media (max-width:520px){.bar .ids{display:none}}
 </style>
@@ -75,85 +75,62 @@
 <header class="bar">
   <a class="back" href="../">← Boards</a>
   <div class="who"><span class="name">Main</span><span class="ids">Cover</span></div>
-  <nav class="nav"><span>‹</span><a href="./CuratorPrep.html" title="CuratorPrep">CuratorPrep ›</a></nav>
+  <nav class="nav"><span>‹</span><a href="./Onboarding.html" title="Onboarding">Onboarding ›</a></nav>
   <button class="zoom" id="zoom" type="button">Actual size</button>
 </header>
-<details class="memo" id="memo" open><summary>1 note on this board</summary><p>Eleven boards, two audiences. The 1J boards are the tools a curator uses to build a screening. Everything else is what her audience sees.</p>
-<p>Projector never plays the film. The curator sets a start time, everyone presses play on their own copy, and the notes fire off a shared clock. That is why every film ever made works from day one, with no deal to sign.</p></details>
+
 <div class="stage" id="stage">
   <div class="art" id="art" data-w="900" data-h="730">
-<div style="width:900px;height:730px;background:#0b0b0e;padding:56px 60px;display:flex;flex-direction:column;gap:0">
-  <div class="marq" style="font-size:46px;line-height:1;color:var(--gold)">PROJECTOR</div>
-  <div style="font-size:17px;color:var(--dim);margin-top:12px">Watch films with the people who love them.</div>
-  <div class="cap" style="margin-top:6px">Product wireframes &middot; v2 &middot; August 2026</div>
-
-  <hr class="hair" style="margin:28px 0 24px">
-
-  <div style="display:flex;gap:44px;flex:1">
-    <div style="width:300px;display:flex;flex-direction:column;gap:18px">
-      <div>
-        <div class="cap" style="margin-bottom:8px">The premise</div>
-        <div style="font-size:14px;line-height:1.55;color:var(--paper)">A curator picks a film, sets a showtime, and hosts a screening. You watch on your own TV. Their Liner Notes arrive on your phone, in sync, alongside everyone else in the room. Projector never touches the film.</div>
-      </div>
-      <div>
-        <div class="cap" style="margin-bottom:8px">Read these curator first</div>
-        <div style="font-size:14px;line-height:1.55;color:var(--dim)">The curator tools are V1, minus the research agent and AI timestamping. They are the whole of what the first five design partners get. Nothing works without someone to program the night.</div>
-      </div>
-      <div style="margin-top:auto">
-        <div class="cap" style="margin-bottom:10px">Two lighting states</div>
-        <div style="display:flex;flex-direction:column;gap:9px">
-          <div style="display:flex;align-items:center;gap:11px">
-            <div style="width:34px;height:22px;background:var(--house-up);border:1px solid var(--gold);border-radius:3px"></div>
-            <div style="font-size:12px;color:var(--dim)"><span style="color:var(--gold)">House up</span> &middot; before and after</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:11px">
-            <div style="width:34px;height:22px;background:var(--house-down);border:1px solid var(--hair);border-radius:3px"></div>
-            <div style="font-size:12px;color:var(--dim)"><span style="color:var(--paper)">House down</span> &middot; the film</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:7px;margin-top:14px">
-          <div style="display:flex;align-items:center;gap:11px">
-            <div style="width:34px;display:flex;justify-content:center"><div class="livedot"></div></div>
-            <div style="font-size:12px;color:var(--dim)"><span style="color:var(--paper)">Electric silver</span> &middot; the live signal, rationed</div>
-          </div>
-        </div>
-      </div>
+<div style="width: 900px; height: 730px; background: #FBF1DC; color: #1A0F2E; display: flex; flex-direction: column; overflow: hidden; padding: 40px 48px 40px 48px; gap: 28px;">
+  <div style="background: #A3122B; border-radius: 18px; padding: 8px; display: flex; flex-direction: column; gap: 6px;">
+    <div style="display: flex; justify-content: space-between; padding: 0 6px;">
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
     </div>
-
-    <div style="flex:1;display:flex;flex-direction:column;gap:22px">
-      <div>
-        <div class="cap" style="margin-bottom:11px">V1 &middot; curator tools</div>
-        <div style="display:flex;flex-direction:column;gap:7px;font-size:13px">
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1J1</span><span>Prep home</span></div>
-          <div style="display:flex;gap:14px;color:var(--dimmer)"><span class="sid" style="width:34px;color:var(--dimmer)">1J2</span><span>Research the film, and ask other experts</span><span class="pill" style="padding:1px 8px;font-size:10px">after the raise</span></div>
-          <div style="display:flex;gap:14px;color:var(--dimmer)"><span class="sid" style="width:34px;color:var(--dimmer)">1J3</span><span>Findings to note</span><span class="pill" style="padding:1px 8px;font-size:10px">after the raise</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1J4</span><span>Set the note &middot; manual mm:ss in V1</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1J5</span><span>The note queue</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1J6</span><span>Go live and press play</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1J7</span><span>On air</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1J8</span><span>Session ready, and the promo kit</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1J9</span><span>The dry run</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="cap" style="margin-bottom:11px">V2 &middot; the audience</div>
-        <div style="display:flex;flex-direction:column;gap:7px;font-size:13px;color:var(--dim)">
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1E</span><span>Onboarding</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1F</span><span>The Marquee</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1G</span><span>Session detail and reserve a seat</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1D</span><span>The night &middot; lobby, pre-show, calls, leader, curtains, notes, intermission, reel change, lights up</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1A-C</span><span>The Room &middot; three layouts</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1H</span><span>Recap and Film DNA</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1I</span><span>Taste Passport</span></div>
-          <div style="display:flex;gap:14px"><span class="sid" style="width:34px">1K</span><span>The curator profile</span></div>
-        </div>
-      </div>
+    <div style="background: #1A0F2E; border-radius: 12px; padding: 18px 22px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+      <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 44px; line-height: 48px; color: #F2C75C;">Projector <span style="font-style: italic; font-size: 24px; color: #C9A96E;">wireframes</span></div>
+      <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 13px; color: #FBF1DC; background: #1C8C9E; border-radius: 10px; padding: 6px 10px;">v3 · Sep 2026</div>
     </div>
+  </div>
+
+  <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 26px; line-height: 34px; color: #1A0F2E; max-width: 760px;">A curator programmes a night and hosts it. The audience watches the film on their own television, on a service they already pay for, and holds the app on their phone, where the curator's notes arrive in time with the film alongside everyone else in the room. The product never touches the film. It runs on a shared start time.</div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
+    <div style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 2px solid #1A0F2E; border-radius: 16px; padding: 18px 20px;">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A6A5A;">Page one · Audience</div>
+      <div style="font-size: 15px; line-height: 22px; color: #1A0F2E;">Thirteen phone screens at 390 by 844, in the order a night happens: finding it, the doors, the leader, the room in its three arrangements, lights up, and what is left afterwards.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 2px solid #1A0F2E; border-radius: 16px; padding: 18px 20px;">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A6A5A;">Page two · Curator</div>
+      <div style="font-size: 15px; line-height: 22px; color: #1A0F2E;">Six desk screens at 1440 by 900 and two phone screens. Prep, the queue, the note editor, the dry run, on air, the promo kit, and her standing page.</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7A6A5A;">The palette</div>
+    <div style="display: flex; gap: 10px;">
+      <div style="flex-grow: 1; height: 44px; border-radius: 10px; background: #1A0F2E;"></div>
+      <div style="flex-grow: 1; height: 44px; border-radius: 10px; background: #A3122B;"></div>
+      <div style="flex-grow: 1; height: 44px; border-radius: 10px; background: #F2C75C;"></div>
+      <div style="flex-grow: 1; height: 44px; border-radius: 10px; background: #FBF1DC; border: 2px solid #1A0F2E;"></div>
+      <div style="flex-grow: 1; height: 44px; border-radius: 10px; background: #1C8C9E;"></div>
+      <div style="flex-grow: 1; height: 44px; border-radius: 10px; background: #2FA37A;"></div>
+    </div>
+    <div style="font-size: 13px; line-height: 19px; color: #7A6A5A;">Plum, crimson, gold and ivory on every screen. Teal and emerald as accents, never fills. Screen IDs match the product spec. Every name, film and number on the boards is invented sample data.</div>
   </div>
 </div>
   </div>
 </div>
-<nav class="pager"><a class="step" href="./CuratorPrep.html"><span class="lbl">Next board</span><span class="to">CuratorPrep →</span></a></nav>
+<nav class="pager"><a class="step" href="./Onboarding.html"><span class="lbl">Next board</span><span class="to">Onboarding →</span></a></nav>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>
 (function(){

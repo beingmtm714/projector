@@ -5,29 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>LightsUp · Projector wireframes</title>
-<meta name="description" content="The five minutes after the film, and the handoff out.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@300..600&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap">
+<meta name="description" content="The five minutes after the film, the questions answered, and the one account ask.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="../kit.css">
 <style>
-  body{background:#0b0b0e}
+  body{background:#1A0F2E}
   .bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;
-    padding:11px 16px;background:#e7e3da;color:#1a1917;border-bottom:1px solid rgba(0,0,0,.12)}
+    padding:11px 16px;background:#FBF1DC;color:#1a1917;border-bottom:1px solid rgba(0,0,0,.12)}
   .bar a{color:#57534a}
-  .bar a:hover{color:#a01a86}
+  .bar a:hover{color:#A3122B}
   .bar .who{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px}
-  .bar .name{font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;font-weight:700;
-    font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
-  .bar .ids{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+  .bar .name{font-family:'Instrument Serif',Georgia,serif;font-weight:700;
+    font-size:14px;white-space:nowrap}
+  .bar .ids{font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
     letter-spacing:.12em;color:#8a8477;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .bar .back,.bar .zoom{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+  .bar .back,.bar .zoom{font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
     letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
   .zoom{border:1px solid rgba(0,0,0,.2);border-radius:999px;background:transparent;color:#57534a;
     padding:5px 11px;cursor:pointer;font-family:inherit}
-  .zoom:hover{color:#a01a86;border-color:#a01a86}
-  .memo{background:#14110b;color:#b8a77f;padding:12px 16px;font-family:'Source Serif 4',Georgia,serif;
-    font-size:14.5px;line-height:1.5;border-bottom:1px solid #453a26}
-  .memo summary{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
-    letter-spacing:.14em;text-transform:uppercase;color:#8a7c5c;cursor:pointer}
+  .zoom:hover{color:#A3122B;border-color:#A3122B}
+  .memo{background:#1A0F2E;color:#C9A96E;padding:12px 16px;font-family:'Instrument Serif',Georgia,serif;
+    font-size:14.5px;line-height:1.5;border-bottom:1px solid #5A3C7A}
+  .memo summary{font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:#C9A96E;cursor:pointer}
   .memo[open] summary{margin-bottom:10px}
   .memo p{margin:0 0 9px;max-width:70ch}
   .memo p:last-child{margin:0}
@@ -40,10 +40,10 @@
   /* Board to board lives in the bar, which is sticky and cannot be covered.
      The foot of the page belongs to the host's own badge, bottom right. */
   .nav{display:flex;align-items:center;gap:2px;flex:none}
-  .nav a,.nav span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+  .nav a,.nav span{font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
     letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:5px;
     white-space:nowrap;max-width:20ch;overflow:hidden;text-overflow:ellipsis}
-  .nav a:hover{background:rgba(0,0,0,.06);color:#a01a86}
+  .nav a:hover{background:rgba(0,0,0,.06);color:#A3122B}
   .nav span{color:#c2bdb1}
   /* Sits directly under the board and is centred, because both bottom corners
      are taken: the host's badge on the right, the jump-to-top on the left. */
@@ -52,21 +52,21 @@
   .pager .step{display:block;text-decoration:none;max-width:100%}
   /* The page below the stage is the boards' own near-black, not the paper the
      bar sits on, so this type is light. Ink here would be invisible. */
-  .pager .lbl{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+  .pager .lbl{display:block;font-family:'Space Mono',Menlo,monospace;font-size:10px;
     letter-spacing:.2em;text-transform:uppercase;color:#7d7768;margin-bottom:4px}
-  .pager .to{display:block;font-family:'Archivo',system-ui,sans-serif;font-stretch:125%;
-    font-weight:800;font-size:clamp(26px,4.4vw,44px);letter-spacing:.03em;text-transform:uppercase;
-    color:#ddd5c6;line-height:1.05;transition:color .15s}
-  .pager .step:hover .to{color:#f4e4bc}
-  .pager .step:hover .lbl{color:#b8a77f}
+  .pager .to{display:block;font-family:'Instrument Serif',Georgia,serif;
+    font-weight:800;font-size:clamp(26px,4.4vw,44px);
+    color:#FBF1DC;line-height:1.05;transition:color .15s}
+  .pager .step:hover .to{color:#F2C75C}
+  .pager .step:hover .lbl{color:#C9A96E}
   /* Bottom LEFT on purpose: the bottom right is taken. */
   .totop{position:fixed;left:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:7px;
-    padding:9px 13px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#e7e3da;
-    color:#57534a;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;
+    padding:9px 13px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#FBF1DC;
+    color:#57534a;font-family:'Space Mono',Menlo,monospace;font-size:10.5px;
     letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
     opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .18s,transform .18s}
   .totop.on{opacity:1;transform:none;pointer-events:auto}
-  .totop:hover{color:#a01a86;border-color:#a01a86}
+  .totop:hover{color:#A3122B;border-color:#A3122B}
   @media (max-width:560px){.nav a,.nav span{max-width:8ch}}
   @media (max-width:520px){.bar .ids{display:none}}
 </style>
@@ -75,118 +75,116 @@
 <header class="bar">
   <a class="back" href="../">← Boards</a>
   <div class="who"><span class="name">LightsUp</span><span class="ids">1D10</span></div>
-  <nav class="nav"><a href="./CuratorPhone.html" title="CuratorPhone">‹ CuratorPhone</a><a href="./CuratorProfile.html" title="CuratorProfile">CuratorProfile ›</a></nav>
+  <nav class="nav"><a href="./FrameOpen.html" title="FrameOpen">‹ FrameOpen</a><a href="./Recap.html" title="Recap">Recap ›</a></nav>
   <button class="zoom" id="zoom" type="button">Actual size</button>
 </header>
-<details class="memo" id="memo" open><summary>1 note on this board</summary><p>The five minutes after the film ends.</p>
-<p>The house comes up, chat stays open, and the questions people left when they reserved get answered live in front of the people who asked them. Her next screening sits above the compose field, because a reservation taken while the room is still talking converts better than one asked for later.</p>
-<p>At minute three a banner carries her live link out to wherever she is continuing. It says where the link goes: TikTok and YouTube resolve to a stream, Instagram only to a profile.</p></details>
+
 <div class="stage" id="stage">
-  <div class="art" id="art" data-w="1240" data-h="984">
-<div style="background:#0b0b0e;padding:44px;display:flex;position:relative;padding-top:56px;gap:26px;align-items:flex-start">
-  <div class="zone z-after" style="position:absolute;top:16px;left:44px">After</div>
+  <div class="art" id="art" data-w="390" data-h="844">
+<div style="width: 390px; height: 844px; background: #1A0F2E; display: flex; flex-direction: column; overflow: hidden; padding: 52px 0 24px 0; color: #FBF1DC;">
 
-  <div>
-    <div class="cap" style="margin-bottom:12px"><span class="sid">1D10</span> Lights up &middot; T&plus;0:20, the room stays</div>
-    <div class="phone up">
-      <div style="padding:16px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(244,228,188,.18)">
-        <div style="flex:1;min-width:0">
-          <div class="cap" style="font-size:8px;color:var(--gold);opacity:.5">That is a wrap</div>
-          <div class="marq" style="font-size:12px;color:var(--gold);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">IN THE MOOD FOR LOVE</div>
-        </div>
-        <div style="text-align:right;flex-shrink:0">
-          <div class="mono" style="font-size:15px;color:var(--gold)">4:40</div>
-          <div class="cap" style="font-size:7.5px;color:var(--gold);opacity:.42;margin-top:1px">room closes</div>
-        </div>
+  <!-- Marquee header -->
+  <div style="margin: 0 16px; background: #A3122B; border-radius: 18px; padding: 8px; display: flex; flex-direction: column; gap: 6px; box-shadow: none;">
+    <div style="display: flex; justify-content: space-between; padding: 0 6px;">
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+    </div>
+    <div style="background: #1A0F2E; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 24px; line-height: 26px; color: #F2C75C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The Long Hour <span style="font-style: italic; color: #C9A96E; font-size: 16px;">1974</span></div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Notes have stopped · 34 still here</div>
       </div>
-
-      <div style="padding:13px 20px;border-bottom:1px solid rgba(244,228,188,.14)">
-        <div class="cap" style="font-size:9px;color:var(--gold);opacity:.6">Naomi is answering</div>
-        <div style="margin-top:9px">
-          <div style="font-size:12.5px;color:var(--gold);opacity:.6">jae asked &middot; why does he never say it out loud?</div>
-          <div class="note" style="font-size:14px;color:var(--gold);margin-top:6px">Because the film is about the sentence neither of them finishes. Wong cut every take where they got close.</div>
-        </div>
-        <div class="cap" style="font-size:8px;color:var(--gold);opacity:.42;margin-top:9px">3 more from the way in</div>
-      </div>
-
-      <div style="padding:13px 20px 11px;flex:1;display:flex;flex-direction:column">
-        <div class="cap" style="font-size:9px;color:var(--gold);opacity:.6">The room &middot; chat</div>
-        <div style="margin-top:11px;display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--gold)">
-          <div><span style="opacity:.55">tess</span> the rice cooker. i was not ready.</div>
-          <div><span style="opacity:.55">mona</span> i counted twenty three dresses</div>
-          <div><span style="opacity:.55">devin</span> twenty three?? going back tomorrow</div>
-          <div><span style="opacity:.55">jae</span> first watch and i am wrecked</div>
-        </div>
-
-        <div style="margin-top:auto">
-          <div style="border:1px solid rgba(244,228,188,.3);border-radius:8px;padding:11px 13px;display:flex;align-items:center;gap:10px">
-            <div style="flex:1;min-width:0">
-              <div class="cap" style="font-size:8px;color:var(--gold);opacity:.5">Naomi&rsquo;s next</div>
-              <div style="font-size:13px;color:var(--gold);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Chungking Express &middot; Fri 8PM</div>
-            </div>
-            <div class="btnp" style="padding:8px 12px;font-size:11.5px;flex-shrink:0">Reserve $0.99</div>
-          </div>
-          <div style="margin-top:9px;border:1px solid rgba(244,228,188,.25);border-radius:6px;padding:11px 13px;font-size:12px;color:rgba(244,228,188,.4)">say something...</div>
-        </div>
+      <div style="display: flex; flex-direction: column; align-items: center; background: #1C8C9E; color: #FBF1DC; border-radius: 10px; padding: 6px 10px; flex-shrink: 0;">
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 17px; line-height: 20px;">+4:10</div>
+        <div style="font-size: 9px; line-height: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Lights up</div>
       </div>
     </div>
   </div>
 
-  <div>
-    <div class="cap" style="margin-bottom:12px"><span class="sid">1D10</span> The handoff &middot; T&plus;3:00</div>
-    <div class="phone up">
-      <div style="padding:16px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(244,228,188,.18)">
-        <div style="flex:1;min-width:0">
-          <div class="cap" style="font-size:8px;color:var(--gold);opacity:.5">That is a wrap</div>
-          <div class="marq" style="font-size:12px;color:var(--gold);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">IN THE MOOD FOR LOVE</div>
-        </div>
-        <div style="text-align:right;flex-shrink:0">
-          <div class="mono" style="font-size:15px;color:var(--gold)">2:00</div>
-          <div class="cap" style="font-size:7.5px;color:var(--gold);opacity:.42;margin-top:1px">room closes</div>
-        </div>
-      </div>
+  <!-- Stream: the wrap conversation -->
+  <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 14px 16px 12px 16px; overflow: hidden;">
 
-      <div style="padding:13px 20px 0">
-        <div style="border:1px solid rgba(244,228,188,.42);border-radius:9px;padding:14px 15px;background:rgba(244,228,188,.045)">
-          <div class="cap" style="font-size:8px;color:var(--gold);opacity:.6">Carrying on</div>
-          <div style="font-size:14px;color:var(--gold);margin-top:6px;line-height:1.4">Naomi is going live on TikTok in a minute to keep talking about it.</div>
-          <div class="btnp" style="margin-top:11px;padding:10px 14px;font-size:12.5px">Come with her</div>
-          <div class="cap" style="font-size:7.5px;color:var(--gold);opacity:.4;margin-top:8px;text-align:center">opens tiktok.com/@naomi/live</div>
-        </div>
-      </div>
-
-      <div style="padding:13px 20px 11px;flex:1;display:flex;flex-direction:column">
-        <div style="display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--gold)">
-          <div><span style="opacity:.55">devin</span> see you over there</div>
-          <div><span style="opacity:.55">mona</span> wait i want to hear about the dresses</div>
-          <div><span style="opacity:.55">naomi</span> that is the whole first ten minutes, come on</div>
-        </div>
-        <div style="margin-top:auto">
-          <div style="border:1px solid rgba(244,228,188,.3);border-radius:8px;padding:11px 13px;display:flex;align-items:center;gap:10px">
-            <div style="flex:1;min-width:0">
-              <div class="cap" style="font-size:8px;color:var(--gold);opacity:.5">Naomi&rsquo;s next</div>
-              <div style="font-size:13px;color:var(--gold);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Chungking Express &middot; Fri 8PM</div>
-            </div>
-            <div class="btnp" style="padding:8px 12px;font-size:11.5px;flex-shrink:0">Reserve $0.99</div>
-          </div>
-          <div style="margin-top:9px;border:1px solid rgba(244,228,188,.25);border-radius:6px;padding:11px 13px;font-size:12px;color:rgba(244,228,188,.4)">say something...</div>
-        </div>
+    <!-- A question left at reservation, answered -->
+    <div style="display: flex; gap: 8px; align-items: flex-end;">
+      <div style="width: 28px; height: 28px; border-radius: 14px; background: #F2C75C; color: #1A0F2E; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">P</div>
+      <div style="background: #2B1A4A; border-radius: 16px 16px 16px 4px; padding: 9px 13px; display: flex; flex-direction: column; gap: 2px; max-width: 300px;">
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Priya asked when she reserved</div>
+        <div style="font-size: 15px; line-height: 20px; color: #FBF1DC;">Is 52:30 the opening shot, reversed?</div>
       </div>
     </div>
+
+    <div style="display: flex; flex-direction: column; background: #FBF1DC; border-radius: 12px; padding: 12px 14px; gap: 8px; position: relative;">
+      <div style="position: absolute; left: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="position: absolute; right: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 15px; color: #A3122B;">Nadia · to Priya</div>
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; color: #FBF1DC; background: #A3122B; border-radius: 6px; padding: 2px 7px;">+1:40</div>
+      </div>
+      <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; line-height: 24px; color: #1A0F2E;">Yes. Same lens, same height, the room turned round. It is the whole film.</div>
+    </div>
+
+    <!-- A question left at reservation, still open -->
+    <div style="display: flex; gap: 8px; align-items: flex-end;">
+      <div style="width: 28px; height: 28px; border-radius: 14px; background: #2FA37A; color: #1A0F2E; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">M</div>
+      <div style="background: #2B1A4A; border-radius: 16px 16px 16px 4px; padding: 9px 13px; display: flex; flex-direction: column; gap: 2px; max-width: 300px;">
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Marcus asked when he reserved · open</div>
+        <div style="font-size: 15px; line-height: 20px; color: #FBF1DC;">Why 1974? What else was she making?</div>
+      </div>
+    </div>
+
+    <!-- Her next screening, bookable here -->
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #2B1A4A; border-radius: 16px; padding: 12px 14px;">
+      <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; line-height: 22px; color: #F2C75C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Salt Roads <span style="font-style: italic; color: #C9A96E; font-size: 14px;">1981 · 96 min</span></div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Nadia's next night · Sat 28 Sep · 8:00 pm</div>
+      </div>
+      <div style="height: 44px; padding: 0 16px; border-radius: 22px; background: #F2C75C; color: #1A0F2E; font-size: 13px; font-weight: 700; display: flex; align-items: center; flex-shrink: 0;">Reserve · $0.99</div>
+    </div>
+
+    <!-- Come with me, at three minutes -->
+    <div style="display: flex; flex-direction: column; background: #FBF1DC; border-radius: 12px; padding: 12px 14px; gap: 8px; position: relative;">
+      <div style="position: absolute; left: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="position: absolute; right: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 15px; color: #A3122B;">Nadia · to the room</div>
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; color: #FBF1DC; background: #A3122B; border-radius: 6px; padding: 2px 7px;">+3:00</div>
+      </div>
+      <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; line-height: 24px; color: #1A0F2E;">I'm carrying on in the Discord for an hour.</div>
+      <div style="height: 44px; border-radius: 22px; background: #F2C75C; color: #1A0F2E; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 700;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A0F2E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        Come with me
+      </div>
+    </div>
+
+    <!-- The account ask, at four minutes, once -->
+    <div style="display: flex; flex-direction: column; background: #FBF1DC; border-radius: 12px; padding: 12px 14px; gap: 4px;">
+      <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; line-height: 24px; color: #1A0F2E;">Want an account?</div>
+      <div style="font-size: 13px; line-height: 18px; color: #7A6A5A;">So your saved notes and tonight stay with you.</div>
+      <div style="display: flex; gap: 8px; padding-top: 8px;">
+        <div style="flex-grow: 1; flex-basis: 0; height: 48px; border-radius: 24px; border: 2px solid #1A0F2E; color: #1A0F2E; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700;">Not tonight</div>
+        <div style="flex-grow: 1; flex-basis: 0; height: 48px; border-radius: 24px; background: #F2C75C; color: #1A0F2E; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700;">Make one</div>
+      </div>
+    </div>
+
   </div>
 
-  <div style="width:300px;padding-top:34px">
-    <div class="cap" style="margin-bottom:12px">The five minutes</div>
-    <div style="font-size:13px;line-height:1.6;color:var(--dim)">The film ends and the house comes up. Nobody is thrown out at the last frame.</div>
-    <div style="font-size:13px;line-height:1.6;color:var(--dim);margin-top:15px">Everything that used to be a recap page happens here instead. The questions people left when they reserved get answered live, in front of the people who asked them. Her next screening sits above the compose field, because a reservation taken while the room is still talking converts better than one asked for after everybody has left.</div>
-    <div style="font-size:13px;line-height:1.6;color:var(--dim);margin-top:15px">At minute three the handoff appears. Two minutes is long enough to say goodbye and short enough that nobody has drifted off.</div>
-    <div style="font-size:13px;line-height:1.6;color:var(--dimmer);margin-top:15px">It says where the link goes. TikTok and YouTube resolve to a live stream; Instagram has no such URL, so there the copy says it opens her profile.</div>
+  <!-- Composer -->
+  <div style="display: flex; gap: 10px; align-items: center; padding: 0 16px;">
+    <div style="flex-grow: 1; height: 48px; border-radius: 24px; background: #2B1A4A; border: 2px solid #5A3C7A; display: flex; align-items: center; padding: 0 18px; font-size: 15px; color: #A08A5E;">Say something</div>
+    <div style="width: 48px; height: 48px; border-radius: 24px; background: #A3122B; display: flex; align-items: center; justify-content: center; box-shadow: none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBF1DC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+    </div>
   </div>
 
 </div>
   </div>
 </div>
-<nav class="pager"><a class="step" href="./CuratorProfile.html"><span class="lbl">Next board</span><span class="to">CuratorProfile →</span></a><a class="step" href="./CuratorPhone.html"><span class="lbl">Previous</span><span class="to">← CuratorPhone</span></a></nav>
+<nav class="pager"><a class="step" href="./Recap.html"><span class="lbl">Next board</span><span class="to">Recap →</span></a><a class="step" href="./FrameOpen.html"><span class="lbl">Previous</span><span class="to">← FrameOpen</span></a></nav>
 <button class="totop" id="totop" type="button">↑ Top</button>
 <script>
 (function(){

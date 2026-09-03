@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    /* PROJECTOR — the movie palace.
+       Six colours and two neutrals, three faces. See DESIGN.md for the rules.
+       The tokens below are the palette; the artboard bodies carry the same
+       values inline so the canvas editor's property panel can edit them, and
+       a value in a body that is not in this list is a mistake to fix here. */
+    :root{
+      --plum:#1A0F2E; --plum-raised:#2B1A4A; --plum-line:#5A3C7A; --plum-mid:#3D1E5E;
+      --ivory:#FBF1DC; --parchment:#EFE3CC; --white:#FFFFFF;
+      --crimson:#A3122B; --crimson-deep:#5E0A1A;
+      --gold:#F2C75C; --gold-hover:#FFE58A;
+      --teal:#1C8C9E; --emerald:#2FA37A;
+      --muted-plum:#C9A96E; --muted-paper:#7A6A5A; --placeholder:#A08A5E;
+      --serif:'Instrument Serif',Georgia,serif;
+      --sans:'DM Sans','Helvetica Neue',Arial,sans-serif;
+      --mono:'Space Mono',Menlo,monospace;
+    }
+    body{margin:0;font-family:var(--sans);color:var(--plum);-webkit-font-smoothing:antialiased}
+    a{color:var(--crimson)} a:hover{color:var(--crimson-deep)}
+    *{box-sizing:border-box}
+  </style>
+</helmet>
+
+<div style="width: 390px; height: 844px; background: #1A0F2E; display: flex; flex-direction: column; overflow: hidden; padding: 52px 0 24px 0; color: #FBF1DC;">
+
+  <!-- Marquee header: tonight's headline -->
+  <div style="margin: 0 16px; background: #A3122B; border-radius: 18px; padding: 8px; display: flex; flex-direction: column; gap: 6px; box-shadow: none;">
+    <div style="display: flex; justify-content: space-between; padding: 0 6px;">
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+    </div>
+    <div style="background: #1A0F2E; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 24px; line-height: 26px; color: #F2C75C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The Long Hour <span style="font-style: italic; color: #C9A96E; font-size: 16px;">1974 · 84 min</span></div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Tonight · Nadia Reyes · 38 seated</div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; flex-shrink: 0;">
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 17px; line-height: 20px; color: #F2C75C;">8:00 pm</div>
+        <div style="font-size: 9px; line-height: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A96E;">Tonight</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Listings -->
+  <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 16px; padding: 18px 16px 16px 16px; overflow: hidden;">
+
+    <!-- On now -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A96E;">On now</div>
+      <div style="display: flex; flex-direction: column; gap: 4px; background: #2B1A4A; border-radius: 12px; padding: 10px 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; line-height: 24px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Salt on the Window <span style="font-style: italic; color: #C9A96E; font-size: 14px;">1962 · 91 min</span></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; line-height: 16px; color: #F2C75C; flex-shrink: 0;">1:02:15 in</div>
+        </div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Tomas Achterberg · started 6:30 pm · 22 in the room</div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #FBF1DC;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F2C75C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg>
+          On a service you have
+        </div>
+      </div>
+    </div>
+
+    <!-- Tonight -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A96E;">Tonight</div>
+      <div style="display: flex; flex-direction: column; gap: 4px; background: #2B1A4A; border-radius: 12px; padding: 10px 14px; border: 2px solid #F2C75C;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; line-height: 24px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The Long Hour <span style="font-style: italic; color: #C9A96E; font-size: 14px;">1974 · 84 min</span></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; line-height: 16px; color: #F2C75C; flex-shrink: 0;">8:00 pm</div>
+        </div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Nadia Reyes · Thu 12 Sep · doors 7:30 pm · 38 seated</div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #FBF1DC;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F2C75C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg>
+          On a service you have
+        </div>
+      </div>
+    </div>
+
+    <!-- This week -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A96E;">This week</div>
+      <div style="display: flex; flex-direction: column; gap: 4px; background: #2B1A4A; border-radius: 12px; padding: 10px 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; line-height: 24px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The Glass Orchard <span style="font-style: italic; color: #C9A96E; font-size: 14px;">1988 · 102 min</span></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; line-height: 16px; color: #F2C75C; flex-shrink: 0;">9:00 pm</div>
+        </div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Imogen Hale · Sat 14 Sep · 17 seated</div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #FBF1DC;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F2C75C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg>
+          On a service you have
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; background: #2B1A4A; border-radius: 12px; padding: 10px 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; line-height: 24px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The Harbour Office <span style="font-style: italic; color: #C9A96E; font-size: 14px;">1971 · 88 min</span></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; line-height: 16px; color: #F2C75C; flex-shrink: 0;">7:00 pm</div>
+        </div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Tomas Achterberg · Sun 15 Sep · 9 seated</div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #C9A96E;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path></svg>
+          Not on a service you have
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; background: #2B1A4A; border-radius: 12px; padding: 10px 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; line-height: 24px; color: #FBF1DC; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Quarter Past Nothing <span style="font-style: italic; color: #C9A96E; font-size: 14px;">1979 · 77 min</span></div>
+          <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 12px; line-height: 16px; color: #F2C75C; flex-shrink: 0;">8:00 pm</div>
+        </div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Nadia Reyes · Thu 19 Sep · 12 seated</div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #FBF1DC;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F2C75C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg>
+          On a service you have
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Take a seat tonight -->
+  <div style="padding: 0 16px;">
+    <div style="height: 48px; border-radius: 24px; background: #F2C75C; color: #1A0F2E; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 700;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A0F2E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4M3 14a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6H3z"></path></svg>
+      Take a seat tonight · $0.99
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

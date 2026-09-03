@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+  <style>
+    /* PROJECTOR — the movie palace.
+       Six colours and two neutrals, three faces. See DESIGN.md for the rules.
+       The tokens below are the palette; the artboard bodies carry the same
+       values inline so the canvas editor's property panel can edit them, and
+       a value in a body that is not in this list is a mistake to fix here. */
+    :root{
+      --plum:#1A0F2E; --plum-raised:#2B1A4A; --plum-line:#5A3C7A; --plum-mid:#3D1E5E;
+      --ivory:#FBF1DC; --parchment:#EFE3CC; --white:#FFFFFF;
+      --crimson:#A3122B; --crimson-deep:#5E0A1A;
+      --gold:#F2C75C; --gold-hover:#FFE58A;
+      --teal:#1C8C9E; --emerald:#2FA37A;
+      --muted-plum:#C9A96E; --muted-paper:#7A6A5A; --placeholder:#A08A5E;
+      --serif:'Instrument Serif',Georgia,serif;
+      --sans:'DM Sans','Helvetica Neue',Arial,sans-serif;
+      --mono:'Space Mono',Menlo,monospace;
+    }
+    body{margin:0;font-family:var(--sans);color:var(--plum);-webkit-font-smoothing:antialiased}
+    a{color:var(--crimson)} a:hover{color:var(--crimson-deep)}
+    *{box-sizing:border-box}
+  </style>
+</helmet>
+
+<div style="width: 390px; height: 844px; background: #1A0F2E; display: flex; flex-direction: column; overflow: hidden; padding: 52px 0 24px 0; color: #FBF1DC;">
+
+  <!-- Marquee header -->
+  <div style="margin: 0 16px; background: #A3122B; border-radius: 18px; padding: 8px; display: flex; flex-direction: column; gap: 6px; box-shadow: none;">
+    <div style="display: flex; justify-content: space-between; padding: 0 6px;">
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #F2C75C;"></div>
+      <div style="width: 8px; height: 8px; border-radius: 4px; background: #FBF1DC;"></div>
+    </div>
+    <div style="background: #1A0F2E; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 24px; line-height: 26px; color: #F2C75C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The Long Hour <span style="font-style: italic; color: #C9A96E; font-size: 16px;">1974 · 84 min</span></div>
+        <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">Nadia Reyes · Thu 12 Sep · 8:00 pm</div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; flex-shrink: 0;">
+        <div style="font-family: 'Space Mono', Menlo, monospace; font-weight: 700; font-size: 17px; line-height: 20px; color: #F2C75C;">38</div>
+        <div style="font-size: 9px; line-height: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A96E;">Seated</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 16px; padding: 16px 16px 0 16px; overflow: hidden;">
+
+    <!-- Her pitch: ivory ticket -->
+    <div style="display: flex; flex-direction: column; background: #FBF1DC; border-radius: 12px; padding: 12px 14px; gap: 8px; position: relative;">
+      <div style="position: absolute; left: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="position: absolute; right: -8px; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 8px; background: #1A0F2E;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 15px; color: #A3122B;">Why this film tonight · Nadia</div>
+        <div style="font-size: 12px; line-height: 16px; color: #7A6A5A;">Thu 12 Sep</div>
+      </div>
+      <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; line-height: 24px; color: #1A0F2E;">Nobody speaks for the first six minutes, and it is the loudest opening I know. The whole story is in the kitchen door and the light on it. Watch that, not the faces.</div>
+    </div>
+
+    <!-- Plays on a service you have -->
+    <div style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; border-radius: 12px; background: #2B1A4A;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2C75C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M5 12l5 5L20 7"></path></svg>
+      <div style="font-size: 15px; line-height: 20px; color: #FBF1DC; flex-grow: 1;">Plays on a service you have</div>
+      <div style="font-size: 12px; line-height: 16px; color: #C9A96E; flex-shrink: 0;">Big-catalogue</div>
+    </div>
+
+    <!-- The seat -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A96E;">Your seat</div>
+      <div style="height: 48px; border-radius: 24px; background: #2B1A4A; border: 2px solid #5A3C7A; display: flex; align-items: center; padding: 0 18px; font-size: 15px; color: #A08A5E;">Your email address</div>
+      <div style="height: 48px; border-radius: 24px; background: #F2C75C; color: #1A0F2E; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 700;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A0F2E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4M3 14a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6H3z"></path></svg>
+        Reserve a seat · $0.99
+      </div>
+      <div style="font-size: 12px; line-height: 16px; color: #C9A96E; text-align: center;">No account. Your seat and the doors link arrive by email.</div>
+    </div>
+
+    <!-- The two prompts -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A96E;">Before the night <span style="color: #A08A5E; font-weight: 500; letter-spacing: 0; text-transform: none;">optional</span></div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div style="font-size: 15px; line-height: 20px; font-weight: 500; color: #FBF1DC;">What would you add?</div>
+        <div style="height: 48px; border-radius: 24px; background: #2B1A4A; border: 2px solid #5A3C7A; display: flex; align-items: center; padding: 0 18px; font-size: 15px; color: #A08A5E;">Something you know about this film</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div style="font-size: 15px; line-height: 20px; font-weight: 500; color: #FBF1DC;">What do you want to ask?</div>
+        <div style="height: 48px; border-radius: 24px; background: #2B1A4A; border: 2px solid #5A3C7A; display: flex; align-items: center; padding: 0 18px; font-size: 15px; color: #A08A5E;">A question for Nadia</div>
+      </div>
+      <div style="font-size: 12px; line-height: 16px; color: #C9A96E;">What you add reaches Nadia while she can still use it. What you ask, she answers after the credits, in front of the room.</div>
+    </div>
+
+  </div>
+
+</div>
+
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
